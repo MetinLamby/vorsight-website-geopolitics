@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vorsight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-subtle:#F5F6F8; --surface:#FFFFFF;
+    --border:#E3E5E9; --border-strong:#C7CBD1;
+    --ink:#14161A; --ink-2:#4B4F57; --ink-3:#8A8F98;
+    --green:#1F8A55; --green-soft:#E7F5EC; --green-ink:#14532D;
+    --orange:#C2660A; --orange-soft:#FCEEE0; --orange-ink:#7C3E05;
+    --red:#C0362C; --red-soft:#FBEAEA; --red-ink:#7A1F1A;
+    --sans:"Inter",-apple-system,"Segoe UI",Calibri,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --grid-dot: rgba(20,22,26,0.09);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  h1,h2,h3{text-wrap:balance; margin:0;}
+  p{margin:0;}
+  ::selection{ background:var(--ink); color:var(--bg); }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-3);
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    background:var(--green); flex-shrink:0;
+  }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding-left:32px; padding-right:32px; }
+  @media (max-width:640px){ .wrap{ padding-left:20px; padding-right:20px; } }
+
+  section{ padding:96px 0; border-bottom:1px solid var(--border); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    display:flex; flex-wrap:wrap; align-items:center; gap:32px;
+    padding:14px 28px; border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.88); backdrop-filter:saturate(1.2) blur(6px);
+  }
+  .brand{ display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .brand-mark{ flex-shrink:0; color:var(--ink); }
+  .brand-name{ font-family:var(--mono); font-weight:600; letter-spacing:3px; font-size:12px; color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; gap:22px; }
+  .site-nav a{
+    font-family:var(--mono); font-size:11.5px; font-weight:600;
+    letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-2);
+    text-decoration:none;
+  }
+  .site-nav a:hover{ color:var(--ink); text-decoration:underline; }
+  .site-nav a.active{ color:var(--ink); border-bottom:2px solid var(--ink); padding-bottom:2px; }
+  @media (max-width:860px){ .site-nav{ display:none; } }
+
+  .header-right{ margin-left:auto; display:flex; align-items:center; gap:16px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.4px;
+    padding:10px 16px; border-radius:3px; text-decoration:none;
+    border:1px solid var(--ink); cursor:pointer; white-space:nowrap;
+  }
+  .btn-primary{ background:var(--ink); color:var(--bg); }
+  .btn-primary:hover{ background:#000; }
+  .btn-ghost{ background:var(--surface); color:var(--ink-2); border-color:var(--border); }
+  @media (max-width:640px){
+    .header-right .btn-ghost{ display:none; }
+  }
+
+  .nav-toggle{
+    display:none; flex-shrink:0; align-items:center; justify-content:center;
+    width:34px; height:34px; background:var(--surface); border:1px solid var(--border);
+    border-radius:3px; color:var(--ink); cursor:pointer;
+  }
+  .nav-toggle:hover{ border-color:var(--ink); }
+  @media (max-width:860px){ .nav-toggle{ display:inline-flex; } }
+
+  .mobile-nav-panel{ display:none; width:100%; flex-direction:column; }
+  .mobile-nav-panel.open{ display:flex; }
+  .mobile-nav-panel a{
+    padding:12px 2px; font-family:var(--mono); font-size:12.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.3px; color:var(--ink-2); text-decoration:none;
+    border-top:1px solid var(--border);
+  }
+  .mobile-nav-panel a.active{ color:var(--ink); }
+  @media (min-width:861px){ .mobile-nav-panel{ display:none !important; } }
+  .btn-ghost:hover{ border-color:var(--ink); color:var(--ink); }
+
+  /* ---------- reveal-on-scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+  /* ---------- hero ---------- */
+  #hero{
+    padding:0; border-bottom:1px solid var(--border);
+    background:var(--bg);
+    background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  .hero-inner{
+    max-width:1120px; margin:0 auto; padding:104px 32px 88px;
+    display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:center;
+  }
+  @media (max-width:900px){ .hero-inner{ grid-template-columns:1fr; padding-top:64px; } }
+
+  .hero-copy h1{
+    font-size:44px; font-weight:800; letter-spacing:-0.5px; line-height:1.12;
+    margin:16px 0 20px; color:var(--ink);
+  }
+  @media (max-width:640px){ .hero-copy h1{ font-size:32px; } }
+  .hero-copy .lede{ font-size:16.5px; color:var(--ink-2); max-width:52ch; line-height:1.6; }
+  .hero-actions{ display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+  .hero-actions .btn{ padding:12px 18px; font-size:11.5px; }
+
+  /* live mock card */
+  .mock-card{
+    background:var(--surface); border:1px solid var(--ink); border-radius:6px;
+    padding:18px 20px; box-shadow:0 18px 40px -22px rgba(20,22,26,0.35);
+  }
+  .mock-card-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+  .mock-card-title{ font-size:14px; font-weight:700; }
+  .live-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:0.6px;
+    text-transform:uppercase; color:var(--green-ink); background:var(--green-soft);
+    border:1px solid var(--green); border-radius:20px; padding:3px 9px 3px 7px;
+  }
+  .live-dot{ width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 1.8s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .live-dot{ animation:none; } }
+  @keyframes pulse{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(31,138,85,0.35);} 50%{ opacity:0.75; box-shadow:0 0 0 4px rgba(31,138,85,0);} }
+
+  .mock-tag{
+    display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600;
+    letter-spacing:0.5px; text-transform:uppercase; padding:3px 7px; border-radius:3px;
+    background:var(--orange-soft); color:var(--orange-ink); border:1px solid var(--orange);
+    margin-bottom:10px;
+  }
+  .mock-badges{ display:flex; gap:8px; margin:14px 0; }
+  .mock-badge{ flex:1; border:1px solid var(--border); border-radius:4px; padding:8px 10px; }
+  .mock-badge .num{ font-family:var(--mono); font-size:18px; font-weight:700; display:block; }
+  .mock-badge .lbl{ font-family:var(--mono); font-size:9px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+  .mock-delta{ color:var(--orange-ink); }
+  .mock-evidence{ font-size:12px; color:var(--ink-2); border-left:2px solid var(--border-strong); padding-left:10px; margin-top:12px; line-height:1.5; }
+  .mock-evidence b{ color:var(--ink); }
+  .mock-foot{ margin-top:14px; font-family:var(--mono); font-size:9.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+
+  /* ---------- section heads ---------- */
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:28px; font-weight:800; letter-spacing:-0.3px; margin:12px 0 14px; }
+  .section-head p{ font-size:15px; color:var(--ink-2); line-height:1.65; }
+
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+  @media (max-width:860px){ .two-col{ grid-template-columns:1fr; } }
+
+  /* ---------- risk category carousel ---------- */
+  .category-carousel{
+    position:relative; margin-top:8px; overflow:hidden;
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+  }
+  .category-track{
+    display:flex; gap:16px; width:max-content;
+    animation:category-scroll 42s linear infinite;
+  }
+  .category-carousel:hover .category-track{ animation-play-state:paused; }
+  @keyframes category-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce){
+    .category-track{ animation:none; }
+    .category-carousel{ overflow-x:auto; -webkit-mask-image:none; mask-image:none; }
+  }
+
+  .category-card{
+    flex:0 0 auto; width:210px;
+    border:1px solid var(--border); border-radius:6px; overflow:hidden; background:var(--surface);
+  }
+  .category-art{
+    height:100px; display:flex; align-items:center; justify-content:center;
+    background:var(--bg-subtle);
+    background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size:16px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  .category-art svg{ width:76px; height:76px; }
+  .category-body{ padding:12px 14px 14px; }
+  .category-name{ font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+  .category-desc{ font-size:11px; color:var(--ink-3); line-height:1.4; }
+  .category-tag{
+    display:inline-block; margin-bottom:8px; font-family:var(--mono); font-size:8.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.4px; color:var(--ink-3);
+    background:var(--bg-subtle); border:1px solid var(--border); border-radius:3px; padding:2px 5px;
+  }
+
+  /* ---------- signal vs noise: live dot-field visualization ---------- */
+  .signal-map{
+    position:relative; height:340px; border:1px solid rgba(255,255,255,0.14); border-radius:8px;
+    background:#1B1E23; overflow:hidden;
+  }
+  #signal-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .signal-buckets{
+    position:absolute; top:0; right:0; bottom:0; width:42%;
+    display:flex; flex-direction:column; justify-content:space-around;
+    padding:20px 20px 20px 0; pointer-events:none;
+  }
+  .signal-bucket{
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14); border-radius:6px;
+    padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    transition:border-color .35s ease, box-shadow .35s ease;
+  }
+  .signal-bucket.flash{ border-color:var(--orange); box-shadow:0 0 0 3px rgba(194,102,10,0.35); }
+  .signal-bucket-name{
+    font-family:var(--mono); font-size:9.5px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.3px; color:rgba(255,255,255,0.62); line-height:1.35;
+  }
+  .signal-bucket-count{
+    font-family:var(--mono); font-size:17px; font-weight:700; color:var(--bg);
+    font-variant-numeric:tabular-nums; flex-shrink:0;
+  }
+
+  .signal-counter{
+    position:absolute; top:16px; left:16px; z-index:2;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:6px;
+    padding:8px 14px; pointer-events:none;
+  }
+  .signal-counter-num{
+    display:block; font-family:var(--mono); font-weight:700; font-size:21px; color:var(--bg);
+    font-variant-numeric:tabular-nums; line-height:1.2;
+  }
+  .signal-counter-label{
+    display:block; font-family:var(--mono); font-size:8.5px; color:rgba(255,255,255,0.45);
+    text-transform:uppercase; letter-spacing:0.4px; margin-top:1px;
+  }
+
+  @media (max-width:640px){
+    .signal-map{ height:300px; }
+    .signal-buckets{ width:52%; padding:14px 12px 14px 0; }
+    .signal-bucket{ padding:8px 10px; }
+    .signal-bucket-name{ font-size:8.5px; }
+    .signal-bucket-count{ font-size:14px; }
+    .signal-counter{ padding:6px 10px; top:10px; left:10px; }
+    .signal-counter-num{ font-size:16px; }
+  }
+
+  /* ---------- action node mock ---------- */
+  .node-card{ border:1px solid var(--ink); border-radius:6px; padding:20px; background:var(--surface); }
+  .node-tag{
+    display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:0.6px;
+    text-transform:uppercase; padding:3px 8px; border-radius:3px; margin-bottom:10px;
+    background:var(--bg-subtle); color:var(--ink); border:1px solid var(--ink);
+  }
+  .node-card h3{ font-size:16px; font-weight:700; margin-bottom:6px; }
+  .node-card .desc{ font-size:13px; color:var(--ink-2); margin-bottom:14px; }
+  .node-evidence{ margin:0 0 16px; padding-left:18px; }
+  .node-evidence li{ font-size:12px; color:var(--ink-2); margin-bottom:5px; line-height:1.4; }
+  .node-action{ background:var(--bg-subtle); border-left:3px solid var(--ink); border-radius:3px; padding:11px 13px; }
+  .node-action .lbl{ font-family:var(--mono); font-size:9.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:4px; }
+  .node-action p{ font-size:12.5px; color:var(--ink); line-height:1.5; }
+
+  /* ---------- graph illustration (stylized, not the real graph) ---------- */
+  .graph-illus{
+    border:1px solid var(--border-strong); border-radius:8px; padding:30px 32px;
+    background:var(--surface);
+    background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size:22px 22px;
+    margin-bottom:32px; overflow-x:auto;
+  }
+  .illus-track{ display:flex; align-items:center; gap:0; min-width:660px; }
+  .illus-node{
+    flex-shrink:0; display:flex; flex-direction:column; gap:5px;
+    border:1px solid var(--border); border-radius:6px; background:var(--bg);
+    padding:10px 14px;
+  }
+  .illus-node.current{ border-color:var(--ink); }
+  .illus-node-top{ display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--ink-3); }
+  .illus-node-top .dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .illus-node-name{ font-size:12.5px; font-weight:700; color:var(--ink); white-space:nowrap; }
+
+  .illus-connector{ flex-shrink:0; width:32px; height:2px; background:var(--border-strong); position:relative; }
+  .illus-connector::after{
+    content:""; position:absolute; right:-1px; top:50%; transform:translateY(-50%);
+    border:4px solid transparent; border-left-color:var(--border-strong);
+  }
+
+  .illus-fan{ flex-shrink:0; width:52px; align-self:stretch; height:auto; margin:0 2px; }
+
+  .illus-branches{ display:flex; flex-direction:column; gap:10px; flex:1; min-width:340px; }
+  .scenario-row{
+    display:flex; align-items:center; gap:14px; border:1px solid var(--border); border-left-width:4px;
+    border-radius:5px; padding:10px 14px; background:var(--bg);
+  }
+  .scenario-row.best{ border-left-color:var(--green); }
+  .scenario-row.mid{ border-left-color:var(--orange); }
+  .scenario-row.worst{ border-left-color:var(--red); background:var(--red-soft); }
+
+  .scenario-label{ width:88px; flex-shrink:0; }
+  .scenario-label .name{ font-family:var(--mono); font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; display:block; }
+  .scenario-row.best .name{ color:var(--green-ink); }
+  .scenario-row.mid .name{ color:var(--orange-ink); }
+  .scenario-row.worst .name{ color:var(--red-ink); }
+  .scenario-label .pct{ font-family:var(--mono); font-size:19px; font-weight:700; color:var(--ink); display:block; font-variant-numeric:tabular-nums; }
+
+  .dist-bars{ display:flex; align-items:flex-end; gap:3px; height:32px; flex-shrink:0; }
+  .dist-bars span{ width:6px; border-radius:1px 1px 0 0; display:block; opacity:0.85; }
+  .scenario-row.best .dist-bars span{ background:var(--green); }
+  .scenario-row.mid .dist-bars span{ background:var(--orange); }
+  .scenario-row.worst .dist-bars span{ background:var(--red); }
+
+  .scenario-desc{ flex:1; font-size:11.5px; color:var(--ink-2); line-height:1.4; min-width:150px; }
+
+  .alert-chip{
+    flex-shrink:0; display:inline-flex; align-items:center; gap:5px;
+    font-family:var(--mono); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px;
+    color:var(--red-ink); background:var(--bg); border:1px solid var(--red); border-radius:20px; padding:4px 9px 4px 8px;
+    white-space:nowrap;
+  }
+
+  .illus-caption{ margin-top:16px; font-family:var(--mono); font-size:9.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+
+  @media (max-width:640px){
+    .scenario-desc{ display:none; }
+  }
+
+  /* ---------- priors + AI flow ---------- */
+  .flow-row{ display:flex; align-items:stretch; gap:0; margin-top:8px; flex-wrap:wrap; }
+  .flow-box{
+    flex:1; min-width:160px; border:1px solid var(--border); border-radius:6px;
+    padding:16px; background:var(--surface); position:relative;
+  }
+  .flow-box .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:7px; }
+  .flow-box .flow-lbl{ font-family:var(--mono); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--ink-3); display:flex; align-items:center; margin-bottom:8px; }
+  .flow-box .flow-title{ font-size:14px; font-weight:700; margin-bottom:5px; }
+  .flow-box .flow-desc{ font-size:12px; color:var(--ink-2); line-height:1.5; }
+  .flow-join{ flex-shrink:0; width:44px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:16px; color:var(--ink-3); }
+  @media (max-width:760px){ .flow-join{ width:100%; padding:6px 0; } }
+  .flow-box.result{ border-color:var(--ink); background:var(--bg-subtle); }
+
+  /* ---------- stat badges ---------- */
+  .stat-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; }
+  .stat-badge{ flex:1; min-width:150px; border:1px solid var(--border); border-radius:6px; padding:18px 20px; background:var(--surface); }
+  .stat-badge .num{ font-family:var(--mono); font-size:30px; font-weight:700; color:var(--ink); display:block; font-variant-numeric:tabular-nums; }
+  .stat-badge .lbl{ font-family:var(--mono); font-size:10px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; display:block; }
+  .stat-badge .sub{ font-size:12px; color:var(--ink-2); margin-top:8px; line-height:1.45; }
+
+  /* ---------- probability distribution demo ---------- */
+
+  .dist-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
+  @media (max-width:860px){ .dist-grid{ grid-template-columns:1fr; } }
+
+  .dist-demo{ border:1px solid var(--ink); border-radius:8px; background:var(--surface); overflow:hidden; }
+  .dist-demo-head{
+    display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:nowrap;
+    padding:10px 14px; border-bottom:1px solid var(--border); background:var(--bg-subtle);
+  }
+  .dist-demo-title{ display:flex; align-items:center; gap:6px; min-width:0; flex-shrink:1; }
+  .dist-demo-title h3{ font-size:12.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+  .dist-demo-title .mock-tag{ flex-shrink:0; }
+  .dist-demo-head .live-pill{ flex-shrink:0; }
+  .dist-demo-body{ padding:14px 16px 8px; }
+
+  .dist-chart{ display:flex; align-items:flex-end; gap:4px; height:76px; padding:0 2px; }
+  .dist-col{ flex:1; height:100%; position:relative; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; }
+  .dist-ghost{
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:22px;
+    background:var(--border-strong); border-radius:2px 2px 0 0; opacity:0.7;
+    transition:height .5s cubic-bezier(.4,0,.2,1);
+  }
+  .dist-bar{
+    position:relative; width:100%; max-width:22px; background:var(--ink-2); border-radius:2px 2px 0 0;
+    transition:height .5s cubic-bezier(.4,0,.2,1), background-color .4s ease;
+  }
+  .dist-bar.tail{ background:var(--orange); }
+  .dist-axis{ display:flex; gap:4px; padding:6px 2px 0; }
+  .dist-axis span{ flex:1; text-align:center; font-family:var(--mono); font-size:8px; color:var(--ink-3); }
+  .dist-current-mark{
+    display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin-top:6px;
+    font-family:var(--mono); font-size:7.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.2px;
+  }
+  .dist-current-mark .sw{ width:7px; height:7px; border-radius:2px; background:var(--border-strong); flex-shrink:0; }
+  .dist-current-mark .sw.now{ background:var(--ink-2); }
+  .dist-current-mark .sw.tail{ background:var(--orange); }
+
+  .dist-stats{ display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .dist-stat{ flex:1; min-width:0; border:1px solid var(--border); border-radius:6px; padding:6px 8px; transition:border-color .5s ease; }
+  .dist-stat.flash{ border-color:var(--orange); }
+  .dist-stat .num{ font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .dist-stat .lbl{ display:block; font-family:var(--mono); font-size:7px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.2px; margin-top:2px; line-height:1.25; }
+
+  .dist-evidence{ margin:8px 0 0; padding:0; list-style:none; border-top:1px solid var(--border); min-height:52px; }
+  .dist-evidence li{
+    padding:5px 0 5px 13px; font-size:10px; color:var(--ink-2); line-height:1.3;
+    border-bottom:1px solid var(--border); position:relative;
+    opacity:0; transform:translateY(4px); transition:opacity .5s ease, transform .5s ease;
+  }
+  .dist-evidence li.show{ opacity:1; transform:translateY(0); }
+  .dist-evidence li::before{
+    content:""; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--orange);
+  }
+  .dist-demo .illus-caption{ padding:6px 16px 10px; margin:0; display:block; }
+
+  /* ---------- data source grid ---------- */
+  .source-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; margin-top:8px; }
+  .source-card{ border:1px solid var(--ink); border-radius:6px; padding:18px; display:flex; gap:14px; background:var(--surface); }
+  .source-icon{
+    flex-shrink:0; width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--border); border-radius:6px; background:var(--bg-subtle); color:var(--ink-2);
+  }
+  .source-icon svg{ width:19px; height:19px; }
+  .source-name{ font-size:13.5px; font-weight:700; margin-bottom:3px; }
+  .source-type{
+    display:inline-block; font-family:var(--mono); font-size:9px; text-transform:uppercase;
+    letter-spacing:0.4px; color:var(--ink-2); background:var(--bg-subtle); border:1px solid var(--border);
+    border-radius:3px; padding:2px 6px; margin-bottom:7px;
+  }
+  .source-desc{ font-size:12px; color:var(--ink-2); line-height:1.5; }
+
+  /* ---------- signal section: dark treatment ---------- */
+  #signal{
+    background:var(--ink); color:var(--bg); border-bottom:none;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  #signal .eyebrow{ color:rgba(255,255,255,0.55); }
+  #signal .section-head h2{ color:var(--bg); }
+  #signal .section-head p{ color:rgba(255,255,255,0.68); }
+  #signal .illus-caption{ color:rgba(255,255,255,0.4); }
+
+  /* ---------- footer / cta ---------- */
+  #cta{
+    background:var(--ink); color:var(--bg); text-align:left; border-bottom:none;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  #cta .section-head p{ color:rgba(255,255,255,0.68); }
+  #cta .section-head h2{ color:var(--bg); }
+  #cta .eyebrow{ color:rgba(255,255,255,0.55); }
+  #cta .btn-primary{ background:var(--bg); color:var(--ink); border-color:var(--bg); }
+  #cta .btn-primary:hover{ background:#eee; }
+  #cta .btn-ghost{ background:transparent; color:var(--bg); border-color:rgba(255,255,255,0.35); }
+  #cta .btn-ghost:hover{ border-color:var(--bg); }
+
+  footer{ padding:28px 0; }
+  .foot-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .foot-note{ font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#hero" class="brand">
+    <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+      <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+    </svg>
+    <span class="brand-name">VORSIGHT</span>
+  </a>
+  <nav class="site-nav">
+    <a href="#signal">Signal</a>
+    <a href="#priors">Priors &amp; AI</a>
+    <a href="#foresight">Foresight</a>
+    <a href="#data">Data</a>
+    <a href="about.html">About us</a>
+  </nav>
+  <div class="header-right">
+    <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+    <a class="btn btn-primary" href="signup.html">Get started</a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4.5H14M2 8H14M2 11.5H14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav-panel" id="mobile-nav-panel">
+    <a href="#signal">Signal</a>
+    <a href="#priors">Priors &amp; AI</a>
+    <a href="#foresight">Foresight</a>
+    <a href="#data">Data</a>
+    <a href="about.html">About us</a>
+    <a href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow">LIVE RISK INTELLIGENCE</div>
+      <h1>Foresight, run on AI, calibrated by experts.</h1>
+      <p class="lede">Every material risk sits on a live causal graph — reacting as the world does, not once a quarter. New evidence moves the probability; the probability informs your decision making.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#priors">See how it works</a>
+        <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20demo%20request">Get a walkthrough</a>
+      </div>
+    </div>
+
+    <div class="mock-card reveal">
+      <div class="mock-card-head">
+        <span class="mock-card-title">Rhine Water Level</span>
+        <span class="live-pill"><span class="live-dot"></span>Live</span>
+      </div>
+      <span class="mock-tag">Scenario · Worst case</span>
+      <div class="mock-badges">
+        <div class="mock-badge"><span class="num mock-delta">+6%</span><span class="lbl">Probability shift</span></div>
+        <div class="mock-badge"><span class="num">0.81</span><span class="lbl">Confidence</span></div>
+        <div class="mock-badge"><span class="num">02:40</span><span class="lbl">Since last shift</span></div>
+      </div>
+      <div class="mock-evidence"><b>Matched signal —</b> gauge readings near Kaub reported below the low-water threshold used for barge-draft restrictions, sourced from a wire update overnight.</div>
+      <div class="mock-foot">Illustrative sample output — not live data</div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">EVERY RISK, ONE GRAPH</div>
+      <h2>See it before it costs you.</h2>
+      <p>The risks that hurt companies most are rarely the ones on the register — they're the ones nobody wrote down. We expose every material vulnerability across your operations and finances, then explore the future scenarios that could follow — so you're prepared for what happens next.</p>
+    </div>
+  </div>
+  <div class="category-carousel reveal">
+    <div class="category-track" id="category-track"></div>
+  </div>
+</section>
+
+<section id="signal">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">SIGNAL, NOT NOISE</div>
+      <h2>Millions of data points scanned. Only the signals surface.</h2>
+      <p>Scattered across countless data sources, most of it isn't something any team could monitor on its own. We structure it and connect the dots — we take care of the information, you take care of the preparation for future scenarios.</p>
+    </div>
+    <div class="signal-map reveal">
+      <canvas id="signal-canvas"></canvas>
+      <div class="signal-counter">
+        <span class="signal-counter-num">0</span>
+        <span class="signal-counter-label">Data points parsed · last 24h</span>
+      </div>
+      <div class="signal-buckets">
+        <div class="signal-bucket" data-bucket="0">
+          <span class="signal-bucket-name">Supply chain &amp; logistics</span>
+          <span class="signal-bucket-count">0</span>
+        </div>
+        <div class="signal-bucket" data-bucket="1">
+          <span class="signal-bucket-name">Financial exposure</span>
+          <span class="signal-bucket-count">0</span>
+        </div>
+        <div class="signal-bucket" data-bucket="2">
+          <span class="signal-bucket-name">Regulatory &amp; compliance</span>
+          <span class="signal-bucket-count">0</span>
+        </div>
+        <div class="signal-bucket" data-bucket="3">
+          <span class="signal-bucket-name">Geopolitical</span>
+          <span class="signal-bucket-count">0</span>
+        </div>
+      </div>
+    </div>
+    <p class="illus-caption">Illustrative signal routing — not live data</p>
+  </div>
+</section>
+
+<section id="action">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">FROM SIGNAL TO ACTION</div>
+      <h2>Future scenarios, updated from live information feeds — customized to your business.</h2>
+      <p>Each scenario's likelihood updates as new evidence comes in — best case, mid case, worst case, moving together. You'll never manage a business for every tail event, but you can know in advance whether the worst one is tolerable, and keep that exposure watched closely enough that it stays survivable if it happens.</p>
+    </div>
+    <div class="graph-illus reveal">
+      <div class="illus-track">
+        <div class="illus-node">
+          <span class="illus-node-top"><span class="dot" style="background:var(--ink-3);"></span>Past driver</span>
+          <span class="illus-node-name">Feedstock delay, 2019</span>
+        </div>
+        <div class="illus-connector"></div>
+        <div class="illus-node current">
+          <span class="illus-node-top"><span class="dot" style="background:var(--ink);"></span>Current state</span>
+          <span class="illus-node-name">Barge draft restricted</span>
+        </div>
+        <svg class="illus-fan" viewBox="0 0 52 100" preserveAspectRatio="none" fill="none" style="stroke:var(--border-strong); stroke-width:2;">
+          <path d="M0 50 L18 50"/>
+          <path d="M18 50 L50 10"/>
+          <path d="M18 50 L50 50"/>
+          <path d="M18 50 L50 90"/>
+        </svg>
+        <div class="illus-branches">
+          <div class="scenario-row best">
+            <div class="scenario-label"><span class="name">Best case</span><span class="pct">22%</span></div>
+            <div class="dist-bars"><span style="height:5px;"></span><span style="height:9px;"></span><span style="height:15px;"></span><span style="height:9px;"></span><span style="height:5px;"></span><span style="height:3px;"></span></div>
+            <p class="scenario-desc">Restriction lifts within 5 days; delivery reroutes with minimal delay.</p>
+          </div>
+          <div class="scenario-row mid">
+            <div class="scenario-label"><span class="name">Mid case</span><span class="pct">46%</span></div>
+            <div class="dist-bars"><span style="height:5px;"></span><span style="height:9px;"></span><span style="height:13px;"></span><span style="height:17px;"></span><span style="height:12px;"></span><span style="height:7px;"></span></div>
+            <p class="scenario-desc">Restriction holds 9–14 days; rail contingency absorbs most of the delay.</p>
+          </div>
+          <div class="scenario-row worst">
+            <div class="scenario-label"><span class="name">Worst case</span><span class="pct">32%</span></div>
+            <div class="dist-bars"><span style="height:4px;"></span><span style="height:6px;"></span><span style="height:9px;"></span><span style="height:14px;"></span><span style="height:21px;"></span><span style="height:28px;"></span></div>
+            <p class="scenario-desc">Restriction extends past 14 days; rail capacity runs short mid-cycle.</p>
+            <span class="alert-chip">▲ +6% overnight</span>
+          </div>
+        </div>
+      </div>
+      <p class="illus-caption">Illustrative excerpt from a risk graph — not live data</p>
+    </div>
+  </div>
+</section>
+
+<section id="priors">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">PRIORS MEET AI</div>
+      <h2>The edge isn't more data. It's a better prior — adjusted continuously.</h2>
+      <p>Every risk starts from a reasoned baseline probability, set and justified by analysts — not a black-box guess. AI reads the incoming evidence and blends it against that prior, node by node, the way a forecaster revises a view rather than discards it.</p>
+    </div>
+    <div class="flow-row reveal">
+      <div class="flow-box">
+        <span class="flow-lbl"><span class="dot" style="background:var(--ink-3);"></span>Prior</span>
+        <div class="flow-title">Analyst baseline</div>
+        <div class="flow-desc">A documented starting probability, with its reasoning attached — not just a number in a cell.</div>
+      </div>
+      <div class="flow-join">+</div>
+      <div class="flow-box">
+        <span class="flow-lbl"><span class="dot" style="background:var(--green);"></span>Signal</span>
+        <div class="flow-title">AI-scored evidence</div>
+        <div class="flow-desc">Fresh evidence classified for direction and confidence against that specific risk's watch criteria.</div>
+      </div>
+      <div class="flow-join">→</div>
+      <div class="flow-box result">
+        <span class="flow-lbl"><span class="dot" style="background:var(--ink);"></span>Updated view</span>
+        <div class="flow-title">Revised probability</div>
+        <div class="flow-desc">A new likelihood, cascaded through every downstream scenario it touches — with the evidence cited, not hidden.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="foresight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">QUANTITATIVE FORESIGHT</div>
+      <h2>Risk management in real time.</h2>
+      <p>Outstanding risk managers have a superior sense for the probability distribution that governs future events — and for whether the potential opportunity compensates for the risk that lurks in the tails of that distribution.</p>
+    </div>
+
+    <div class="dist-grid reveal">
+
+        <div class="dist-demo">
+          <div class="dist-demo-head">
+            <div class="dist-demo-title">
+              <h3>Brent crude — 7-day forecast</h3>
+              <span class="mock-tag" style="margin:0;">US–Venezuela</span>
+            </div>
+            <span class="live-pill"><span class="live-dot"></span>Live</span>
+          </div>
+          <div class="dist-demo-body">
+            <div class="dist-chart" id="dist-chart"></div>
+            <div class="dist-axis" id="dist-axis"></div>
+            <div class="dist-current-mark">
+              <span class="sw"></span>Prior distribution
+              <span class="sw now" style="margin-left:14px;"></span>Updated distribution
+              <span class="sw tail" style="margin-left:14px;"></span>Tail risk (&gt;$98/bbl)
+            </div>
+
+            <div class="dist-stats">
+              <div class="dist-stat" id="dist-stat-mean">
+                <span class="num">$78</span>
+                <span class="lbl">Mean forecast</span>
+              </div>
+              <div class="dist-stat" id="dist-stat-tail">
+                <span class="num">0.1%</span>
+                <span class="lbl">P(price &gt; $98)</span>
+              </div>
+              <div class="dist-stat" id="dist-stat-conf">
+                <span class="num">0.55</span>
+                <span class="lbl">Model confidence</span>
+              </div>
+            </div>
+
+            <ul class="dist-evidence" id="dist-evidence"></ul>
+          </div>
+          <p class="illus-caption">Illustrative simulation — not a live market forecast</p>
+        </div>
+
+        <div class="dist-demo">
+          <div class="dist-demo-head">
+            <div class="dist-demo-title">
+              <h3>Property &amp; liability — 12-month cost outlook</h3>
+              <span class="mock-tag" style="margin:0;">Mexico hurricane</span>
+            </div>
+            <span class="live-pill"><span class="live-dot"></span>Live</span>
+          </div>
+          <div class="dist-demo-body">
+            <div class="dist-chart" id="dist-chart-2"></div>
+            <div class="dist-axis" id="dist-axis-2"></div>
+            <div class="dist-current-mark">
+              <span class="sw"></span>Prior distribution
+              <span class="sw now" style="margin-left:14px;"></span>Updated distribution
+              <span class="sw tail" style="margin-left:14px;"></span>Tail risk (&gt;24% increase)
+            </div>
+
+            <div class="dist-stats">
+              <div class="dist-stat" id="dist-stat-mean-2">
+                <span class="num">+8%</span>
+                <span class="lbl">Mean premium increase</span>
+              </div>
+              <div class="dist-stat" id="dist-stat-tail-2">
+                <span class="num">0.3%</span>
+                <span class="lbl">P(increase &gt; 24%)</span>
+              </div>
+              <div class="dist-stat" id="dist-stat-conf-2">
+                <span class="num">0.52</span>
+                <span class="lbl">Model confidence</span>
+              </div>
+            </div>
+
+            <ul class="dist-evidence" id="dist-evidence-2"></ul>
+          </div>
+          <p class="illus-caption">Illustrative simulation — not a live insurance forecast</p>
+        </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">MULTI-SOURCE</div>
+      <h2>Trusted where it matters. Unconventional where it counts.</h2>
+      <p>We partner with trusted data providers to bring the highest-quality information onto the graph — their expertise, combined with our technology, gives you the clarity and confidence to move fast. Alongside that, we screen for the alternative data sources most risk teams don't have the bandwidth to track, so nothing material gets missed just because no one was watching for it.</p>
+    </div>
+    <div class="source-grid reveal">
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg></div>
+        <div>
+          <div class="source-name">News &amp; wire services</div>
+          <span class="source-type">Text · high frequency</span>
+          <p class="source-desc">The first mover on most fast-developing risks — and the noisiest, which is why it's scored, not trusted outright.</p>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M4 9 2 7"/><path d="M20 17l2 2"/><path d="M15 4l3-3"/><path d="M6 20l-3 3"/><path d="M14.5 9.5l3-3"/><path d="M6.5 17.5l3-3"/></svg></div>
+        <div>
+          <div class="source-name">Satellite &amp; remote sensing</div>
+          <span class="source-type">Imagery · periodic</span>
+          <p class="source-desc">Water levels, port congestion, plant activity — physical facts a headline hasn't caught up to yet.</p>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/></svg></div>
+        <div>
+          <div class="source-name">Proprietary research</div>
+          <span class="source-type">Analyst output</span>
+          <p class="source-desc">In-house and commissioned analysis that sets and periodically re-justifies each risk's prior.</p>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div>
+        <div>
+          <div class="source-name">Market &amp; pricing data</div>
+          <span class="source-type">Structured feed</span>
+          <p class="source-desc">Where the market already prices in something your register hasn't caught up to.</p>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><line x1="5" y1="21" x2="5" y2="10"/><line x1="19" y1="21" x2="19" y2="10"/><polygon points="12 3 21 10 3 10"/></svg></div>
+        <div>
+          <div class="source-name">Regulatory &amp; government filings</div>
+          <span class="source-type">Structured · official</span>
+          <p class="source-desc">Sanctions, permits, central-bank action — slower moving, but rarely wrong once it lands.</p>
+        </div>
+      </div>
+      <div class="source-card">
+        <div class="source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div>
+          <div class="source-name">Client-provided intelligence</div>
+          <span class="source-type">Direct input</span>
+          <p class="source-desc">What your own operations, procurement, and treasury teams already know, folded into the same graph.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">SEE YOUR OWN RISKS ON IT</div>
+      <h2>Put your register on a graph that's alive.</h2>
+      <p>Bring one exposure you already track — a corridor, a counterparty, a single supplier — and we'll show you what it looks like live.</p>
+    </div>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="signup.html">Get started</a>
+      <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand">
+      <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+      <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+    </svg>
+      <span class="brand-name">VORSIGHT</span>
+    </div>
+    <span class="foot-note">Illustrative preview — figures shown are for demonstration, not live output</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var categories = [
+      { tag:'Physical', name:'Hurricanes &amp; tropical storms', desc:'Track paths and port/terminal exposure.', art:
+        '<path d="M30 45 A30 30 0 1 1 85 25" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M40 45 A20 20 0 1 1 78 32" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M50 45 A10 10 0 1 1 68 38" stroke="var(--ink-3)" stroke-width="2" stroke-linecap="round"/>'+
+        '<circle cx="60" cy="45" r="3" fill="var(--orange)"/>' },
+
+      { tag:'Physical', name:'River &amp; coastal flooding', desc:'Gauge levels against logistics corridors.', art:
+        '<path d="M45 52 L60 25 L75 52" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<path d="M50 52 L50 66 M70 52 L70 66" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M0 52 C10 44,20 60,30 52 C40 44,50 60,60 52 C70 44,80 60,90 52 C100 44,110 60,120 52" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M0 66 C10 60,20 72,30 66 C40 60,50 72,60 66 C70 60,80 72,90 66 C100 60,110 72,120 66" stroke="var(--ink-3)" stroke-width="2" stroke-linecap="round"/>'+
+        '<circle cx="60" cy="25" r="3" fill="var(--orange)"/>' },
+
+      { tag:'Physical', name:'Seismic activity', desc:'Facility proximity to active fault lines.', art:
+        '<path d="M0 30 L20 30 L25 10 L30 45 L35 30 L60 30 L65 15 L70 40 L75 30 L120 30" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<path d="M0 65 L15 60 L25 68 L40 58 L55 66 L70 60 L85 68 L100 58 L120 65" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<circle cx="55" cy="63" r="4" stroke="var(--orange)" stroke-width="1.5"/>'+
+        '<circle cx="55" cy="63" r="8" stroke="var(--orange)" stroke-width="1"/>' },
+
+      { tag:'Physical', name:'Wildfire', desc:'Proximity to timberland and dry corridors.', art:
+        '<path d="M60 15 C48 30,42 46,54 56 C46 62,48 74,60 78 C72 74,74 62,66 56 C78 46,72 30,60 15 Z" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>'+
+        '<path d="M60 42 C54 50,52 58,60 64 C68 58,66 50,60 42 Z" fill="var(--orange)"/>' },
+
+      { tag:'Physical', name:'Drought &amp; water stress', desc:'Reservoir and river-flow trend lines.', art:
+        '<circle cx="60" cy="26" r="10" stroke="var(--orange)" stroke-width="2"/>'+
+        '<path d="M60 10 L60 3 M76 18 L82 12 M44 18 L38 12 M78 26 L86 26 M42 26 L34 26 M76 34 L82 40 M44 34 L38 40" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M8 65 L112 65 M30 65 L24 76 M35 65 L40 74 M60 65 L55 78 M85 65 L92 74 M90 65 L96 68" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>' },
+
+      { tag:'Geopolitical', name:'Conflict &amp; sanctions', desc:'Flashpoints along key trade and transit routes.', art:
+        '<circle cx="60" cy="45" r="26" stroke="var(--ink)" stroke-width="2"/>'+
+        '<path d="M60 19 C46 27,46 63,60 71" stroke="var(--ink-2)" stroke-width="1.6"/>'+
+        '<path d="M60 19 C74 27,74 63,60 71" stroke="var(--ink-2)" stroke-width="1.6"/>'+
+        '<path d="M34 45 L86 45" stroke="var(--ink-3)" stroke-width="1.6"/>'+
+        '<path d="M38 28 L50 40 L42 52 L58 58 L52 68" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'+
+        '<circle cx="52" cy="68" r="3" fill="var(--orange)"/>' },
+
+      { tag:'Geopolitical', name:'Trade &amp; export controls', desc:'Tariffs, sanctions lists, and border chokepoints.', art:
+        '<path d="M6 45 L64 45" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>'+
+        '<path d="M56 39 L64 45 L56 51" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'+
+        '<path d="M78 18 L78 72 M92 18 L92 72" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>'+
+        '<path d="M78 26 L92 18 M78 40 L92 32 M78 54 L92 46 M78 68 L92 60" stroke="var(--ink-2)" stroke-width="1.6"/>'+
+        '<circle cx="85" cy="10" r="3" fill="var(--orange)"/>' },
+
+      { tag:'Financial', name:'Market volatility', desc:'VIX spikes and drawdown clustering.', art:
+        '<path d="M4 55 L116 55" stroke="var(--ink-3)" stroke-width="1.4" stroke-dasharray="4 4"/>'+
+        '<path d="M4 58 L18 56 L30 60 L42 32 L52 66 L62 22 L72 58 L84 44 L96 56 L116 50" stroke="var(--ink-2)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<path d="M52 66 L62 22 L72 58" stroke="var(--orange)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<circle cx="62" cy="22" r="3" fill="var(--orange)"/>' },
+
+      { tag:'Financial', name:'Leverage &amp; credit stress', desc:'System-wide leverage against historical bands.', art:
+        '<path d="M20 62 A40 40 0 0 1 100 62" stroke="var(--ink-3)" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M82 30 A40 40 0 0 1 100 62" stroke="var(--orange)" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<line x1="60" y1="62" x2="86" y2="34" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>'+
+        '<circle cx="60" cy="62" r="4" fill="var(--ink)"/>' },
+
+      { tag:'Financial', name:'Currency &amp; rate shocks', desc:'FX and rate moves that reprice exposure overnight.', art:
+        '<path d="M20 65 L52 32" stroke="var(--ink-2)" stroke-width="2.2" stroke-linecap="round"/>'+
+        '<path d="M42 32 L52 32 L52 42" stroke="var(--ink-2)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<path d="M68 32 L100 65" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>'+
+        '<path d="M100 55 L100 65 L90 65" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<circle cx="60" cy="48" r="3.5" fill="var(--orange)"/>' }
+    ];
+
+    function cardHtml(c, hidden){
+      return '<div class="category-card"'+(hidden?' aria-hidden="true"':'')+'>'+
+        '<div class="category-art"><svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">'+c.art+'</svg></div>'+
+        '<div class="category-body">'+
+          '<span class="category-tag">'+c.tag+'</span>'+
+          '<div class="category-name">'+c.name+'</div>'+
+          '<p class="category-desc">'+c.desc+'</p>'+
+        '</div>'+
+      '</div>';
+    }
+
+    var track = document.getElementById('category-track');
+    if (track) {
+      var once = categories.map(function(c){ return cardHtml(c, false); }).join('');
+      var twice = categories.map(function(c){ return cardHtml(c, true); }).join('');
+      track.innerHTML = once + twice;
+    }
+  })();
+
+  (function(){
+    var canvas = document.getElementById('signal-canvas');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var wrap = canvas.parentElement;
+    var buckets = wrap.querySelectorAll('.signal-bucket');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0;
+    var bucketCenters = [];
+
+    function readVars(){
+      var s = getComputedStyle(document.documentElement);
+      return {
+        ink2: '#F5F5F0',
+        ink3: '#F5F5F0',
+        orange: s.getPropertyValue('--orange').trim()
+      };
+    }
+    var colors = readVars();
+    var counterEl = wrap.querySelector('.signal-counter-num');
+    var COUNTER_MAX = 20000000;
+    var COUNTER_DURATION = 9000;
+    var counterStart = null;
+    var counterDone = false;
+    function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
+    function updateCounter(t){
+      if (counterDone || !counterEl) return;
+      if (counterStart === null) counterStart = t;
+      var p = Math.min(1, (t - counterStart) / COUNTER_DURATION);
+      var val = Math.floor(COUNTER_MAX * easeOutCubic(p));
+      counterEl.textContent = val.toLocaleString('en-US');
+      if (p >= 1) counterDone = true;
+    }
+
+    var fieldW = function(){ return W * 0.58; };
+
+    var WORLD_CONTINENTS = [
+      [[0.06,0.18],[0.16,0.10],[0.26,0.14],[0.30,0.24],[0.26,0.34],[0.30,0.42],[0.22,0.50],[0.14,0.46],[0.06,0.36],[0.02,0.26]],
+      [[0.20,0.55],[0.28,0.52],[0.32,0.62],[0.30,0.76],[0.26,0.90],[0.20,0.94],[0.16,0.82],[0.16,0.66]],
+      [[0.44,0.10],[0.52,0.08],[0.56,0.14],[0.52,0.20],[0.44,0.20],[0.40,0.15]],
+      [[0.42,0.24],[0.52,0.22],[0.58,0.32],[0.56,0.48],[0.52,0.62],[0.46,0.70],[0.40,0.62],[0.38,0.46],[0.38,0.32]],
+      [[0.56,0.06],[0.70,0.04],[0.86,0.08],[0.94,0.18],[0.90,0.30],[0.80,0.34],[0.70,0.30],[0.62,0.32],[0.56,0.24],[0.54,0.14]],
+      [[0.80,0.62],[0.90,0.60],[0.96,0.66],[0.92,0.74],[0.82,0.74],[0.78,0.68]]
+    ];
+    function drawBlob(octx, pts){
+      if (pts.length < 3) return;
+      var p0 = pts[pts.length - 1], p1 = pts[0];
+      octx.beginPath();
+      octx.moveTo((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2);
+      for (var i = 0; i < pts.length; i++){
+        var a = pts[i], b = pts[(i + 1) % pts.length];
+        octx.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+      }
+      octx.closePath();
+      octx.fill();
+    }
+    function buildLandPoints(w, h){
+      if (w < 10 || h < 10) return [];
+      var off = document.createElement('canvas');
+      off.width = Math.max(1, Math.round(w));
+      off.height = Math.max(1, Math.round(h));
+      var octx = off.getContext('2d');
+      octx.fillStyle = '#fff';
+      WORLD_CONTINENTS.forEach(function(pts){
+        drawBlob(octx, pts.map(function(p){ return [p[0] * off.width, p[1] * off.height]; }));
+      });
+      var img = octx.getImageData(0, 0, off.width, off.height).data;
+      var out = [];
+      var step = 4;
+      for (var y = 0; y < off.height; y += step){
+        for (var x = 0; x < off.width; x += step){
+          if (img[(y * off.width + x) * 4 + 3] > 128) out.push({ x: x / off.width, y: y / off.height });
+        }
+      }
+      return out;
+    }
+    var landPoints = [];
+    function randomLandPoint(){
+      if (!landPoints.length) return { x: Math.random(), y: Math.random() };
+      return landPoints[Math.floor(Math.random() * landPoints.length)];
+    }
+
+    function resize(){
+      var r = wrap.getBoundingClientRect();
+      W = r.width; H = r.height;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bucketCenters = [];
+      buckets.forEach(function(el){
+        var br = el.getBoundingClientRect();
+        bucketCenters.push({ x: br.left - r.left, y: br.top - r.top + br.height / 2 });
+      });
+      landPoints = buildLandPoints(fieldW(), H);
+    }
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(wrap);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+    resize();
+
+    var MAX_BLIPS = 260;
+    var blips = [];
+    function blipEnvelope(p){
+      if (p < 0.18) return p / 0.18;
+      if (p > 0.6) return Math.max(0, 1 - (p - 0.6) / 0.4);
+      return 1;
+    }
+    function spawnBlip(t){
+      var p = randomLandPoint();
+      blips.push({
+        x: p.x, y: p.y,
+        born: t,
+        life: 380 + Math.random() * 480,
+        maxR: 1.1 + Math.random() * 1.6,
+        bright: Math.random() < 0.22
+      });
+    }
+    function drawBlips(t){
+      for (var i = blips.length - 1; i >= 0; i--){
+        var b = blips[i];
+        var age = t - b.born;
+        if (age > b.life){ blips.splice(i, 1); continue; }
+        var env = blipEnvelope(age / b.life);
+        var r = b.maxR * (0.3 + 0.7 * env);
+        ctx.beginPath();
+        ctx.fillStyle = b.bright ? colors.ink2 : colors.ink3;
+        ctx.globalAlpha = env * (b.bright ? 0.65 : 0.45);
+        ctx.arc(b.x * fieldW(), b.y * H, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function quadBezier(p0, p1, p2, t){
+      var mt = 1 - t;
+      return { x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x, y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y };
+    }
+
+    var bucketCounts = [0, 0, 0, 0];
+    function routeToBucket(bi){
+      bucketCounts[bi]++;
+      var el = buckets[bi];
+      if (!el) return;
+      var countEl = el.querySelector('.signal-bucket-count');
+      if (countEl) countEl.textContent = bucketCounts[bi];
+      el.classList.add('flash');
+      setTimeout(function(){ el.classList.remove('flash'); }, 500);
+    }
+
+    function drawStatic(){
+      if (W < 10 || H < 10){ requestAnimationFrame(drawStatic); return; }
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < 220; i++){
+        var p = randomLandPoint();
+        ctx.beginPath();
+        ctx.fillStyle = Math.random() < 0.22 ? colors.ink2 : colors.ink3;
+        ctx.globalAlpha = 0.25 + Math.random() * 0.3;
+        ctx.arc(p.x * fieldW(), p.y * H, 1.1 + Math.random() * 1.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (counterEl) counterEl.textContent = COUNTER_MAX.toLocaleString('en-US');
+      var examples = [[0.12, 0.22, 0], [0.22, 0.68, 1], [0.32, 0.42, 2], [0.16, 0.86, 3]];
+      examples.forEach(function(ex){
+        var ox = ex[0] * fieldW(), oy = ex[1] * H;
+        var target = bucketCenters[ex[2]];
+        if (!target) return;
+        var midx = (ox + target.x) / 2, midy = Math.min(oy, target.y) - 30;
+        ctx.beginPath();
+        ctx.strokeStyle = colors.orange;
+        ctx.globalAlpha = 0.5;
+        ctx.lineWidth = 1.4;
+        for (var s = 0; s <= 20; s++){
+          var sp = quadBezier({ x: ox, y: oy }, { x: midx, y: midy }, target, s / 20);
+          if (s === 0) ctx.moveTo(sp.x, sp.y); else ctx.lineTo(sp.x, sp.y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.fillStyle = colors.orange; ctx.arc(target.x, target.y, 3, 0, Math.PI * 2); ctx.fill();
+      });
+      var staticCounts = [14, 9, 6, 11];
+      buckets.forEach(function(el, idx){
+        var c = el.querySelector('.signal-bucket-count');
+        if (c) c.textContent = staticCounts[idx];
+      });
+    }
+
+    if (reduceMotion){
+      drawStatic();
+      return;
+    }
+
+    var particles = [];
+    var lastSpawn = 0;
+    var SPAWN_INTERVAL = 1400;
+
+    function spawnParticle(t){
+      var origin = randomLandPoint();
+      var ox = origin.x * fieldW(), oy = origin.y * H;
+      var bi = Math.floor(Math.random() * bucketCenters.length);
+      var target = bucketCenters[bi];
+      if (!target) return;
+      var midx = (ox + target.x) / 2 + (Math.random() * 40 - 20);
+      var midy = Math.min(oy, target.y) - 30 - Math.random() * 20;
+      particles.push({ ox: ox, oy: oy, cx: midx, cy: midy, tx: target.x, ty: target.y, start: t, dur: 900 + Math.random() * 400, bucket: bi, done: false, removeAt: 0 });
+    }
+
+    var blipsSeeded = false;
+    function draw(t){
+      if (W < 10 || H < 10){ requestAnimationFrame(draw); return; }
+      if (!blipsSeeded){
+        blipsSeeded = true;
+        for (var seed = 0; seed < 160; seed++){
+          spawnBlip(t);
+          blips[blips.length - 1].born = t - Math.random() * blips[blips.length - 1].life;
+        }
+      }
+      ctx.clearRect(0, 0, W, H);
+
+      var toSpawn = 3 + Math.floor(Math.random() * 4);
+      for (var n = 0; n < toSpawn && blips.length < MAX_BLIPS; n++) spawnBlip(t);
+      if (Math.random() < 0.04 && blips.length < MAX_BLIPS - 8){
+        var burst = 4 + Math.floor(Math.random() * 5);
+        for (var k = 0; k < burst; k++) spawnBlip(t);
+      }
+      drawBlips(t);
+
+      updateCounter(t);
+
+      if (t - lastSpawn > SPAWN_INTERVAL){
+        lastSpawn = t;
+        spawnParticle(t);
+      }
+
+      for (var p = particles.length - 1; p >= 0; p--){
+        var pt = particles[p];
+        var prog = Math.min(1, (t - pt.start) / pt.dur);
+
+        ctx.beginPath();
+        ctx.strokeStyle = colors.orange;
+        ctx.globalAlpha = 0.5;
+        ctx.lineWidth = 1.4;
+        for (var s = 0; s <= 16; s++){
+          var tt = prog * (s / 16);
+          var sp = quadBezier({ x: pt.ox, y: pt.oy }, { x: pt.cx, y: pt.cy }, { x: pt.tx, y: pt.ty }, tt);
+          if (s === 0) ctx.moveTo(sp.x, sp.y); else ctx.lineTo(sp.x, sp.y);
+        }
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        var pos = quadBezier({ x: pt.ox, y: pt.oy }, { x: pt.cx, y: pt.cy }, { x: pt.tx, y: pt.ty }, prog);
+        ctx.beginPath();
+        ctx.fillStyle = colors.orange;
+        ctx.arc(pos.x, pos.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (prog >= 1 && !pt.done){
+          pt.done = true;
+          pt.removeAt = t + 250;
+          routeToBucket(pt.bucket);
+        }
+        if (pt.done && t > pt.removeAt){
+          particles.splice(p, 1);
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function lerp(a, b, t){ return a + (b - a) * t; }
+
+    function flash(el){
+      el.classList.add('flash');
+      setTimeout(function(){ el.classList.remove('flash'); }, 700);
+    }
+
+    function initDistChart(cfg){
+      var chartEl = document.getElementById(cfg.chartId);
+      if (!chartEl) return;
+      var axisEl = document.getElementById(cfg.axisId);
+      var evidenceEl = document.getElementById(cfg.evidenceId);
+      var statMeanWrap = document.getElementById(cfg.statMeanId);
+      var statTailWrap = document.getElementById(cfg.statTailId);
+      var statConfWrap = document.getElementById(cfg.statConfId);
+      var statMean = statMeanWrap.querySelector('.num');
+      var statTail = statTailWrap.querySelector('.num');
+      var statConf = statConfWrap.querySelector('.num');
+
+      var bars = [];
+      cfg.bins.forEach(function(binVal, i){
+        var col = document.createElement('div');
+        col.className = 'dist-col';
+        var ghost = document.createElement('div');
+        ghost.className = 'dist-ghost';
+        ghost.style.height = cfg.prior[i] + '%';
+        var bar = document.createElement('div');
+        bar.className = 'dist-bar' + (i >= cfg.tailStart ? ' tail' : '');
+        bar.style.height = cfg.prior[i] + '%';
+        col.appendChild(ghost);
+        col.appendChild(bar);
+        chartEl.appendChild(col);
+        bars.push(bar);
+
+        var axisLabel = document.createElement('span');
+        axisLabel.textContent = cfg.axisFormat(binVal);
+        axisEl.appendChild(axisLabel);
+      });
+
+      function applyProgress(p){
+        for (var i = 0; i < cfg.bins.length; i++){
+          bars[i].style.height = lerp(cfg.prior[i], cfg.updated[i], p) + '%';
+        }
+        statMean.textContent = cfg.meanFormat(lerp(cfg.stats.meanFrom, cfg.stats.meanTo, p));
+        statTail.textContent = lerp(cfg.stats.tailFrom, cfg.stats.tailTo, p).toFixed(1) + '%';
+        statConf.textContent = lerp(cfg.stats.confFrom, cfg.stats.confTo, p).toFixed(2);
+        flash(statMeanWrap); flash(statTailWrap); flash(statConfWrap);
+      }
+
+      function addEvidence(text, animate){
+        var li = document.createElement('li');
+        li.textContent = text;
+        evidenceEl.appendChild(li);
+        while (evidenceEl.children.length > 2){
+          evidenceEl.removeChild(evidenceEl.firstElementChild);
+        }
+        if (animate){
+          requestAnimationFrame(function(){ requestAnimationFrame(function(){ li.classList.add('show'); }); });
+        } else {
+          li.classList.add('show');
+        }
+      }
+
+      if (reduceMotion){
+        applyProgress(1);
+        cfg.events.forEach(function(ev){ addEvidence(ev.text, false); });
+        return;
+      }
+
+      var idx = 0;
+
+      function step(){
+        if (idx < cfg.events.length){
+          applyProgress(cfg.events[idx].p);
+          addEvidence(cfg.events[idx].text, true);
+          idx++;
+          setTimeout(step, 2000);
+        } else {
+          setTimeout(reset, 2400);
+        }
+      }
+
+      function reset(){
+        evidenceEl.innerHTML = '';
+        applyProgress(0);
+        idx = 0;
+        setTimeout(step, 1000);
+      }
+
+      setTimeout(step, cfg.startDelay);
+    }
+
+    initDistChart({
+      chartId: 'dist-chart', axisId: 'dist-axis', evidenceId: 'dist-evidence',
+      statMeanId: 'dist-stat-mean', statTailId: 'dist-stat-tail', statConfId: 'dist-stat-conf',
+      bins: [70, 74, 78, 82, 86, 90, 94, 98, 102, 106, 110],
+      prior: [41, 80, 100, 80, 41, 14, 3, 0, 0, 0, 0],
+      updated: [19, 37, 53, 55, 46, 34, 27, 25, 25, 22, 18],
+      tailStart: 7,
+      stats: { meanFrom: 78, meanTo: 87, tailFrom: 0.1, tailTo: 25, confFrom: 0.55, confTo: 0.79 },
+      axisFormat: function(v){ return '$' + v; },
+      meanFormat: function(v){ return '$' + Math.round(v); },
+      startDelay: 700,
+      events: [
+        { p: 0.15, text: 'Naval assets reported repositioning toward the southern Caribbean — wire, unconfirmed' },
+        { p: 0.45, text: 'State Department raises its travel advisory for the region' },
+        { p: 0.75, text: 'Tanker war-risk premiums rise on Caribbean and Gulf shipping routes' },
+        { p: 1.0, text: 'OPEC+ spare capacity confirmed near a multi-year low' }
+      ]
+    });
+
+    initDistChart({
+      chartId: 'dist-chart-2', axisId: 'dist-axis-2', evidenceId: 'dist-evidence-2',
+      statMeanId: 'dist-stat-mean-2', statTailId: 'dist-stat-tail-2', statConfId: 'dist-stat-conf-2',
+      bins: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40],
+      prior: [41, 80, 100, 80, 41, 14, 3, 0, 0, 0, 0],
+      updated: [10, 22, 38, 52, 60, 58, 48, 38, 32, 26, 20],
+      tailStart: 6,
+      stats: { meanFrom: 8, meanTo: 21, tailFrom: 0.3, tailTo: 32, confFrom: 0.52, confTo: 0.77 },
+      axisFormat: function(v){ return v + '%'; },
+      meanFormat: function(v){ return (v >= 0 ? '+' : '') + Math.round(v) + '%'; },
+      startDelay: 1400,
+      events: [
+        { p: 0.15, text: 'Tropical system tracking toward the Yucatán Peninsula — NHC, 5-day cone' },
+        { p: 0.45, text: 'Reinsurers begin repricing Gulf coastal exposure' },
+        { p: 0.75, text: 'Regional insurers pause new binding in coastal Quintana Roo' },
+        { p: 1.0, text: 'Catastrophe bond spreads widen on Caribbean wind risk' }
+      ]
+    });
+  })();
+
+  (function(){
+    var btn = document.getElementById('nav-toggle');
+    var panel = document.getElementById('mobile-nav-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function(){
+      var isOpen = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        panel.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in-view'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+</body>
+</html>

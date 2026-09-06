@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vorsight — Get Started</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-subtle:#F5F6F8; --surface:#FFFFFF;
+    --border:#E3E5E9; --border-strong:#C7CBD1;
+    --ink:#14161A; --ink-2:#4B4F57; --ink-3:#8A8F98;
+    --green:#1F8A55; --green-soft:#E7F5EC; --green-ink:#14532D;
+    --orange:#C2660A; --orange-soft:#FCEEE0; --orange-ink:#7C3E05;
+    --red:#C0362C; --red-soft:#FBEAEA; --red-ink:#7A1F1A;
+    --sans:"Inter",-apple-system,"Segoe UI",Calibri,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --grid-dot: rgba(20,22,26,0.09);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  h1,h2,h3{text-wrap:balance; margin:0;}
+  p{margin:0;}
+  ::selection{ background:var(--ink); color:var(--bg); }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-3);
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    background:var(--green); flex-shrink:0;
+  }
+
+  .wrap{ max-width:840px; margin:0 auto; padding-left:32px; padding-right:32px; }
+  @media (max-width:640px){ .wrap{ padding-left:20px; padding-right:20px; } }
+
+  /* ---------- header (shared with index.html) ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    display:flex; align-items:center; gap:32px;
+    padding:14px 28px; border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.88); backdrop-filter:saturate(1.2) blur(6px);
+  }
+  .brand{ display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .brand-mark{ flex-shrink:0; color:var(--ink); }
+  .brand-name{ font-family:var(--mono); font-weight:600; letter-spacing:3px; font-size:12px; color:var(--ink); }
+  .header-right{ margin-left:auto; display:flex; align-items:center; gap:16px; }
+  .back-link{
+    font-family:var(--mono); font-size:11.5px; font-weight:600;
+    letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-2);
+    text-decoration:none; display:flex; align-items:center; gap:6px;
+  }
+  .back-link:hover{ color:var(--ink); text-decoration:underline; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.4px;
+    padding:10px 16px; border-radius:3px; text-decoration:none;
+    border:1px solid var(--ink); cursor:pointer; white-space:nowrap;
+    background:var(--surface); color:var(--ink);
+  }
+  .btn-primary{ background:var(--ink); color:var(--bg); }
+  .btn-primary:hover{ background:#000; }
+  .btn-primary:disabled{ background:var(--border-strong); border-color:var(--border-strong); cursor:not-allowed; }
+  .btn-ghost{ background:var(--surface); color:var(--ink-2); border-color:var(--border); }
+  .btn-ghost:hover{ border-color:var(--ink); color:var(--ink); }
+
+  /* ---------- page hero ---------- */
+  #page-hero{
+    padding:72px 0 48px; border-bottom:1px solid var(--border);
+    background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  #page-hero h1{ font-size:34px; font-weight:800; letter-spacing:-0.4px; line-height:1.16; margin:14px 0 12px; }
+  #page-hero .lede{ font-size:15.5px; color:var(--ink-2); max-width:56ch; line-height:1.6; }
+  @media (max-width:640px){ #page-hero h1{ font-size:26px; } }
+
+  /* ---------- progress steps ---------- */
+  .steps{ display:flex; gap:0; margin-top:28px; }
+  .step{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.4px; color:var(--ink-3); }
+  .step .num{
+    width:20px; height:20px; border-radius:50%; border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;
+  }
+  .step.active{ color:var(--ink); }
+  .step.active .num{ border-color:var(--ink); background:var(--ink); color:var(--bg); }
+  .step-sep{ width:28px; height:1px; background:var(--border-strong); margin:0 10px; align-self:center; }
+  @media (max-width:560px){ .step span:not(.num){ display:none; } .step-sep{ width:14px; } }
+
+  /* ---------- form ---------- */
+  main{ padding:44px 0 96px; }
+  .form-section{ margin-bottom:40px; }
+  .form-section-head{ margin-bottom:20px; }
+  .form-section-head h2{ font-size:18px; font-weight:700; margin:8px 0 6px; }
+  .form-section-head p{ font-size:13px; color:var(--ink-2); line-height:1.55; max-width:60ch; }
+
+  .field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:640px){ .field-grid{ grid-template-columns:1fr; } }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{
+    font-family:var(--mono); font-size:10px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.4px; color:var(--ink-2);
+  }
+  .field input, .field select, .field textarea{
+    font-family:var(--sans); font-size:14px; color:var(--ink);
+    border:1px solid var(--border); border-radius:5px; padding:10px 12px;
+    background:var(--surface); outline:none; width:100%;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--ink); }
+  .field textarea{ resize:vertical; min-height:72px; font-family:var(--sans); }
+  .field .hint{ font-size:11px; color:var(--ink-3); }
+
+  /* ---------- risk / voice section: dark treatment ---------- */
+  #risk-section{
+    background:var(--ink); color:var(--bg); border-radius:10px;
+    padding:36px 32px; margin:8px 0 0;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  #risk-section .eyebrow{ color:rgba(255,255,255,0.55); }
+  #risk-section .form-section-head h2{ color:var(--bg); }
+  #risk-section .form-section-head p{ color:rgba(255,255,255,0.68); }
+
+  .recorder{
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    padding:36px 20px 28px; border:1px solid rgba(255,255,255,0.14); border-radius:8px;
+    background:rgba(255,255,255,0.03); margin-top:20px;
+  }
+  .rec-btn{
+    width:84px; height:84px; border-radius:50%; flex-shrink:0;
+    border:1.5px solid rgba(255,255,255,0.4); background:transparent; color:var(--bg);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    position:relative; transition:border-color .2s ease, background .2s ease;
+  }
+  .rec-btn:hover{ border-color:var(--bg); }
+  .rec-btn.recording{ background:var(--red); border-color:var(--red); }
+  .rec-btn.recording::after{
+    content:""; position:absolute; inset:-8px; border-radius:50%;
+    border:1.5px solid rgba(192,54,44,0.55); animation:rec-pulse 1.6s ease-out infinite;
+  }
+  @keyframes rec-pulse{ 0%{ transform:scale(0.9); opacity:0.9; } 100%{ transform:scale(1.35); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .rec-btn.recording::after{ animation:none; } }
+  .rec-btn svg{ width:26px; height:26px; }
+
+  .rec-status{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(255,255,255,0.55); text-align:center; }
+  .rec-timer{ font-family:var(--mono); font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--bg); }
+
+  .rec-bars{ display:flex; align-items:center; justify-content:center; gap:3px; height:28px; }
+  .rec-bars span{ width:3px; border-radius:1px; background:rgba(255,255,255,0.35); height:4px; transition:height .08s ease; }
+  .rec-bars.live span{ background:var(--green); }
+
+  .rec-playback{ display:none; align-items:center; gap:12px; width:100%; max-width:360px; }
+  .rec-playback.show{ display:flex; }
+  .rec-play-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.4);
+    background:transparent; color:var(--bg); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0;
+  }
+  .rec-play-btn:hover{ border-color:var(--bg); }
+  .rec-play-btn svg{ width:14px; height:14px; }
+  .rec-scrub{ flex:1; height:3px; background:rgba(255,255,255,0.2); border-radius:2px; position:relative; }
+  .rec-scrub-fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--bg); border-radius:2px; }
+  .rec-duration{ font-family:var(--mono); font-size:10.5px; color:rgba(255,255,255,0.5); font-variant-numeric:tabular-nums; flex-shrink:0; }
+
+  .rec-actions{ display:flex; gap:10px; align-items:center; }
+  .rec-link{
+    font-family:var(--mono); font-size:10.5px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.4px; color:rgba(255,255,255,0.55); text-decoration:underline; cursor:pointer; background:none; border:none; padding:4px;
+  }
+  .rec-link:hover{ color:var(--bg); }
+  .rec-error{ font-family:var(--mono); font-size:11px; color:#FF9B8F; text-align:center; max-width:320px; display:none; }
+  .rec-error.show{ display:block; }
+  .rec-confirmed{ display:none; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--green); text-transform:uppercase; letter-spacing:0.4px; }
+  .rec-confirmed.show{ display:flex; }
+  .rec-prompts{ margin-top:18px; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.6; max-width:480px; text-align:center; }
+
+  /* ---------- form actions ---------- */
+  .form-actions{ display:flex; align-items:center; gap:16px; margin-top:40px; }
+  .form-error{ font-family:var(--mono); font-size:11.5px; color:var(--red-ink); display:none; }
+  .form-error.show{ display:block; }
+
+  /* ---------- pipeline / success panel ---------- */
+  #pipeline-panel{ display:none; }
+  #pipeline-panel.show{ display:block; }
+  #form-panel.hide{ display:none; }
+
+  .pipeline-card{
+    border:1px solid var(--border-strong); border-radius:8px; padding:28px 30px; background:var(--surface);
+  }
+  .pipeline-step{
+    display:flex; align-items:center; gap:14px; padding:12px 0;
+    border-bottom:1px solid var(--border); opacity:0.35; transition:opacity .3s ease;
+  }
+  .pipeline-step:last-child{ border-bottom:none; }
+  .pipeline-step.active, .pipeline-step.done{ opacity:1; }
+  .pipeline-dot{
+    width:22px; height:22px; border-radius:50%; border:1.5px solid var(--border-strong);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  }
+  .pipeline-step.active .pipeline-dot{ border-color:var(--ink); }
+  .pipeline-step.active .pipeline-dot::after{ content:""; width:8px; height:8px; border-radius:50%; background:var(--ink); animation:pdot-pulse 1s ease-in-out infinite; }
+  @keyframes pdot-pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+  .pipeline-step.done .pipeline-dot{ border-color:var(--green); background:var(--green); }
+  .pipeline-step.done .pipeline-dot svg{ width:12px; height:12px; stroke:var(--bg); }
+  .pipeline-step-text .title{ font-size:13.5px; font-weight:600; color:var(--ink); }
+  .pipeline-step-text .desc{ font-size:12px; color:var(--ink-3); margin-top:1px; }
+
+  .pipeline-caption{ margin-top:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+  .pipeline-done-note{
+    display:none; margin-top:20px; padding:14px 16px; border-radius:6px; background:var(--green-soft);
+    border:1px solid var(--green); color:var(--green-ink); font-size:13px; line-height:1.55;
+  }
+  .pipeline-done-note.show{ display:block; }
+
+  footer{ padding:28px 0; border-top:1px solid var(--border); }
+  .foot-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .foot-note{ font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="brand">
+    <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+      <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+    </svg>
+    <span class="brand-name">VORSIGHT</span>
+  </a>
+  <div class="header-right">
+    <a class="back-link" href="index.html">&larr; Back to home</a>
+  </div>
+</header>
+
+<section id="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">CLIENT ONBOARDING</div>
+    <h1>Set up your company on Vorsight.</h1>
+    <p class="lede">Tell us who you are, then describe — in your own words — the risks you're exposed to. We'll turn that into your live risk graph.</p>
+    <div class="steps">
+      <div class="step active"><span class="num">1</span><span>Company profile</span></div>
+      <div class="step-sep"></div>
+      <div class="step active"><span class="num">2</span><span>Describe your risks</span></div>
+      <div class="step-sep"></div>
+      <div class="step"><span class="num">3</span><span>We build your graph</span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+
+    <div id="form-panel">
+      <form id="signup-form" novalidate>
+        <div class="form-section">
+          <div class="form-section-head">
+            <div class="eyebrow">COMPANY PROFILE</div>
+            <h2>A few basics about your business.</h2>
+            <p>This anchors your risk graph — industry, size, and footprint all shape which exposures are relevant.</p>
+          </div>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="f-name">Company name</label>
+              <input id="f-name" name="company_name" type="text" placeholder="e.g. Fischer Bothof Chemicals" required>
+            </div>
+            <div class="field">
+              <label for="f-founded">Founding date</label>
+              <input id="f-founded" name="founded" type="date">
+            </div>
+            <div class="field">
+              <label for="f-employees">Number of employees</label>
+              <input id="f-employees" name="employees" type="number" min="1" placeholder="e.g. 4200">
+            </div>
+            <div class="field">
+              <label for="f-hq">Headquarters</label>
+              <input id="f-hq" name="headquarters" type="text" placeholder="City, country">
+            </div>
+            <div class="field">
+              <label for="f-industry">Industry</label>
+              <input id="f-industry" name="industry" type="text" placeholder="e.g. Specialty chemicals">
+            </div>
+            <div class="field">
+              <label for="f-website">Company website</label>
+              <input id="f-website" name="website" type="url" placeholder="https://">
+            </div>
+            <div class="field">
+              <label for="f-email">Contact email</label>
+              <input id="f-email" name="contact_email" type="email" placeholder="you@company.com" required>
+            </div>
+          </div>
+        </div>
+
+        <div id="risk-section" class="form-section">
+          <div class="form-section-head">
+            <div class="eyebrow">TELL US YOUR RISKS — BY VOICE</div>
+            <h2>Record a short voice note describing what you're exposed to.</h2>
+            <p>No forms, no dropdowns — just talk. We'll transcribe it, group what you describe into risk categories, and draft your live risk graph from it.</p>
+          </div>
+
+          <div class="recorder">
+            <button type="button" class="rec-btn" id="rec-btn" aria-label="Start recording">
+              <svg id="rec-icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="2" width="6" height="12" rx="3"/>
+                <path d="M5 10a7 7 0 0 0 14 0"/>
+                <line x1="12" y1="19" x2="12" y2="22"/>
+              </svg>
+              <svg id="rec-icon-stop" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <rect x="7" y="7" width="10" height="10" rx="1.5"/>
+              </svg>
+            </button>
+
+            <div class="rec-status" id="rec-status">Tap to record</div>
+            <div class="rec-timer" id="rec-timer" style="display:none;">0:00</div>
+            <div class="rec-bars" id="rec-bars"></div>
+
+            <div class="rec-playback" id="rec-playback">
+              <button type="button" class="rec-play-btn" id="rec-play-btn" aria-label="Play back recording">
+                <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+              </button>
+              <div class="rec-scrub"><div class="rec-scrub-fill" id="rec-scrub-fill"></div></div>
+              <span class="rec-duration" id="rec-duration">0:00</span>
+            </div>
+
+            <div class="rec-actions" id="rec-actions" style="display:none;">
+              <span class="rec-confirmed show" id="rec-confirmed">✓ Voice note captured</span>
+              <button type="button" class="rec-link" id="rec-rerecord">Re-record</button>
+            </div>
+
+            <div class="rec-error" id="rec-error">Microphone access was denied — allow microphone access in your browser to record.</div>
+
+            <p class="rec-prompts">Not sure where to start? Try: "Our biggest exposure is X because Y. We're also concerned about Z happening if..." — mention suppliers, locations, markets, or regulations that worry you.</p>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">Submit for review</button>
+          <span class="form-error" id="form-error"></span>
+        </div>
+      </form>
+    </div>
+
+    <div id="pipeline-panel">
+      <div class="pipeline-card">
+        <div class="pipeline-step" data-step="0">
+          <div class="pipeline-dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="pipeline-step-text"><div class="title">Transcribing your voice note</div><div class="desc">Converting what you said into text</div></div>
+        </div>
+        <div class="pipeline-step" data-step="1">
+          <div class="pipeline-dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="pipeline-step-text"><div class="title">Classifying risk signals</div><div class="desc">Grouping what you described into categories — financial, supply chain, regulatory, geopolitical</div></div>
+        </div>
+        <div class="pipeline-step" data-step="2">
+          <div class="pipeline-dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="pipeline-step-text"><div class="title">Drafting your risk graph</div><div class="desc">Building causal scenarios and baseline probabilities for each risk</div></div>
+        </div>
+        <div class="pipeline-step" data-step="3">
+          <div class="pipeline-dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+          <div class="pipeline-step-text"><div class="title">Queued for analyst review</div><div class="desc">A Vorsight analyst checks the draft before anything goes live on your dashboard</div></div>
+        </div>
+
+        <p class="pipeline-caption">Your submission — a Vorsight team member reviews every draft before it goes live</p>
+        <div class="pipeline-done-note" id="pipeline-done-note">Your profile and voice note are in. A Vorsight analyst will review the draft risks and set up your login — we'll be in touch at the contact email you gave us.</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand">
+      <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+      <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+    </svg>
+      <span class="brand-name">VORSIGHT</span>
+    </div>
+    <span class="foot-note">Illustrative preview — figures shown are for demonstration, not live output</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var recBtn = document.getElementById('rec-btn');
+    var micIcon = document.getElementById('rec-icon-mic');
+    var stopIcon = document.getElementById('rec-icon-stop');
+    var statusEl = document.getElementById('rec-status');
+    var timerEl = document.getElementById('rec-timer');
+    var barsEl = document.getElementById('rec-bars');
+    var playbackEl = document.getElementById('rec-playback');
+    var playBtn = document.getElementById('rec-play-btn');
+    var playIcon = document.getElementById('play-icon');
+    var pauseIcon = document.getElementById('pause-icon');
+    var scrubFill = document.getElementById('rec-scrub-fill');
+    var durationEl = document.getElementById('rec-duration');
+    var actionsEl = document.getElementById('rec-actions');
+    var rerecordBtn = document.getElementById('rec-rerecord');
+    var errorEl = document.getElementById('rec-error');
+
+    var NUM_BARS = 28;
+    for (var i = 0; i < NUM_BARS; i++){
+      var bar = document.createElement('span');
+      barsEl.appendChild(bar);
+    }
+    var barEls = barsEl.querySelectorAll('span');
+
+    var mediaStream = null, mediaRecorder = null, audioCtx = null, analyser = null, rafId = null;
+    var chunks = [];
+    var recordedBlob = null, recordedUrl = null;
+    var audioEl = new Audio();
+    var startTime = 0, timerInterval = null;
+    var recording = false;
+
+    window.vorsightVoiceNote = null;
+
+    function formatTime(sec){
+      sec = Math.max(0, Math.floor(sec));
+      var m = Math.floor(sec / 60), s = sec % 60;
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function resetBars(){
+      barEls.forEach(function(b){ b.style.height = '4px'; });
+    }
+
+    function tickLevels(){
+      if (!analyser) return;
+      var data = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteTimeDomainData(data);
+      var step = Math.floor(data.length / NUM_BARS) || 1;
+      for (var i = 0; i < NUM_BARS; i++){
+        var v = Math.abs(data[i * step] - 128) / 128;
+        barEls[i].style.height = (4 + v * 24) + 'px';
+      }
+      rafId = requestAnimationFrame(tickLevels);
+    }
+
+    async function startRecording(){
+      errorEl.classList.remove('show');
+      try{
+        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (e){
+        errorEl.classList.add('show');
+        return;
+      }
+      chunks = [];
+      mediaRecorder = new MediaRecorder(mediaStream);
+      mediaRecorder.ondataavailable = function(e){ if (e.data.size > 0) chunks.push(e.data); };
+      mediaRecorder.onstop = function(){
+        recordedBlob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+        recordedUrl = URL.createObjectURL(recordedBlob);
+        audioEl.src = recordedUrl;
+        window.vorsightVoiceNote = { blob: recordedBlob, durationSec: (Date.now() - startTime) / 1000 };
+        showPlayback();
+      };
+      mediaRecorder.start();
+
+      try{
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var source = audioCtx.createMediaStreamSource(mediaStream);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        barsEl.classList.add('live');
+        tickLevels();
+      } catch(e){ /* level meter is a visual extra; recording still works without it */ }
+
+      recording = true;
+      startTime = Date.now();
+      recBtn.classList.add('recording');
+      micIcon.style.display = 'none';
+      stopIcon.style.display = 'block';
+      statusEl.textContent = 'Recording — tap to stop';
+      timerEl.style.display = 'block';
+      playbackEl.classList.remove('show');
+      actionsEl.style.display = 'none';
+
+      timerInterval = setInterval(function(){
+        timerEl.textContent = formatTime((Date.now() - startTime) / 1000);
+      }, 200);
+    }
+
+    function stopRecording(){
+      recording = false;
+      recBtn.classList.remove('recording');
+      micIcon.style.display = 'block';
+      stopIcon.style.display = 'none';
+      statusEl.textContent = 'Review your recording';
+      timerEl.style.display = 'none';
+      barsEl.classList.remove('live');
+      resetBars();
+      if (rafId) cancelAnimationFrame(rafId);
+      if (timerInterval) clearInterval(timerInterval);
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+      if (mediaStream) mediaStream.getTracks().forEach(function(t){ t.stop(); });
+      if (audioCtx) audioCtx.close();
+    }
+
+    function showPlayback(){
+      playbackEl.classList.add('show');
+      actionsEl.style.display = 'flex';
+      durationEl.textContent = formatTime(window.vorsightVoiceNote.durationSec);
+    }
+
+    recBtn.addEventListener('click', function(){
+      if (recording) stopRecording(); else startRecording();
+    });
+
+    playBtn.addEventListener('click', function(){
+      if (audioEl.paused){ audioEl.play(); playIcon.style.display='none'; pauseIcon.style.display='block'; }
+      else { audioEl.pause(); playIcon.style.display='block'; pauseIcon.style.display='none'; }
+    });
+    audioEl.addEventListener('timeupdate', function(){
+      if (audioEl.duration) scrubFill.style.width = (audioEl.currentTime / audioEl.duration * 100) + '%';
+    });
+    audioEl.addEventListener('ended', function(){
+      playIcon.style.display='block'; pauseIcon.style.display='none'; scrubFill.style.width='0%';
+    });
+
+    rerecordBtn.addEventListener('click', function(){
+      window.vorsightVoiceNote = null;
+      playbackEl.classList.remove('show');
+      actionsEl.style.display = 'none';
+      statusEl.textContent = 'Tap to record';
+      audioEl.pause();
+      scrubFill.style.width = '0%';
+    });
+  })();
+
+  (function(){
+    // Points at the Vorsight app's API. In production this should be the
+    // real deployed API host — the marketing site and the app are two
+    // separate deployments.
+    var API_BASE = 'http://localhost:5050';
+
+    var form = document.getElementById('signup-form');
+    var formPanel = document.getElementById('form-panel');
+    var pipelinePanel = document.getElementById('pipeline-panel');
+    var formError = document.getElementById('form-error');
+    var doneNote = document.getElementById('pipeline-done-note');
+    var submitBtn = document.getElementById('submit-btn');
+    var steps = document.querySelectorAll('.pipeline-step');
+
+    // Maps backend (status, stage) to how many of the 4 UI steps are done,
+    // and which one (if any) is currently active.
+    function stepsFor(status, stage){
+      if (status === 'processing'){
+        if (stage === 'transcribing') return { doneCount: 0, activeIndex: 0 };
+        return { doneCount: 1, activeIndex: 1 };                 // classifying
+      }
+      if (status === 'pending_review') return { doneCount: 4, activeIndex: -1 };
+      return { doneCount: 0, activeIndex: -1 };
+    }
+
+    function renderSteps(doneCount, activeIndex){
+      steps.forEach(function(el, i){
+        el.classList.toggle('done', i < doneCount);
+        el.classList.toggle('active', i === activeIndex);
+      });
+      if (doneCount >= steps.length) doneNote.classList.add('show');
+    }
+
+    function showPipelineError(message){
+      formPanel.classList.remove('hide');
+      pipelinePanel.classList.remove('show');
+      formError.textContent = message;
+      formError.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit for review';
+    }
+
+    function pollStatus(submissionId){
+      fetch(API_BASE + '/api/public/onboarding/' + submissionId + '/status')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.error){ showPipelineError('Something went wrong while processing your submission.'); return; }
+          var s = stepsFor(data.status, data.stage);
+          renderSteps(s.doneCount, s.activeIndex);
+          if (data.status === 'processing'){
+            setTimeout(function(){ pollStatus(submissionId); }, 1500);
+          } else if (data.status === 'error'){
+            showPipelineError('Something went wrong while processing your submission — please try again.');
+          }
+          // 'pending_review' is a terminal state for this page: it now waits
+          // on a Vorsight analyst, not on anything happening in this browser.
+        })
+        .catch(function(){
+          setTimeout(function(){ pollStatus(submissionId); }, 3000);
+        });
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      formError.classList.remove('show');
+
+      var name = document.getElementById('f-name').value.trim();
+      var email = document.getElementById('f-email').value.trim();
+      if (!name || !email){
+        formError.textContent = 'Company name and contact email are required.';
+        formError.classList.add('show');
+        return;
+      }
+      if (!window.vorsightVoiceNote){
+        formError.textContent = 'Please record a voice note describing your risks before submitting.';
+        formError.classList.add('show');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      var data = new FormData();
+      data.append('company_name', name);
+      data.append('contact_email', email);
+      data.append('founded', document.getElementById('f-founded').value.trim());
+      data.append('employees', document.getElementById('f-employees').value.trim());
+      data.append('headquarters', document.getElementById('f-hq').value.trim());
+      data.append('industry', document.getElementById('f-industry').value.trim());
+      data.append('website', document.getElementById('f-website').value.trim());
+      data.append('audio', window.vorsightVoiceNote.blob, 'voice-note.webm');
+
+      fetch(API_BASE + '/api/public/onboarding', { method: 'POST', body: data })
+        .then(function(r){
+          if (!r.ok) return r.json().then(function(j){ throw new Error(j.error || 'Submission failed.'); });
+          return r.json();
+        })
+        .then(function(result){
+          formPanel.classList.add('hide');
+          pipelinePanel.classList.add('show');
+          pollStatus(result.submission_id);
+        })
+        .catch(function(err){
+          showPipelineError(err.message || 'Could not reach Vorsight — please try again in a moment.');
+        });
+    });
+  })();
+</script>
+</body>
+</html>
