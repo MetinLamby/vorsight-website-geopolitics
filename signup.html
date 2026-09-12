@@ -548,10 +548,9 @@
   })();
 
   (function(){
-    // Points at the Vorsight app's API. In production this should be the
-    // real deployed API host — the marketing site and the app are two
-    // separate deployments.
-    var API_BASE = 'http://localhost:5050';
+    // Points at the Vorsight app's API — a separate deployment (PythonAnywhere)
+    // from this static marketing site (GitHub Pages).
+    var API_BASE = 'https://lambym.pythonanywhere.com';
 
     var form = document.getElementById('signup-form');
     var formPanel = document.getElementById('form-panel');
