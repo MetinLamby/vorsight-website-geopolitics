@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vorsight – Technology</title>
+<meta name="description" content="Headlines in. Decisions out. See how Vorsight maps your exposure, models the world, updates scenarios with every signal and alerts you when to act.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-subtle:#F5F6F8; --surface:#FFFFFF;
+    --border:#E3E5E9; --border-strong:#C7CBD1;
+    --ink:#14161A; --ink-2:#4B4F57; --ink-3:#8A8F98;
+    --green:#1F8A55;
+    --orange:#C2660A; --orange-soft:#FCEEE0; --orange-ink:#7C3E05;
+    --sans:"Inter",-apple-system,"Segoe UI",Calibri,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --grid-dot: rgba(20,22,26,0.09);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  h1,h2,h3{text-wrap:balance; margin:0;}
+  p{margin:0;}
+  ul{margin:0; padding:0; list-style:none;}
+  ::selection{ background:var(--ink); color:var(--bg); }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-3);
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    background:var(--green); flex-shrink:0;
+  }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding-left:32px; padding-right:32px; }
+  @media (max-width:640px){ .wrap{ padding-left:20px; padding-right:20px; } }
+
+  section{ padding:96px 0; border-bottom:1px solid var(--border); }
+  section:last-of-type{ border-bottom:none; }
+  @media (max-width:640px){ section{ padding:72px 0; } }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    display:flex; flex-wrap:wrap; align-items:center; gap:32px;
+    padding:14px 28px; border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.96); backdrop-filter:saturate(1.2) blur(6px);
+  }
+  .brand{ display:flex; align-items:center; gap:8px; text-decoration:none; }
+  .brand-mark{ flex-shrink:0; color:var(--ink); }
+  .brand-name{ font-family:var(--mono); font-weight:600; letter-spacing:3px; font-size:12px; color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; gap:22px; }
+  .site-nav a{
+    font-family:var(--mono); font-size:11.5px; font-weight:600;
+    letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-2);
+    text-decoration:none;
+  }
+  .site-nav a:hover{ color:var(--ink); text-decoration:underline; }
+  .site-nav a.active{ color:var(--ink); border-bottom:2px solid var(--ink); padding-bottom:2px; }
+  @media (max-width:860px){ .site-nav{ display:none; } }
+
+  .header-right{ margin-left:auto; display:flex; align-items:center; gap:16px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.4px;
+    padding:10px 16px; border-radius:3px; text-decoration:none;
+    border:1px solid var(--ink); cursor:pointer; white-space:nowrap;
+  }
+  .btn-primary{ background:var(--ink); color:var(--bg); }
+  .btn-primary:hover{ background:#000; }
+  .btn-ghost{ background:var(--surface); color:var(--ink-2); border-color:var(--border); }
+  .btn-ghost:hover{ border-color:var(--ink); color:var(--ink); }
+  .btn-orange{ background:#EE8A2E; border-color:#EE8A2E; color:var(--ink); }
+  .btn-orange:hover{ background:#F59A45; border-color:#F59A45; }
+  @media (max-width:640px){
+    .header-right .btn-ghost{ display:none; }
+  }
+
+  .nav-toggle{
+    display:none; flex-shrink:0; align-items:center; justify-content:center;
+    width:44px; height:44px; background:var(--surface); border:1px solid var(--border);
+    border-radius:3px; color:var(--ink); cursor:pointer;
+  }
+  .nav-toggle:hover{ border-color:var(--ink); }
+  @media (max-width:860px){ .nav-toggle{ display:inline-flex; } }
+
+  .mobile-nav-panel{ display:none; width:100%; flex-direction:column; }
+  .mobile-nav-panel.open{ display:flex; }
+  .mobile-nav-panel a{
+    padding:12px 2px; font-family:var(--mono); font-size:12.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.3px; color:var(--ink-2); text-decoration:none;
+    border-top:1px solid var(--border);
+  }
+  .mobile-nav-panel a.active{ color:var(--ink); }
+  @media (min-width:861px){ .mobile-nav-panel{ display:none !important; } }
+
+  /* ---------- reveal-on-scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+  /* ---------- section heads ---------- */
+  .section-head{ max-width:700px; margin-bottom:44px; }
+  .section-head h2{ font-size:28px; font-weight:800; letter-spacing:-0.3px; margin:12px 0 14px; }
+  .section-head p{ font-size:15px; color:var(--ink-2); line-height:1.65; }
+  @media (max-width:640px){ .section-head h2{ font-size:23px; } }
+
+  .subhead{ margin:96px 0 32px; max-width:700px; }
+  .subhead h3{ font-size:24px; font-weight:800; letter-spacing:-0.3px; margin-top:12px; }
+  @media (max-width:640px){ .subhead{ margin-top:72px; } .subhead h3{ font-size:20px; } }
+
+  /* ---------- cta (white) ---------- */
+  #cta{ background:var(--bg); border-bottom:none; }
+
+  footer{
+    padding:28px 0; background:var(--ink); color:var(--bg);
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size:22px 22px;
+  }
+  footer .brand-mark, footer .brand-name{ color:var(--bg); }
+  .foot-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .foot-note{ font-family:var(--mono); font-size:10.5px; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.4px; }
+
+
+  /* =====================================================================
+     Technology page: the six-step flow
+     ===================================================================== */
+  .hero-actions{ display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+  .hero-actions .btn{ padding:12px 18px; font-size:11.5px; }
+  .mono-lbl{ font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+  @keyframes pulse{ 50%{ opacity:.25; } }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(8px); } }
+  @keyframes cgdraw{ from{ stroke-dashoffset:1; } to{ stroke-dashoffset:0; } }
+
+  /* ---------- side rail ---------- */
+  .rail{ position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:15; display:flex; flex-direction:column; gap:4px; opacity:0; pointer-events:none; transition:opacity .3s; }
+  .rail.show{ opacity:1; pointer-events:auto; }
+  .rail a{ position:relative; display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:6px 0 6px 10px; text-decoration:none; }
+  .rail a i{ width:9px; height:9px; border-radius:50%; border:1.5px solid var(--ink-3); background:var(--bg); transition:all .25s; }
+  .rail a span{ position:absolute; right:22px; white-space:nowrap; padding:3px 8px; border-radius:3px; background:var(--ink); color:#fff; font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.8px; text-transform:uppercase; opacity:0; transform:translateX(4px); transition:all .2s; pointer-events:none; }
+  .rail a:hover span, .rail a:focus-visible span, .rail a.on span{ opacity:1; transform:none; }
+  .rail a.on i{ background:#EE8A2E; border-color:#EE8A2E; box-shadow:0 0 0 4px rgba(238,138,46,0.2); }
+  @media (max-width:1180px){ .rail{ display:none; } }
+
+  /* ---------- stages ---------- */
+  .stage{ padding:88px 0; scroll-margin-top:56px; }
+  .stage-grid{ display:grid; grid-template-columns:minmax(0,0.78fr) minmax(0,1.22fr); gap:48px; align-items:start; }
+  @media (max-width:980px){ .stage-grid{ grid-template-columns:1fr; gap:28px; } }
+  .stage-copy{ position:sticky; top:96px; }
+  @media (max-width:980px){ .stage-copy{ position:static; } }
+  .stage-n{ font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:1.4px; color:var(--ink-3); margin-bottom:14px; }
+  .stage-n b{ font-size:30px; letter-spacing:-0.5px; color:#EE8A2E; margin-right:6px; }
+  .stage h2{ font-size:30px; font-weight:800; letter-spacing:-0.5px; line-height:1.15; margin:12px 0 14px; }
+  @media (max-width:640px){ .stage{ padding:64px 0; } .stage h2{ font-size:24px; } }
+  .stage p.body{ font-size:15.5px; line-height:1.65; color:var(--ink-2); max-width:42ch; }
+  .stage-hint{ margin-top:18px; font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--ink-3); }
+  .stage-hint::before{ content:"▸ "; color:#EE8A2E; }
+  .stage-feeds{ margin-top:22px; padding-top:14px; border-top:1px solid var(--line); font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--ink-3); }
+  .stage-feeds a{ color:var(--fg); text-decoration:none; border-bottom:1px solid #EE8A2E; }
+  .stage-feeds a:hover{ color:#EE8A2E; }
+  .dark-sec{ background:var(--ink); color:#fff; border-bottom:none;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size:22px 22px; }
+  .theme-dark{ --fg:#fff; --fg2:rgba(255,255,255,0.72); --line:rgba(255,255,255,0.16); }
+  .theme-light{ --fg:var(--ink); --fg2:var(--ink-2); --line:var(--border); }
+  .dark-sec .eyebrow, .dark-sec .stage-n, .dark-sec .stage-hint, .dark-sec .stage-feeds{ color:rgba(255,255,255,0.55); }
+  .dark-sec h2{ color:#fff; }
+  .dark-sec p.body{ color:rgba(255,255,255,0.7); }
+
+  /* ---------- dark illustration panels ---------- */
+  .panel{
+    position:relative; background:#0E1013; color:#fff; border-radius:8px; padding:14px 16px 16px; min-width:0;
+    border:1px solid rgba(255,255,255,0.14);
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size:14px 14px;
+    box-shadow:0 24px 50px -28px rgba(20,22,26,0.5);
+  }
+  .panel-top{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px; }
+  .chip{ font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; padding:5px 10px; border-radius:20px; border:1px solid rgba(255,255,255,0.25); background:none; color:rgba(255,255,255,0.7); cursor:pointer; transition:all .2s; }
+  .chip:hover{ border-color:#fff; color:#fff; }
+  .chip.on{ background:#EE8A2E; border-color:#EE8A2E; color:#14161A; }
+  .chip:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+  .detail{ min-height:70px; margin-top:14px; padding-top:11px; border-top:1px solid rgba(255,255,255,0.14); font-size:12.5px; line-height:1.55; color:rgba(255,255,255,0.78); }
+  .detail b{ color:#fff; font-size:13.5px; }
+  .detail p{ margin-top:4px; }
+  .tagx{ display:inline-block; margin-left:6px; padding:1px 7px; border-radius:20px; border:1px solid rgba(255,255,255,0.3); font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; color:rgba(255,255,255,0.75); vertical-align:1px; }
+  .tagx.hot{ border-color:#EE8A2E; color:#EE8A2E; }
+  .linkbtn{ background:none; border:0; padding:0; font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.65); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+  .linkbtn:hover{ color:#fff; }
+  .linkbtn:focus-visible{ outline:2px solid #EE8A2E; outline-offset:3px; }
+
+  /* ---------- column graph ---------- */
+  .cg{ position:relative; }
+  .cg-svg{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; }
+  .cg-cols{ position:relative; display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:0 clamp(12px,3.6vw,38px); }
+  .cg-col{ display:flex; flex-direction:column; min-width:0; }
+  .cg-title{ font-family:var(--mono); font-size:8.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:9px; min-height:11px; }
+  .cg-list{ flex:1; display:flex; flex-direction:column; justify-content:space-around; gap:9px; }
+  .cg-node{
+    position:relative; text-align:left; padding:7px 9px 8px; border-radius:5px; cursor:pointer;
+    border:1px solid rgba(255,255,255,0.2); background:#16181D; color:rgba(255,255,255,0.85); font-family:var(--sans);
+    transition:border-color .25s, background .25s, opacity .25s, color .25s;
+  }
+  .cg-node:hover{ border-color:rgba(255,255,255,0.55); }
+  .cg-node:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+  .cg-l{ display:block; font-size:11.5px; font-weight:600; line-height:1.25; }
+  .cg-l b{ font-family:var(--mono); color:#EE8A2E; margin-right:4px; }
+  .cg-node small{ display:block; margin-top:2px; font-size:9.5px; line-height:1.25; color:rgba(255,255,255,0.45); }
+  .cg-b{ position:absolute; top:-7px; right:7px; padding:1px 5px; border-radius:3px; background:#0E1013; border:1px solid rgba(255,255,255,0.3); font-family:var(--mono); font-size:7.5px; font-weight:700; letter-spacing:.8px; color:rgba(255,255,255,0.7); display:none; }
+  .cg-node[data-lvl="2"] .cg-b, .cg-node[data-lvl="3"] .cg-b{ display:block; }
+  .cg-node.vuln{ border-color:#EE8A2E; background:rgba(238,138,46,0.10); color:#fff; }
+  .cg-node.vuln .cg-b{ border-color:#EE8A2E; color:#EE8A2E; }
+  .cg-node.lit{ border-color:#EE8A2E; background:rgba(238,138,46,0.10); color:#fff; }
+  .cg-node.sel{ border-color:#fff; box-shadow:0 0 0 1px #fff; }
+  .cg-node.dim{ opacity:.34; }
+  .cg-edge{ fill:none; stroke:rgba(255,255,255,0.2); stroke-width:1; transition:stroke .3s, opacity .3s; }
+  .cg-edge.lit{ stroke:#EE8A2E; stroke-width:1.8; }
+  .cg-edge.dim{ opacity:.25; }
+  .cg-k-root{ border-color:#fff; background:#1B1E24; }
+  .cg-k-sc{ background:#1B1E24; }
+  .cg-k-act small{ color:#EE8A2E; }
+  .cg-anim .cg-node{ animation:fadeUp .45s ease both; animation-delay:calc(var(--i) * 45ms); }
+  .cg-anim .cg-edge{ stroke-dasharray:1; stroke-dashoffset:1; animation:cgdraw .8s ease .35s forwards; }
+  @media (max-width:640px){
+    .cg-cols{ gap:0 9px; } .cg-node{ padding:6px 6px 7px; } .cg-l{ font-size:10.5px; } .cg-node small{ font-size:8.5px; }
+    .cg-list{ gap:7px; }
+  }
+
+
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  /* globe */
+  .globe-wrap{ position:relative; height:clamp(320px,50vw,430px); border-radius:6px; overflow:hidden; background:#0A0B0D; border:1px solid rgba(255,255,255,0.1); }
+  .globe-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:pan-y; }
+  .globe-wrap.grab canvas{ cursor:grabbing; }
+  .route{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+  .rt{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px 5px 6px; border-radius:20px; border:1px solid rgba(255,255,255,0.22); background:none; color:rgba(255,255,255,0.75); font-family:var(--sans); font-size:11px; font-weight:600; cursor:pointer; transition:all .2s; }
+  .rt i{ font-style:normal; width:17px; height:17px; border-radius:50%; background:rgba(255,255,255,0.14); display:inline-flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9px; font-weight:700; }
+  .rt:hover{ border-color:#fff; color:#fff; }
+  .rt.on{ border-color:#EE8A2E; color:#fff; background:rgba(238,138,46,0.12); }
+  .rt.on i{ background:#EE8A2E; color:#14161A; }
+  .rt-o{ padding-left:10px; border-style:dashed; }
+  .rt:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+  /* force graph */
+  .fg-wrap{ position:relative; height:clamp(340px,56vw,470px); border-radius:6px; overflow:hidden; background:#0A0B0D; border:1px solid rgba(255,255,255,0.1); }
+  .fg-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  .fg-ctl{ position:absolute; right:8px; bottom:8px; display:flex; flex-direction:column; gap:4px; }
+  .fg-ctl button{ width:28px; height:28px; border-radius:4px; border:1px solid rgba(255,255,255,0.25); background:rgba(14,16,19,0.85); color:#fff; font-size:15px; line-height:1; cursor:pointer; }
+  .fg-ctl button:hover{ border-color:#fff; }
+  @media (max-width:640px){ .fg-wrap canvas{ touch-action:pan-y; } }
+
+  /* ---------- 02 world graph controls ---------- */
+  .seq{ display:flex; align-items:center; gap:14px; margin-top:12px; }
+  .seq-dots{ display:flex; gap:6px; }
+  .sdotb{ width:22px; height:6px; padding:0; border-radius:3px; border:0; background:rgba(255,255,255,0.2); cursor:pointer; transition:background .25s; }
+  .sdotb.on{ background:#EE8A2E; }
+  .sdotb:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+
+  /* ---------- 03 merge strip ---------- */
+  .merge{ display:flex; align-items:center; flex-wrap:wrap; gap:8px 10px; margin-bottom:14px; }
+  .merge .mg{ font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; padding:5px 9px; border-radius:4px; border:1px solid rgba(255,255,255,0.28); color:rgba(255,255,255,0.85); opacity:0; transform:translateY(6px); transition:all .5s ease; }
+  .merge .mg.hot{ border-color:#EE8A2E; color:#EE8A2E; background:rgba(238,138,46,0.1); }
+  .merge i{ font-style:normal; color:rgba(255,255,255,0.45); font-family:var(--mono); opacity:0; transition:opacity .5s; }
+  .merge.go .mg, .merge.go i{ opacity:1; transform:none; }
+  .merge.go > :nth-child(2), .merge.go > :nth-child(2){ transition-delay:.2s; }
+  .merge.go > :nth-child(3){ transition-delay:.4s; } .merge.go > :nth-child(4){ transition-delay:.6s; } .merge.go > :nth-child(5){ transition-delay:.8s; } .merge.go > :nth-child(6){ transition-delay:1s; } .merge.go > :nth-child(7){ transition-delay:1.2s; }
+  .cg-k-sign small{ color:rgba(255,255,255,0.5); }
+
+  /* ---------- 04 signal routing ---------- */
+  .flow4{ position:relative; display:grid; grid-template-columns:minmax(0,1.15fr) 78px minmax(0,1fr); gap:0 clamp(10px,3vw,30px); align-items:stretch; }
+  #f4-svg{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; }
+  .f-col{ position:relative; display:flex; flex-direction:column; gap:8px; min-width:0; }
+  .src{ text-align:left; padding:8px 10px 9px; border-radius:5px; border:1px solid rgba(255,255,255,0.2); background:#16181D; color:rgba(255,255,255,0.85); cursor:pointer; font-family:var(--sans); transition:all .25s; }
+  .src:hover{ border-color:rgba(255,255,255,0.55); }
+  .src:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+  .src.on{ border-color:#EE8A2E; background:rgba(238,138,46,0.10); color:#fff; }
+  .src span{ display:block; font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.9px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:3px; }
+  .src.on span{ color:#EE8A2E; }
+  .src b{ display:block; font-size:11.5px; font-weight:600; line-height:1.3; }
+  .f-core{ justify-content:center; align-items:center; }
+  .core{ width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; border:1.5px solid #fff; background:#14161A; font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; line-height:1.3; position:relative; }
+  .core::after{ content:""; position:absolute; inset:-8px; border-radius:50%; border:1px dashed rgba(255,255,255,0.3); animation:spin 14s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .core.pulse{ border-color:#EE8A2E; box-shadow:0 0 0 0 rgba(238,138,46,.55); animation:corepulse .7s ease-out; }
+  @keyframes corepulse{ to{ box-shadow:0 0 0 22px rgba(238,138,46,0); } }
+  .silo{ flex:1 0 auto; border:1px solid rgba(255,255,255,0.22); border-radius:6px; padding:9px 10px; background:#14161A; transition:all .3s; display:flex; flex-direction:column; min-height:92px; }
+  .silo-h{ display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:6px; font-size:11.5px; font-weight:700; }
+  .silo-h small{ display:block; font-family:var(--mono); font-size:8px; font-weight:600; letter-spacing:.8px; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+  .silo-n{ font-family:var(--mono); font-size:15px; font-weight:700; color:#EE8A2E; }
+  .silo-q{ display:flex; flex-direction:column; gap:4px; }
+  .silo-i{ font-size:10.5px; line-height:1.3; color:rgba(255,255,255,0.8); padding-left:8px; border-left:2px solid #EE8A2E; animation:fadeUp .4s ease both; }
+  .silo-lock{ margin-top:auto; padding-top:6px; font-family:var(--mono); font-size:8px; font-weight:600; letter-spacing:.8px; text-transform:uppercase; color:rgba(255,255,255,0.4); }
+  .silo.hit{ border-color:#EE8A2E; box-shadow:0 0 0 3px rgba(238,138,46,0.18); }
+  .silo.skip{ opacity:.55; }
+  @media (max-width:640px){
+    .flow4{ grid-template-columns:minmax(0,1.1fr) 50px minmax(0,1fr); gap:0 8px; }
+    .core{ width:46px; height:46px; font-size:6.5px; } .core::after{ inset:-5px; }
+    .src b{ font-size:10.5px; } .silo-i{ font-size:9.5px; }
+  }
+
+  /* ---------- 05 Bayesian graph ---------- */
+  .bay{ position:relative; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:0 clamp(18px,5vw,56px); align-items:stretch; }
+  #bay-svg{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; }
+  .bay-col{ display:flex; flex-direction:column; justify-content:center; gap:8px; min-width:0; position:relative; padding-top:22px; }
+  .bay-col .cg-title{ position:absolute; top:0; left:0; }
+  .bsig{
+    display:grid; grid-template-columns:20px minmax(0,1fr); gap:9px; align-items:center; width:100%; text-align:left;
+    padding:8px 10px; border-radius:5px; cursor:pointer; color:#fff; font-family:var(--sans);
+    background:#16181D; border:1px solid rgba(255,255,255,0.18); transition:border-color .2s, background .2s;
+  }
+  .bsig:hover{ border-color:rgba(255,255,255,0.45); }
+  .bsig:focus-visible{ outline:2px solid #EE8A2E; outline-offset:2px; }
+  .bsig-k{ width:19px; height:19px; border-radius:3px; border:1px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9.5px; font-weight:700; color:rgba(255,255,255,0.7); }
+  .bsig-t{ font-size:11.5px; font-weight:600; line-height:1.3; }
+  .bsig-t small{ display:block; font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:2px; }
+  .bsig.on{ border-color:#EE8A2E; background:rgba(238,138,46,0.10); }
+  .bsig.on .bsig-k{ background:#EE8A2E; border-color:#EE8A2E; color:#14161A; }
+  .bsig.on small{ color:#EE8A2E; }
+  .bsig.eases.on{ border-color:#fff; background:rgba(255,255,255,0.08); }
+  .bsig.eases.on .bsig-k{ background:#fff; border-color:#fff; }
+  .bsig.eases.on small{ color:#fff; }
+  .bsc{ display:flex; flex-direction:column; align-items:center; text-align:center; padding:2px 0; }
+  .bsc-w{ position:relative; width:130px; height:130px; display:flex; align-items:center; justify-content:center; }
+  .bsc-p{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px dashed rgba(255,255,255,0.45); transition:width .35s ease, height .35s ease; }
+  .bsc-c{ position:relative; z-index:1; border-radius:50%; background:rgba(255,255,255,0.88); color:#14161A; display:flex; align-items:center; justify-content:center; transition:width .35s ease, height .35s ease; }
+  .bsc-c b{ font-family:var(--mono); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .bsc.tail .bsc-c{ background:#EE8A2E; }
+  .bsc-n{ font-size:11.5px; font-weight:700; line-height:1.25; margin-top:-2px; }
+  .bsc-n small{ display:block; font-size:10px; font-weight:400; color:rgba(255,255,255,0.5); }
+  .bay .cg-edge{ stroke:rgba(255,255,255,0.12); }
+  .bay .cg-edge.lit{ stroke:#EE8A2E; stroke-opacity:.85; }
+  .bay .cg-edge.lit.eases{ stroke:#fff; }
+  .bay-metrics{ display:grid; grid-template-columns:1fr 1fr; gap:1px; margin:16px 0 12px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.14); border-radius:6px; overflow:hidden; }
+  .bm{ background:#16181D; padding:10px 12px 11px; }
+  .bm b{ display:block; margin-top:4px; font-family:var(--mono); font-size:21px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .bm.tail b{ color:#EE8A2E; }
+  .eng-conf{ display:flex; align-items:center; gap:12px; margin:4px 0 4px; flex-wrap:wrap; }
+  .eng-conf label{ font-size:12px; font-weight:600; white-space:nowrap; }
+  .eng-conf label b{ font-family:var(--mono); color:#EE8A2E; margin-left:4px; }
+  .eng-conf input{ flex:1; min-width:110px; accent-color:#EE8A2E; }
+  .eng-cap{ font-size:11px; color:rgba(255,255,255,0.5); margin:6px 0; }
+  .eng-work-row{ margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.14); }
+  .eng-work{ margin-top:10px; }
+  .w-formula{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.8); margin-bottom:10px; line-height:1.6; }
+  .w-scroll{ overflow-x:auto; }
+  .w-table{ width:100%; border-collapse:collapse; font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; }
+  .w-table th{ text-align:right; font-weight:600; font-size:9px; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); padding:5px 8px; border-bottom:1px solid rgba(255,255,255,0.2); }
+  .w-table td{ text-align:right; padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); }
+  .w-table th:first-child, .w-table td:first-child{ text-align:left; }
+  .w-table .w-em{ color:#fff; font-weight:700; }
+  .w-table tfoot td{ border-bottom:0; border-top:1px solid rgba(255,255,255,0.3); color:#fff; font-weight:700; }
+  .w-trace{ margin-top:12px; }
+  .w-trace-h{ font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:6px; }
+  .w-line{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.8); padding:3px 0; }
+  .w-line b{ color:#EE8A2E; margin-right:6px; }
+  .w-empty{ font-size:12px; color:rgba(255,255,255,0.55); margin-top:10px; }
+  @media (max-width:640px){
+    .bay{ grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:0 12px; }
+    .bsc-w{ width:104px; height:104px; } .bsc-c b{ font-size:12.5px; } .bsig-t{ font-size:10.5px; }
+  }
+
+  /* ---------- 06 alerts ---------- */
+  .rk-row{ padding:10px 0 12px; border-top:1px solid rgba(255,255,255,0.12); }
+  .rk-row:first-child{ border-top:0; padding-top:0; }
+  .rk-h{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:6px; }
+  .rk-h b{ font-size:13.5px; }
+  .rk-h .rk-p{ font-family:var(--mono); font-size:13px; font-weight:700; margin-left:auto; }
+  .rk-st{ font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:.9px; padding:3px 8px; border-radius:20px; border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); white-space:nowrap; }
+  .rk-st.hedge{ border-color:#fff; color:#fff; }
+  .rk-st.act{ border-color:#EE8A2E; background:#EE8A2E; color:#14161A; }
+  .rk-track{ position:relative; padding:0 0 18px; }
+  .rk-track input{ width:100%; margin:0; accent-color:#EE8A2E; display:block; }
+  .rk-tick{ position:absolute; top:-2px; bottom:14px; width:1px; background:rgba(255,255,255,0.45); pointer-events:none; }
+  .rk-tick em{ position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:3px; font-family:var(--mono); font-style:normal; font-size:8px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap; }
+  .rk-tick.act{ background:#EE8A2E; } .rk-tick.act em{ color:#EE8A2E; }
+  .rk-live{ font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#EE8A2E; }
+  .alerts{ margin-top:6px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.14); display:flex; flex-direction:column; gap:8px; min-height:150px; }
+  .al{ padding:10px 12px; border-radius:5px; background:#14161A; border:1px solid rgba(255,255,255,0.3); border-left:4px solid #fff; font-size:12px; line-height:1.45; color:rgba(255,255,255,0.8); }
+  .al.act{ border-color:#EE8A2E; border-left-color:#EE8A2E; background:rgba(238,138,46,0.10); color:#fff; }
+  .al.fresh{ animation:fadeUp .45s ease both; }
+  .al b{ display:block; color:#fff; font-size:12.5px; margin:2px 0 3px; }
+  .al-t{ font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:1px; color:#fff; }
+  .al.act .al-t{ color:#EE8A2E; }
+  .al0{ font-size:12px; color:rgba(255,255,255,0.5); padding:6px 0; }
+
+  /* ---------- getting started ---------- */
+  #cta{ padding-top:88px; }
+  .tl{ position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; padding-top:34px; margin-bottom:56px; }
+  .tl::before{ content:""; position:absolute; left:6px; right:0; top:6px; height:1px; background:var(--border-strong); transform-origin:left; transform:scaleX(0); transition:transform 1.4s cubic-bezier(.4,0,.2,1); }
+  .tl.go::before{ transform:scaleX(1); }
+  .tl-s{ position:relative; opacity:.3; transition:opacity .6s ease; }
+  .tl.go .tl-s{ opacity:1; }
+  .tl.go .tl-s:nth-child(1){ transition-delay:.2s; } .tl.go .tl-s:nth-child(2){ transition-delay:.7s; } .tl.go .tl-s:nth-child(3){ transition-delay:1.2s; }
+  .tl-s::before{ content:""; position:absolute; left:0; top:-34px; width:13px; height:13px; border-radius:50%; background:var(--bg); border:2px solid var(--ink); }
+  .tl-s:last-child::before{ background:#EE8A2E; border-color:#EE8A2E; }
+  .tl-w{ font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-3); }
+  .tl-s h3{ font-size:21px; font-weight:800; letter-spacing:-0.2px; margin:6px 0 8px; }
+  .tl-s p{ font-size:14.5px; color:var(--ink-2); line-height:1.6; max-width:34ch; }
+  @media (max-width:760px){
+    .tl{ grid-template-columns:1fr; gap:26px; padding-top:0; padding-left:30px; }
+    .tl::before{ left:6px; right:auto; top:6px; bottom:6px; width:1px; height:auto; transform:scaleY(0); transform-origin:top; }
+    .tl.go::before{ transform:scaleY(1); }
+    .tl-s::before{ left:-30px; top:4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ov-live i, .core::after{ animation:none; }
+    .cg-anim .cg-node, .cg-anim .cg-edge{ animation:none; stroke-dasharray:none; }
+    .merge .mg, .merge i{ opacity:1; transform:none; }
+    .tl::before, .tl-s{ transition:none; }
+  }
+  /* ---------- phone readability + tap targets ---------- */
+  @media (max-width:640px){
+    .mono-lbl{ font-size:10px; }
+    .cg-title{ font-size:9.5px; }
+    .cg-l{ font-size:11.5px; } .cg-node small{ font-size:10px; } .cg-b{ font-size:8.5px; }
+    .chip{ font-size:10.5px; min-height:38px; padding:8px 12px; }
+    .rt{ min-height:40px; font-size:12px; }
+    .linkbtn{ font-size:11px; padding:12px 0; display:inline-block; }
+    .sdotb{ width:30px; height:22px; background:none !important; position:relative; }
+    .sdotb::before{ content:""; position:absolute; left:0; right:0; top:8px; height:6px; border-radius:3px; background:rgba(255,255,255,0.2); }
+    .sdotb.on::before{ background:#EE8A2E; }
+    .tagx{ font-size:10px; }
+    .detail{ font-size:13px; }
+    .src span, .silo-h small, .silo-lock, .bsig-t small, .rk-st, .rk-live, .rk-tick em, .al-t, .eng-cap{ font-size:9.5px; }
+    .eng-cap{ font-size:11px; }
+    .bsc-n small{ font-size:10.5px; }
+    .bsig-k{ width:22px; height:22px; font-size:10.5px; }
+    .rk-track input, .eng-conf input{ height:30px; }
+    .core{ width:62px; height:62px; font-size:8.5px; }
+    .flow4{ grid-template-columns:minmax(0,1.1fr) 64px minmax(0,1fr); }
+    .merge .mg{ font-size:10.5px; }
+    .stage-hint, .stage-feeds{ font-size:11px; }
+    .w-table{ font-size:11.5px; } .w-table th{ font-size:10px; }
+    .tl-w{ font-size:11px; }
+    .fg-ctl button{ width:36px; height:36px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html#hero" class="brand">
+    <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+      <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+    </svg>
+    <span class="brand-name">VORSIGHT</span>
+  </a>
+  <nav class="site-nav">
+    <a href="index.html#problem">Problem</a>
+    <a href="index.html#solution">Solution</a>
+    <a href="technology.html" class="active">Technology</a>
+    <a href="about.html">About us</a>
+  </nav>
+  <div class="header-right">
+    <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+    <a class="btn btn-primary" href="signup.html">Get started</a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 4.5H14M2 8H14M2 11.5H14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav-panel" id="mobile-nav-panel">
+    <a href="index.html#problem">Problem</a>
+    <a href="index.html#solution">Solution</a>
+    <a href="technology.html" class="active">Technology</a>
+    <a href="about.html">About us</a>
+    <a href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+  </div>
+</header>
+
+<nav class="rail" id="rail" aria-label="Flow steps">
+  <a href="#s1"><span>01 Company graph</span><i></i></a>
+  <a href="#s2"><span>02 World graph</span><i></i></a>
+  <a href="#s3"><span>03 Scenario trees</span><i></i></a>
+  <a href="#s4"><span>04 Signals</span><i></i></a>
+  <a href="#s5"><span>05 Bayesian update</span><i></i></a>
+  <a href="#s6"><span>06 Alerts</span><i></i></a>
+</nav>
+
+<h1 class="sr-only">Vorsight technology: how a signal becomes a decision</h1>
+
+<!-- ============ 01 COMPANY GRAPH ============ -->
+<section class="stage theme-light" id="s1" data-stage="1">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>01</b>/ 06</div>
+        <div class="eyebrow">COMPANY GRAPH</div>
+        <h2>Your supply chain, mapped on the globe.</h2>
+        <p class="body">After onboarding, we turn your suppliers, materials, sites and markets into a company graph. Follow one chain: rare earths mined in China, made into magnets, shipped to Germany, built into cars, sold in America. Every stop carries the statecraft tool that could hit it.</p>
+        <p class="stage-hint">Drag the globe. Pick a stop. Filter by tool.</p>
+        <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>Rheinwerk Automotive AG · fictional German car maker</span><span id="g1-count">—</span></div>
+        <div class="chips" id="g1-chips" role="group" aria-label="Filter by statecraft tool">
+          <button type="button" class="chip on" data-tool="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-tool="export" aria-pressed="false">Export controls</button>
+          <button type="button" class="chip" data-tool="shipping" aria-pressed="false">Shipping chokepoints</button>
+          <button type="button" class="chip" data-tool="tariffs" aria-pressed="false">Tariffs</button>
+          <button type="button" class="chip" data-tool="finance" aria-pressed="false">Sanctions &amp; finance</button>
+        </div>
+        <div class="globe-wrap"><canvas id="globe-cv" role="img" aria-label="Rotating globe showing a supply chain from a rare earth mine in China through magnet makers, the Suez Canal and a supplier in Germany to a car plant and customers in the United States."></canvas></div>
+        <div class="route" id="g1-route" role="group" aria-label="Stops on the supply chain"></div>
+        <div class="detail" id="g1-detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 WORLD GRAPH ============ -->
+<section class="stage dark-sec theme-dark" id="s2" data-stage="2">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>02</b>/ 06</div>
+        <div class="eyebrow">WORLD GRAPH</div>
+        <h2>Our think tank maps the world.</h2>
+        <p class="body">Our think tank maintains a graph of who uses which statecraft tool, against which chokepoint, hitting which industry. It also encodes how geopolitics behaves: who retaliates, with what, and how fast.</p>
+        <p class="stage-hint">Hover, drag, click a hub, or play an escalation.</p>
+        <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>World graph · maintained by the think tank</span><span>Illustrative</span></div>
+        <div class="chips" id="g2-chips" role="group" aria-label="Highlight a node type">
+          <button type="button" class="chip" data-type="actor" aria-pressed="false">■ Actors</button>
+          <button type="button" class="chip" data-type="tool" aria-pressed="false">◆ Tools</button>
+          <button type="button" class="chip" data-type="choke" aria-pressed="false">○ Chokepoints</button>
+          <button type="button" class="chip" data-type="industry" aria-pressed="false">● Industries</button>
+          <button type="button" class="chip" data-type="co" aria-pressed="false">· Companies</button>
+        </div>
+        <div class="fg-wrap">
+          <canvas id="fg-cv" role="img" aria-label="Interactive network of countries, statecraft tools, chokepoints, industries and companies."></canvas>
+          <div class="fg-ctl"><button type="button" id="fg-in" aria-label="Zoom in">+</button><button type="button" id="fg-out" aria-label="Zoom out">−</button><button type="button" id="fg-fit" aria-label="Fit to view">⟲</button></div>
+        </div>
+        <div class="seq"><button type="button" class="linkbtn" id="g2-play">▶ Play escalation</button><div class="seq-dots" id="g2-dots"></div></div>
+        <div class="detail" id="g2-detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 SCENARIO TREES ============ -->
+<section class="stage theme-light" id="s3" data-stage="3">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>03</b>/ 06</div>
+        <div class="eyebrow">SCENARIO TREES</div>
+        <h2>Analysts and agents build the trees.</h2>
+        <p class="body">Our analysts and AI agents combine the world graph with your company graph. For every risk they build a scenario tree: starting probabilities, warning signs and a response to prepare.</p>
+        <p class="stage-hint">Switch risk. Hover a scenario.</p>
+        <p class="stage-feeds">Feeds into <a href="#s5">05 Bayesian update</a></p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>Scenario analysis trees</span><span>Illustrative</span></div>
+        <div class="merge" id="merge"><span class="mg">World graph</span><i>+</i><span class="mg">Company graph</span><i>→</i><span class="mg hot">Analysts + AI agents</span><i>→</i><span class="mg">Scenario tree per risk</span></div>
+        <div class="chips" id="g3-chips" role="group" aria-label="Choose a risk">
+          <button type="button" class="chip on" data-risk="mag" aria-pressed="true">Rare earth magnets</button>
+          <button type="button" class="chip" data-risk="bat" aria-pressed="false">Battery cells</button>
+          <button type="button" class="chip" data-risk="tar" aria-pressed="false">US tariffs</button>
+        </div>
+        <div id="g3" role="group" aria-label="Scenario tree"></div>
+        <div class="detail" id="g3-detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 SIGNALS ============ -->
+<section class="stage dark-sec theme-dark" id="s4" data-stage="4">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>04</b>/ 06</div>
+        <div class="eyebrow">SIGNALS</div>
+        <h2>The world model never sleeps.</h2>
+        <p class="body">Agents and analysts feed signals from many sources into the world model. Each signal then flows only to the clients whose company graph it touches. Every client sits in a private silo.</p>
+        <p class="stage-hint">Click a signal and follow it.</p>
+        <p class="stage-feeds">Feeds into <a href="#s5">05 Bayesian update</a></p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>Signal routing</span><span>Illustrative</span></div>
+        <div class="flow4" id="flow4">
+          <svg id="f4-svg" aria-hidden="true"></svg>
+          <div class="f-col">
+            <div class="cg-title">Sources → signals</div>
+            <button type="button" class="src"><span>Official journals</span><b>China adds export licensing for magnet technology</b></button>
+            <button type="button" class="src"><span>Customs &amp; trade data</span><b>EU imports of battery cells fall month on month</b></button>
+            <button type="button" class="src"><span>News in many languages</span><b>US announces new chip tool restrictions</b></button>
+            <button type="button" class="src"><span>Think tank analysts</span><b>Analyst note: gas supply rules tighten</b></button>
+            <button type="button" class="src"><span>Market data</span><b>Freight rates spike on the Asia–Europe lane</b></button>
+          </div>
+          <div class="f-col f-core"><div class="core" id="core">World<br>model</div></div>
+          <div class="f-col">
+            <div class="cg-title">Client silos</div>
+            <div class="silo" data-name="Car maker"><div class="silo-h"><span>Company 1<small>Car maker</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
+            <div class="silo" data-name="Machinery"><div class="silo-h"><span>Company 2<small>Machinery</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
+            <div class="silo" data-name="Chemicals"><div class="silo-h"><span>Company 3<small>Chemicals</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
+          </div>
+        </div>
+        <div class="detail" id="g4-detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 BAYESIAN UPDATE ============ -->
+<section class="stage theme-light" id="s5" data-stage="5">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>05</b>/ 06</div>
+        <div class="eyebrow">BAYESIAN UPDATE</div>
+        <h2>Probabilities move with every signal.</h2>
+        <p class="body">Each signal shifts the scenario probabilities by how strongly it points to each future. Our experts set the starting estimate; Bayesian updating does the rest. Every change can be traced.</p>
+        <p class="stage-hint">Select signals. Press 1–4. Show the working.</p>
+        <p class="stage-feeds">Feeds into <a href="#s6">06 Alerts</a></p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>Rare earth magnet risk · Rheinwerk Automotive</span><span>Illustrative</span></div>
+        <div class="bay" id="bay">
+          <svg id="bay-svg" aria-hidden="true"></svg>
+          <div class="bay-col" role="group" aria-label="Signals">
+            <div class="cg-title">Signals</div>
+            <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">1</span><span class="bsig-t">China adds magnet tech to export licensing<small>Escalates</small></span></button>
+            <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">2</span><span class="bsig-t">Officials threaten countermeasures over EU tariffs<small>Escalates</small></span></button>
+            <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">3</span><span class="bsig-t">Tier 2 supplier reports licence delays<small>Escalates</small></span></button>
+            <button type="button" class="bsig eases" role="checkbox" aria-checked="false"><span class="bsig-k">4</span><span class="bsig-t">EU and China agree general licences<small>Eases</small></span></button>
+          </div>
+          <div class="bay-col">
+            <div class="cg-title">Scenarios</div>
+            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:82px;height:82px"></span><span class="bsc-c" style="width:82px;height:82px"><b>55%</b></span></div><div class="bsc-n">Managed friction<small>Impact €20m</small></div></div>
+            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:65px;height:65px"></span><span class="bsc-c" style="width:65px;height:65px"><b>35%</b></span></div><div class="bsc-n">Targeted escalation<small>Impact €120m</small></div></div>
+            <div class="bsc tail"><div class="bsc-w"><span class="bsc-p" style="width:43px;height:43px"></span><span class="bsc-c" style="width:43px;height:43px"><b>10%</b></span></div><div class="bsc-n">Broad embargo<small>Impact €600m</small></div></div>
+          </div>
+        </div>
+        <p class="eng-cap">Circle = current probability. Dashed ring = expert starting estimate. Line thickness = how strongly a signal points to a scenario.</p>
+        <div class="bay-metrics">
+          <div class="bm"><span class="mono-lbl">Expected loss</span><b id="bay-el">€113m</b></div>
+          <div class="bm tail"><span class="mono-lbl">Escalation or worse</span><b id="bay-pb">45%</b></div>
+        </div>
+        <div class="eng-conf">
+          <label for="bay-conf">AI confidence <b id="bay-conf-v">100%</b></label>
+          <input type="range" id="bay-conf" min="0" max="100" step="5" value="100">
+          <button type="button" class="linkbtn" id="bay-reset">Reset</button>
+        </div>
+        <div class="eng-work-row"><button type="button" class="linkbtn" id="bay-work-toggle" aria-expanded="false" aria-controls="bay-work">Show the working</button></div>
+        <div class="eng-work" id="bay-work" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 ALERTS ============ -->
+<section class="stage dark-sec theme-dark" id="s6" data-stage="6">
+  <div class="wrap">
+    <div class="stage-grid">
+      <div class="stage-copy reveal">
+        <div class="stage-n"><b>06</b>/ 06</div>
+        <div class="eyebrow">ALERTS</div>
+        <h2>You act where it counts.</h2>
+        <p class="body">When a probability crosses a threshold, you are alerted: consider a hedge first, trigger the playbook when it gets closer. The first risk below is live from step 05.</p>
+        <p class="stage-hint">Drag a probability past a threshold.</p>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-top mono-lbl"><span>Thresholds &amp; alerts · escalation or worse</span><span>Illustrative</span></div>
+        <div id="rk">
+          <div class="rk-row"><div class="rk-h"><b>Rare earth magnets</b><span class="rk-live">live from 05</span><span class="rk-st monitor">MONITOR</span><span class="rk-p">45%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="45" aria-label="Rare earth magnets: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+          <div class="rk-row"><div class="rk-h"><b>Battery cells</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">50%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="50" aria-label="Battery cells: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+          <div class="rk-row"><div class="rk-h"><b>US tariffs</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">55%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="55" aria-label="US tariffs: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+        </div>
+        <div class="alerts" id="alerts" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GETTING STARTED ============ -->
+<section id="cta">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">GETTING STARTED</div>
+      <h2>Easier than it sounds.</h2>
+      <p>Building a map of your company can sound like a six-month project. It isn't.</p>
+    </div>
+
+    <div class="tl" id="start-line">
+      <div class="tl-s"><span class="tl-w">Day one</span><h3>Conversation</h3><p>A 45-minute call to understand your business and concerns.</p></div>
+      <div class="tl-s"><span class="tl-w">A few weeks</span><h3>Exposure map</h3><p>Your first map of geopolitical exposure and key scenarios.</p></div>
+      <div class="tl-s"><span class="tl-w">Ongoing</span><h3>Live platform</h3><p>Continuous monitoring, updated scenarios and playbooks.</p></div>
+    </div>
+
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="signup.html">Get started</a>
+      <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand">
+      <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
+        <circle cx="2" cy="8" r="1.5" fill="currentColor"/>
+        <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
+        <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
+      </svg>
+      <span class="brand-name">VORSIGHT</span>
+    </div>
+    <span class="foot-note">Geopolitical foresight for European companies</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('nav-toggle');
+    var panel = document.getElementById('mobile-nav-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function(){
+      var isOpen = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        panel.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in-view'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+<script src="assets/geo-data.js?v=2"></script>
+<script src="assets/technology.js?v=2"></script>
+</body>
+</html>
