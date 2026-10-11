@@ -54,7 +54,7 @@
 
     cfg.cols.forEach(function (c, ci) {
       var col = el('div', 'cg-col'), ttl = el('div', 'cg-title', c.title || ''); col.appendChild(ttl);
-      if (cfg.rows) ttl.style.gridColumn = ci + 1;
+      if (cfg.rows) { ttl.style.gridColumn = ci + 1; if (ci === 0) ttl.classList.add('cg-t0'); }
       var list = el('div', 'cg-list');
       c.nodes.forEach(function (n) {
         var b = el('button', 'cg-node' + (n.kind ? ' cg-k-' + n.kind : ''));
@@ -66,7 +66,7 @@
       col.appendChild(list); cols.appendChild(col);
     });
     cfg.edges.forEach(function (e) {
-      var p = svgEl('path', { 'class': 'cg-edge', pathLength: 1 }, svg);
+      var p = svgEl('path', { 'class': 'cg-edge' + (cfg.rows && api.nodes[e[0]].col === 0 ? ' cg-e0' : ''), pathLength: 1 }, svg);
       api.edges.push({ a: e[0], b: e[1], el: p });
     });
 
@@ -590,7 +590,7 @@
         { n: 'Targeted tariff rise', p: 40, imp: '€90m', leaves: [['sign', 'Tariff list names car parts'], ['act', 'Shift allocation to US plant']] },
         { n: 'Broad escalation', p: 15, imp: '€400m', leaves: [['sign', 'EU retaliation announced'], ['act', 'Local-for-local production']] }] }
     };
-    var keys = ['mag', 'bat', 'tar'], cur = 'mag', touched = false, g, detail = $('#g3-detail'), tabs = $$('#g3-chips .chip'), merge = $('#merge');
+    var keys = ['mag', 'bat', 'tar'], cur = 'mag', touched = false, g, detail = $('#g3-detail'), tabs = $$('#g3-chips .chip'), merge = $('#merge'), rootEl = $('#g3-root');
 
     function build(key) {
       var t = TREES[key], edges = [], scNodes = [], leafNodes = [], row = 0;
@@ -604,6 +604,7 @@
         });
         row += s.leaves.length;
       });
+      if (rootEl) rootEl.textContent = t.root;
       g = colGraph(root, { rows: row, cols: [{ title: 'Risk', nodes: [{ id: 'r', label: t.root, kind: 'root', span: [0, row] }] }, { title: 'Scenarios', nodes: scNodes }, { title: 'Warning signs & responses', nodes: leafNodes }], edges: edges });
       root.classList.remove('cg-anim'); void root.offsetWidth; if (!reduce) root.classList.add('cg-anim');
       t.sc.forEach(function (s, i) {
@@ -648,11 +649,20 @@
     ];
     var counts = [0, 0, 0], touched = false, tokens = [], running = false, edgeEls = [];
 
+    var vert = false, mq = window.matchMedia ? matchMedia('(max-width:640px)') : null;
     function pt(node, side) {
       var r = box.getBoundingClientRect(), b = node.getBoundingClientRect();
+      if (vert) {      /* phones: sources on top, model in the middle, silos below; lines run down the left edge */
+        if (node === core) return { x: b.left + b.width / 2 - r.left, y: (side === 'r' ? b.bottom : b.top) - r.top };
+        if (node.classList.contains('silo')) return { x: 5, y: b.top - r.top + 16 };
+        return { x: 5, y: b.top + 14 + 6 - r.top + 11 };
+      }
       return { x: (side === 'r' ? b.right : b.left) - r.left, y: b.top + b.height / 2 - r.top };
     }
-    function curve(a, b) { var dx = Math.abs(b.x - a.x) * 0.5; return { a: a, c1: { x: a.x + dx, y: a.y }, c2: { x: b.x - dx, y: b.y }, b: b }; }
+    function curve(a, b) {
+      if (vert) { var dy = Math.abs(b.y - a.y) * 0.5; return { a: a, c1: { x: a.x, y: a.y + dy }, c2: { x: b.x, y: b.y - dy }, b: b }; }
+      var dx = Math.abs(b.x - a.x) * 0.5; return { a: a, c1: { x: a.x + dx, y: a.y }, c2: { x: b.x - dx, y: b.y }, b: b };
+    }
     function bez(c, t) {
       var u = 1 - t;
       return { x: u * u * u * c.a.x + 3 * u * u * t * c.c1.x + 3 * u * t * t * c.c2.x + t * t * t * c.b.x, y: u * u * u * c.a.y + 3 * u * u * t * c.c1.y + 3 * u * t * t * c.c2.y + t * t * t * c.b.y };
@@ -660,6 +670,7 @@
     function dstr(c) { return 'M' + c.a.x + ' ' + c.a.y + ' C' + c.c1.x + ' ' + c.c1.y + ',' + c.c2.x + ' ' + c.c2.y + ',' + c.b.x + ' ' + c.b.y; }
     function layout() {
       var r = box.getBoundingClientRect(); if (!r.width) return;
+      vert = !!(mq && mq.matches);
       svg.setAttribute('width', r.width); svg.setAttribute('height', r.height);
       svg.innerHTML = ''; edgeEls = [];
       src.forEach(function (s, i) { var p = svgEl('path', { 'class': 'cg-edge', d: dstr(curve(pt(s, 'r'), pt(core, 'l'))) }, svg); edgeEls.push({ k: 's' + i, el: p }); });
