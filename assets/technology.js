@@ -305,7 +305,7 @@
       });
 
       /* pins + labels */
-      pinPos = {}; ctx.font = '600 10.5px Inter,sans-serif';
+      pinPos = {}; ctx.font = '600 10.5px "Hanken Grotesk",Inter,sans-serif';
       N.forEach(function (n) {
         var la = n.lat * rad, lo = n.lon * rad, p = project({ cl: Math.cos(la), sl: Math.sin(la), cL: Math.cos(lo), sL: Math.sin(lo) }, 1, c0, s0, cp0, sp0, R);
         if (p.z < 0.06 || p.x < -10 || p.x > W + 10 || p.y < -10 || p.y > H + 10) return;
@@ -547,7 +547,7 @@
         ctx.globalAlpha = 1;
       });
       /* labels */
-      ctx.font = '600 10.5px Inter,sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.font = '600 10.5px "Hanken Grotesk",Inter,sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
       nodes.forEach(function (n, i) {
         var on = !any || set[n.id]; if (!n.hub && i !== hover && n.id !== selId) return; if (!on && i !== hover) return;
         var x = sx(n), y = sy(n), r = n.r * Math.max(0.7, Math.min(1.5, sc * 0.9));

@@ -7,7 +7,7 @@
 <meta name="description" content="Vorsight helps risk teams at small and mid-sized European manufacturers see supply chain disruption early, then diversify and hedge before it hits delivery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FFFFFF; --bg-subtle:#F5F6F8; --surface:#FFFFFF;
@@ -15,7 +15,7 @@
     --ink:#14161A; --ink-2:#4B4F57; --ink-3:#8A8F98;
     --green:#1F8A55;
     --orange:#C2660A; --orange-soft:#FCEEE0; --orange-ink:#7C3E05;
-    --sans:"Inter",-apple-system,"Segoe UI",Calibri,Arial,sans-serif;
+    --sans:"Hanken Grotesk",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --grid-dot: rgba(20,22,26,0.09);
   }
@@ -115,87 +115,64 @@
   .reveal.in-view{ opacity:1; transform:translateY(0); }
   @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
 
-  /* ---------- banner ---------- */
-  #hero{
-    padding:0; border-bottom:1px solid var(--border);
-    background:var(--bg);
-    background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
-    background-size:22px 22px;
-  }
-  .hero-inner{
-    max-width:1120px; margin:0 auto; padding:104px 32px 88px;
-    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:48px; align-items:center;
-  }
-  @media (max-width:900px){ .hero-inner{ grid-template-columns:1fr; padding-top:64px; } }
-  @media (max-width:640px){ .hero-inner{ padding-left:20px; padding-right:20px; } }
+  /* ---------- banner: the globe is a darkened background ---------- */
+  header{ position:fixed; left:0; right:0; top:0; transition:background .3s ease, border-color .3s ease; }
+  header.over{ background:transparent; backdrop-filter:none; border-bottom-color:transparent; }
+  header.over .brand-mark, header.over .brand-name{ color:#fff; }
+  header.over .site-nav a{ color:rgba(255,255,255,0.82); }
+  header.over .site-nav a:hover{ color:#fff; }
+  header.over .btn-ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,0.45); }
+  header.over .btn-ghost:hover{ border-color:#fff; }
+  header.over .btn-primary{ background:#fff; color:var(--ink); border-color:#fff; }
+  header.over .nav-toggle{ background:transparent; color:#fff; border-color:rgba(255,255,255,0.4); }
+  header.over.menu-open{ background:rgba(11,12,14,0.96); }
+  header.over .mobile-nav-panel a{ color:rgba(255,255,255,0.85); border-top-color:rgba(255,255,255,0.14); }
+  section{ scroll-margin-top:56px; }
 
-  .hero-copy h1{
-    font-size:40px; font-weight:800; letter-spacing:-0.8px; line-height:1.1;
-    margin:16px 0 22px; color:var(--ink);
+  #hero{
+    position:relative; display:flex; align-items:flex-end; overflow:hidden; padding:0; border-bottom:0;
+    min-height:max(640px,100vh); min-height:max(640px,100svh); background:#0A0B0D; color:#fff;
   }
-  @media (max-width:640px){ .hero-copy h1{ font-size:31px; } }
-  .hero-copy .lede{ font-size:16.5px; color:var(--ink-2); max-width:54ch; line-height:1.65; }
-  .hero-copy .lede strong{ font-weight:600; color:var(--ink); }
-  .built-in{ display:flex; align-items:center; gap:14px; margin-top:28px; }
-  .built-in-txt{ font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:var(--ink-2); }
-  .eu-flag{ display:block; flex-shrink:0; border-radius:2px; box-shadow:0 0 0 1px rgba(20,22,26,0.12), 0 6px 16px -8px rgba(20,22,26,0.4); }
+  #globe-canvas, #sig-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none; }
+  .hero-shade{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(8,9,11,0.88) 0%, rgba(8,9,11,0.64) 38%, rgba(8,9,11,0.32) 72%, rgba(8,9,11,0.4) 100%),
+      linear-gradient(0deg, rgba(8,9,11,0.92) 0%, rgba(8,9,11,0.35) 38%, rgba(8,9,11,0) 60%),
+      linear-gradient(180deg, rgba(8,9,11,0.6) 0%, rgba(8,9,11,0) 22%);
+  }
+  .hero-inner{ position:relative; z-index:3; width:100%; padding:0 clamp(20px,3.4vw,52px) clamp(44px,8vh,84px); pointer-events:none; }
+  .hero-copy{ max-width:1040px; pointer-events:auto; }
+  .hero-copy h1{ margin:0; font-size:clamp(44px,7.2vw,112px); font-weight:400; letter-spacing:-0.04em; line-height:0.98; color:#fff; }
+  .hero-copy .lede{ margin-top:clamp(22px,3.4vh,34px); max-width:54ch; font-size:clamp(16px,1.35vw,20px); line-height:1.55; color:rgba(255,255,255,0.74); }
+  .built-in{ display:flex; align-items:center; gap:14px; margin-top:clamp(22px,3.4vh,32px); }
+  .built-in-txt{ font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+  .eu-flag{ display:block; flex-shrink:0; border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
   .hero-actions{ display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
   .hero-actions .btn{ padding:12px 18px; font-size:11.5px; }
-
-  /* ---------- banner globe ---------- */
-  .globe-panel{
-    position:relative; overflow:hidden; border-radius:8px; background:var(--ink);
-    background-image:radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
-    background-size:14px 14px; aspect-ratio:1/1; width:100%; max-width:560px; justify-self:end;
-    box-shadow:0 24px 50px -28px rgba(20,22,26,0.55);
+  .hero-tag{
+    position:absolute; right:clamp(20px,3.4vw,52px); bottom:clamp(20px,4vh,36px); z-index:3; display:flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,0.5);
   }
-  @media (max-width:900px){ .globe-panel{ justify-self:start; } }
-  .globe-panel canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-  .gp-feed{ position:absolute; inset:0; pointer-events:none; }
-  .gp-top{
-    position:absolute; left:14px; right:14px; top:12px; z-index:3;
-    display:flex; justify-content:space-between; gap:12px;
-    font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:1.2px;
-    text-transform:uppercase; color:rgba(255,255,255,0.55);
-  }
-  .gp-live{ display:inline-flex; align-items:center; gap:7px; color:rgba(255,255,255,0.85); }
-  .gp-live i{ width:6px; height:6px; border-radius:50%; background:#EE8A2E; animation:livepulse 1.2s ease-in-out infinite; }
+  .hero-tag i{ width:6px; height:6px; border-radius:50%; background:#EE8A2E; animation:livepulse 1.4s ease-in-out infinite; }
   @keyframes livepulse{ 50%{ opacity:.25; } }
-  .gp-bottom{
-    position:absolute; left:0; right:0; bottom:0; z-index:3; padding:34px 16px 14px;
-    display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;
-    background:linear-gradient(to top, rgba(20,22,26,0.96) 35%, rgba(20,22,26,0));
+  .gp-tip{
+    position:absolute; left:0; top:0; z-index:4; max-width:250px; pointer-events:none; opacity:0; transition:opacity .15s ease;
+    background:rgba(12,13,16,0.92); border:1px solid rgba(255,255,255,0.18); border-radius:6px; padding:8px 11px 9px;
   }
-  .gp-count{ display:flex; flex-direction:column; gap:2px; }
-  .gp-count b{ font-family:var(--mono); font-size:26px; font-weight:700; color:var(--bg); font-variant-numeric:tabular-nums; line-height:1; }
-  .gp-count span{ font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,0.55); }
-  .gp-q{ font-size:14px; font-weight:700; color:var(--bg); line-height:1.3; max-width:22ch; text-align:right; }
-  .gp-q em{ font-style:normal; color:#EE8A2E; }
-  .caret{ display:inline-block; width:7px; height:14px; margin-left:4px; background:#EE8A2E; vertical-align:-2px; animation:blink 1s steps(2,end) infinite; }
-  @keyframes blink{ 50%{ opacity:0; } }
-  @media (max-width:420px){ .gp-q{ font-size:12.5px; } .gp-count b{ font-size:21px; } }
-
-  .gcard{ position:absolute; left:0; top:0; width:160px; opacity:0; transition:opacity .35s ease; will-change:transform; }
-  .gcard.in{ opacity:1; }
-  .gc-in{
-    background:rgba(255,255,255,0.97); color:var(--ink); border-radius:4px; padding:7px 10px 8px;
-    box-shadow:0 8px 20px -8px rgba(0,0,0,0.6); transform:scale(.9); transform-origin:center;
-    transition:transform .35s cubic-bezier(.2,1.5,.4,1);
-  }
-  .gcard.in .gc-in{ transform:none; }
-  .gc-tag{ display:block; font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--orange); margin-bottom:3px; }
-  .gc-txt{ display:block; font-size:11px; font-weight:600; line-height:1.3; }
-  @media (max-width:420px){ .gcard{ width:140px; } .gc-txt{ font-size:10.5px; } }
-  @media (prefers-reduced-motion: reduce){ .gp-live i, .caret{ animation:none; } }
+  .gp-tip small{ display:block; margin-bottom:3px; font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#EE8A2E; }
+  .gp-tip span{ display:block; font-size:13px; line-height:1.35; color:#fff; }
+  @media (max-width:640px){ .hero-tag{ display:none; } .hero-copy h1{ letter-spacing:-0.035em; } }
+  @media (prefers-reduced-motion: reduce){ .hero-tag i{ animation:none; } }
 
   /* ---------- section heads ---------- */
   .section-head{ max-width:700px; margin-bottom:44px; }
-  .section-head h2{ font-size:28px; font-weight:800; letter-spacing:-0.3px; margin:12px 0 14px; }
+  .section-head h2{ font-size:28px; font-weight:600; letter-spacing:-0.3px; margin:12px 0 14px; }
   .section-head p{ font-size:15px; color:var(--ink-2); line-height:1.65; }
   @media (max-width:640px){ .section-head h2{ font-size:23px; } }
 
   .subhead{ margin:96px 0 32px; max-width:700px; }
-  .subhead h3{ font-size:24px; font-weight:800; letter-spacing:-0.3px; margin-top:12px; }
+  .subhead h3{ font-size:24px; font-weight:600; letter-spacing:-0.3px; margin-top:12px; }
   @media (max-width:640px){ .subhead{ margin-top:72px; } .subhead h3{ font-size:20px; } }
 
   /* ---------- flow boxes (mega trends, foresight instruments) ---------- */
@@ -227,7 +204,7 @@
   }
   @media (max-width:640px){ .readiness{ margin-top:64px; padding:28px 20px 24px; } }
   .readiness .eyebrow{ color:rgba(255,255,255,0.55); }
-  .readiness h3{ font-size:24px; font-weight:800; letter-spacing:-0.3px; margin:12px 0 28px; max-width:640px; color:var(--bg); }
+  .readiness h3{ font-size:24px; font-weight:600; letter-spacing:-0.3px; margin:12px 0 28px; max-width:640px; color:var(--bg); }
   @media (max-width:640px){ .readiness h3{ font-size:20px; } }
 
   .stat-grid{
@@ -320,7 +297,7 @@
   .wyg-item.active{ color:var(--bg); }
   .wyg-num{ font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; padding-top:5px; color:rgba(255,255,255,0.45); }
   .wyg-item.active .wyg-num{ color:#EE8A2E; }
-  .wyg-title{ display:block; font-size:21px; font-weight:800; letter-spacing:-0.2px; line-height:1.3; }
+  .wyg-title{ display:block; font-size:21px; font-weight:600; letter-spacing:-0.2px; line-height:1.3; }
   .wyg-desc{
     display:block; max-height:0; opacity:0; overflow:hidden; font-size:14.5px; line-height:1.65;
     color:rgba(255,255,255,0.72); transition:max-height .45s ease, opacity .35s ease, margin .35s ease;
@@ -376,7 +353,7 @@
 </head>
 <body>
 
-<header>
+<header class="over">
   <a href="#hero" class="brand">
     <svg class="brand-mark" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M2 8L13 2.5V13.5L2 8Z" stroke="currentColor" stroke-width="1.1"/>
@@ -409,12 +386,15 @@
 </header>
 
 <!-- ============ 1. BANNER ============ -->
-<section id="hero">
+<section id="hero" aria-label="Vorsight">
+  <canvas id="globe-canvas" aria-hidden="true"></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <canvas id="sig-canvas" role="img" aria-label="A slowly rotating globe with orange markers for live supply chain risk signals. Illustrative."></canvas>
+
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="eyebrow">WE ARE VORSIGHT</div>
-      <h1>Your KPIs don't care about typhoons.</h1>
-      <p class="lede">They only measure whether products arrive on time. But one single-source supplier, a closed port or a new trade barrier can break that number overnight. Europe's growth model, built on open trade and global supply chains, is increasingly tested by rising trade frictions and a multipolar world. <strong>We help risk teams at mid-sized European manufacturers see disruption early, diversify supply and hedge before it hits delivery.</strong></p>
+      <h1>Resilience in times<br>of uncertainty.</h1>
+      <p class="lede">Vorsight helps risk teams at European manufacturers navigate the complexity of geopolitics and keep supply chains on time: see disruption early, then diversify and hedge before it hits delivery.</p>
       <div class="built-in">
       <svg class="eu-flag" viewBox="0 0 54 36" width="60" height="40" role="img" aria-label="Flag of the European Union">
         <defs><polygon id="eu-star" points="0.00,-2.00 0.47,-0.65 1.90,-0.62 0.76,0.25 1.18,1.62 0.00,0.80 -1.18,1.62 -0.76,0.25 -1.90,-0.62 -0.47,-0.65"/></defs>
@@ -424,20 +404,10 @@
       <span class="built-in-txt">Built in Europe</span>
       </div>
     </div>
-
-    <div class="globe-panel" id="globe-panel" role="img" aria-label="Animated globe with supply chain headlines popping up across it. The headlines are illustrative.">
-      <canvas id="globe-canvas"></canvas>
-      <div class="gp-feed" id="gp-feed" aria-hidden="true"></div>
-      <div class="gp-top" aria-hidden="true">
-        <span class="gp-live"><i></i>Live signals</span>
-        <span>Illustrative headlines</span>
-      </div>
-      <div class="gp-bottom" aria-hidden="true">
-        <div class="gp-count"><b id="gp-n">1,284</b><span>signals today</span></div>
-        <div class="gp-q">Which of these hit <em>your</em> suppliers?<span class="caret"></span></div>
-      </div>
-    </div>
   </div>
+
+  <div class="hero-tag" aria-hidden="true"><i></i>Live risk signals · illustrative</div>
+  <div class="gp-tip" id="gp-tip" role="status"></div>
 </section>
 
 <!-- ============ 2. PROBLEM ============ -->
@@ -447,7 +417,7 @@
     <div class="section-head reveal">
       <div class="eyebrow">THE PROBLEM</div>
       <h2>Efficiency built a fragile supply chain.</h2>
-      <p>For decades, Europe's growth model rested on open trade and global supply chains. Rising trade frictions and a more multipolar world now test it. Mid-sized firms feel it first and have the least machinery to see it coming.</p>
+      <p>Your KPIs don't care about typhoons; they only measure whether products arrive on time. For decades, Europe's growth model rested on open trade and global supply chains. Rising trade frictions and a more multipolar world now test it, and mid-sized firms feel it first.</p>
     </div>
 
     <div class="flow-row reveal">
@@ -741,10 +711,12 @@
 
 <script>
   (function(){
-    var panel=document.getElementById('globe-panel'); if(!panel) return;
-    var canvas=document.getElementById('globe-canvas'), ctx=canvas.getContext('2d');
-    var feed=document.getElementById('gp-feed'), nEl=document.getElementById('gp-n');
+    var hero=document.getElementById('hero'); if(!hero) return;
+    var gc=document.getElementById('globe-canvas'), g=gc.getContext('2d');
+    var sc=document.getElementById('sig-canvas'), s=sc.getContext('2d');
+    var tip=document.getElementById('gp-tip');
     var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var rad=Math.PI/180, TAU=Math.PI*2, ORANGE='#EE8A2E';
 
     /* 1-degree land mask (Natural Earth 110m, public domain), row-major from 90N / 180W */
     var MASK="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH///8AAf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB////n///////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////7////////wAAAAA/gAADwAAAAAAP4AAAAAAAAAAAAAAAAAAAAAAAAAAA///+A////////AAAAB//wAAAAAAAAAAH8gAAAAAAAAAAAAAAAAAAAAAAAYH3H//x////////+AAAAA/mAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAA8cAAwP/A////////+AAAAAPGAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAAAAD4DA8+/+AP///////8AAAAAAAAAAAAAf4AAAAH/8AAAAAAAAAAAAAAAAAAAAAH/w83/8AAAf/////8AAAAAAAAAAAAH+AAAB////AAAB/sAAAAAAAAAAAAAAcA4AAw/8AAAP/////8AAAAAAAAAAAAeAAAAP///4AAAAAAAAAAAAAAAAAAAAf+AYe+d3gAAD/////4AAAAAAAAAAAB4AAAH/////+HwAOAAAAAAAAAAAAAAA//+4/4//wAAB/////wAAAAAAAAAAADwAHk3///////4Af4AAAAAwAAAAAAAAff/4O4///AAD/////wAAAAAAAAAAAHwAff////////4///gAAABAAA//gAACAP/+B8f//8AB////+wAAAAAAB/gAAAAAfv/////////////8AAAAAB///+P//H//n+D4f+AA3////AAAAAAA//8AAAA8fv///////////////P+wAf////////R6Cfz4f+AAf///4AAAAAAD///4ID/////////////////////8AD/////////////4Z/wA///4AAAAAAAP///+O////v//////////////////4H/////////////gD/8A///wAwYAAAAf//9+v///////////////////////4/////////////+A/84Af/8AA/8AAAA/8f+D///////////////////////BgP////////////zw//gAP/wAAf8AAAD/4/+f//////////////////////+AOB////////////HcA/gAP/gAADAAAAH/z/////////////////////////+AAH///////////8AwwPAAD/AAAAAAAB//H/////////////////////////+AAP///////////4AA/gAAB/AAAAAAAB//H//////////////////////3v/AAAP//z////////wAA/4AAAOAAAAAAAB//D/////////////////////+A/4AAAA/7AH///////wAA/4wAAAAAAAAAAB//gf////////////////////+DwAAAAArwAA///////4AA/94AAAAAAAAAYA5+A///////////////////4AAHgAAAAAD8AAD//////8AAf/8AAAAAAAAA8AC+C///////////////////wAAfgAAAAAOAAAB///////wAf/+AAAAAAAAA8AO8H///////////////////AAA/gAAAABwAAAA///////+A///AAAAAAAAA8ANwH//////////////////+AAB/AAAAAGAAAAAf///////z///4AAAAAAAHOAOD///////////////////+AAB+AAAAAAAAAABP///////x///8AAAAAAAPPB//////////////////////6AA8AAAAAAAAAAAj///////5///+AAAAAAAOfz//////////////////////+AA4AAAAAAAAAAAD///////////8AAAAAAAAfn//////////////////////6AAwAAAAAAAAAAAD///////////sAAAAAAAA8f//////////////////////7AAAAAAAAAAAAAAB/////////+MPAAAAAAAAD///////////////////////7AAAAAAAAAAAAAAAf/////////wfgAAAAAAAf///////////////////////yAAAAAAAAAAAAAAAf/////////gfgAAAAAAAH///////////////////////iAAAAAAAAAAAAAAAP/////////5AgAAAAAAAD//////v/x//////////////DAAAAAAAAAAAAAAAP/////////+AAAAAAAAAB/////H//B/////////////+AAAAAAAAAAAAAAAAP////////84AAAAAAAAAD//n/+AP+H/////////////8HAAAAAAAAAAAAAAAP////////wgAAAAAAAAH//jz/+AD+H/////////////4PwAAAAAAAAAAAAAAf////////gAAAAAAAAAH/4F4/8AB/B////////////+APAAAAAAAAAAAAAAAP////////wAAAAAAAAAH/4A+f+Ph/g////////////8AIAAAAAAAAAAAAAAAP///////+AAAAAAAAAAH/gMPfP///x///////////v4AMAAAAAAAAAAAAAAAP///////8AAAAAAAAAAH/AMCOP///h//////////+ZwAMAAAAAAAAAAAAAAAH///////4AAAAAAAAAAP/AAGHP///g//////////8B4AYAAAAAAAAAAAAAAAH///////wAAAAAAAAAAH+AAcHH///w//////////+w4A4AAAAAAAAAAAAAAAD///////wAAAAAAAAAAA8f+ACD///////////////g8D4AAAAAAAAAAAAAAAB///////wAAAAAAAAAAAz/+AAQE//////////////A4f4AAAAAAAAAAAAAAAB///////gAAAAAAAAAAB//+AAAA//////////////Ax/gAAAAAAAAAAAAAAAAP/////+AAAAAAAAAAAD//+AAAB//////////////gD8AAAAAAAAAAAAAAAAAH/////8AAAAAAAAAAAH///4OAB//////////////gDAAAAAAAAAAAAAAAAAAH/////4AAAAAAAAAAAP///8P4j//////////////wDAAAAAAAAAAAAAAAAAACf////4AAAAAAAAAAAP/////////////////////wAAAAAAAAAAAAAAAAAAABf//zgYAAAAAAAAAAAP/////////P///////////wAAAAAAAAAAAAAAAAAAAAv//AAcAAAAAAAAAAA//////////n///////////wAAAAAAAAAAAAAAAAAAAB3/+AAcAAAAAAAAAAB///////9//j///////////gAAAAAAAAAAAAAAAAAAAAb/+AANgAAAAAAAAAD///////8//wn//////////AAAAAAAAAAAAAAAAAAAAAJ/+AAMAAAAAAAAAAH///////+f/8b//////////AAAAAAAAAAAAAAAAAAAAAM/+AAAgAAAAAAAAAH///////+f/84Af///////+wAAAAAAAAAAAAAAAAAAAAGf8AAAAAAAAAAAAAP////////P//+AP///////4wAAAAAAAAAAAAAAAAAAAAAP8AA/AAAAAAAAAAf////////n///AH///////ggAAAAAAAAAAAAAAAAAAAAAP+A4BgAAAAAAAAAf////////n///AD//+P//8AAAAAAAAAAAAAAAAAAAAAAAP+B4A8AAAAAAAAAf////////j//+AAf/4P/+IAAAAAAAAAAAAAAAgAAAAAAAH/B4AB4AAAAAAAAf////////j//8AAf/wH/8YAAAAAAAAAAAAAAAAAAAAAAAD//wAj9AAAAAAAAP////////x//4AAf/AD/8QAQAAAAAAAAAAAAAAAAAAAAAA//wAAAAAAAAAAAP////////4//wAAf+AD/+AA4AAAAAAAAAAAAAAAAAAAAAAP/wAAAAAAAAAAAf////////4f/AAAf8AD//AA4AAAAAAAAAAAAAAAAAAAAAAAP/AAAAAAAAAAAf////////8f8AAAP4AAP/gAwAAAAAAAAAAAAAAAAAAAAAAAD/gAAAAAAAAAAf////////+fwAAAPwAAP/gAwAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAf/////////eAAAAPwAAP/wA8AAAAAAAAAAAAAAAAAAAAAAAAHgAgAAAAAAAAf/////////4AAAAHwAAN/gASAAAAAAAAAAAAAAAAAAAAAAAADAB4AAAAAAAAP/////////g4AAAHwAAMfgALAAAAAAAAAAAAAAAAAAAAAAAADgP/eAAAAAAAH//////////4AAADwAAIPABOAAAAAAAAAAAAAAAAAAAAAAAAByP/+AAAAAAAD//////////4AAADoAAMEACNAAAAAAAAAAAAAAAAAAAAAAAAA9///AAAAAAAB//////////wAAABMAAMAAAHgAAAAAAAAAAAAAAAAAAAAAAAAE///wAAAAAAB//////////wAAAAMAAGAAAPgAAAAAAAAAAAAAAAAAAAAAAAAA///wAAAAAAAf/////////gAAAAMAADAAMDAAAAAAAAAAAAAAAAAAAAAAAAAA////gAAAAAAP/B///////gAAAAAAADgAeAAAAAAAAAAAAAAAAAAAAAAAAAAA////wAAAAAACAA///////AAAAAAAAzwA+AAAAAAAAAAAAAAAAAAAAAAAAAAA////4AAAAAAAAAH/////+AAAAAAAAZwB8AAAAAAAAAAAAAAAAAAAAAAAAAAB////4AAAAAAAAAH/////8AAAAAAAAfwH8AAAAAAAAAAAAAAAAAAAAAAAAAAB////8AAAAAAAAAH/////4AAAAAAAAHwf8AYAAAAAAAAAAAAAAAAAAAAAAAAD////8AAAAAAAAAH/////wAAAAAAAAHwf8+YAAAAAAAAAAAAAAAAAAAAAAAAH/////AAAAAAAAAH/////gAAAAAAAADwf9AAgAAAAAAAAAAAAAAAAAAAAAAAH/////4AAAAAAAAH/////AAAAAAAAAD4P54BxAAAAAAAAAAAAAAAAAAAAAAAH//////AAAAAAAAD////+AAAAAAAAAB8P5wA74AAAAAAAAAAAAAAAAAAAAAAH//////4AAAAAAAB////8AAAAAAAAAA8A54uf/AIAAAAAAAAAAAAAAAAAAAAH//////+AAAAAAAB////8AAAAAAAAAAcAB4AH/wYAAAAAAAAAAAAAAAAAAAAH///////gAAAAAAA////4AAAAAAAAAAMABIAA/xyAAAAAAAAAAAAAAAAAAAAH///////gAAAAAAA////4AAAAAAAAAAHkAAAI/8BAAAAAAAAAAAAAAAAAAAAD///////wAAAAAAAf///4AAAAAAAAAAB+AAAA/8AIAAAAAAAAAAAAAAAAAAAB///////gAAAAAAAf///8AAAAAAAAAAADmpgAvMAAAAAAAAAAAAAAAAAAAAAB///////gAAAAAAAf///8AAAAAAAAAAAABCAAAHACAAAAAAAAAAAAAAAAAAAA///////AAAAAAAAf///8AAAAAAAAAAAAAAAAABgBAAAAAAAAAAAAAAAAAAAA//////+AAAAAAAAf///+AAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAAAAAAAAAAf/////8AAAAAAAAf///+AQAAAAAAAAAAAAB+DAAAAAAAAAAAAAAAAAAAAAAAf/////8AAAAAAAA////+AwAAAAAAAAAAAAD8HAAAAAAAAAAAAAAAAAAAAAAAP/////4AAAAAAAA////+AwAAAAAAAAAAAB38HgAAAAAAAAAAAAAAAAAAAAAAH/////4AAAAAAAA////+D4AAAAAAAAAAAD/+HwAAAAAAAAAAAAAAAAAAAAAAB/////4AAAAAAAB////8PwAAAAAAAAAAAH//HwAAAABAAAAAAAAAAAAAAAAAA/////4AAAAAAAB////wPwAAAAAAAAAAAP///wAAAAGAAAAAAAAAAAAAAAAAAf////4AAAAAAAA////gPgAAAAAAAAAAAP///wAAAAAAAAAAAAAAAAAAAAAAAP////wAAAAAAAAf//+APgAAAAAAAAAAAf///8AAAAAAAAAAAAAAAAAAAAAAAP////wAAAAAAAAf//+APgAAAAAAAAAAH////+AAIAAAAAAAAAAAAAAAAAAAAP////gAAAAAAAAP//+AfAAAAAAAAAAAf/////AAGAAAAAAAAAAAAAAAAAAAAP////AAAAAAAAAP///AfAAAAAAAAAAA//////gAAAAAAAAAAAAAAAAAAAAAAf///4AAAAAAAAAP///AfAAAAAAAAAAA//////gAAAAAAAAAAAAAAAAAAAAAAf///gAAAAAAAAAP//+AOAAAAAAAAAAB//////wAAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAP//4AEAAAAAAAAAAA//////4AAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAH//4AAAAAAAAAAAAB//////4AAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAH//4AAAAAAAAAAAAA//////4AAAAAAAAAAAAAAAAAAAAAAf//+AAAAAAAAAAD//wAAAAAAAAAAAAA//////8AAAAAAAAAAAAAAAAAAAAAA///8AAAAAAAAAAB//wAAAAAAAAAAAAAf/////8AAAAAAAAAAAAAAAAAAAAAA///8AAAAAAAAAAB//gAAAAAAAAAAAAAf/////4AAAAAAAAAAAAAAAAAAAAAA///4AAAAAAAAAAA//AAAAAAAAAAAAAAf/////4AAAAAAAAAAAAAAAAAAAAAA///wAAAAAAAAAAA/+AAAAAAAAAAAAAAP/AP//4AAAAAAAAAAAAAAAAAAAAAA///gAAAAAAAAAAA/4AAAAAAAAAAAAAAf8AH//wAAAAAAAAAAAAAAAAAAAAAA///AAAAAAAAAAAAcAAAAAAAAAAAAAAAfAAF//gAAAAAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//gAABgAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AAAAgAAAAAAAAAAAAAAAAAD//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AAAAwAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYAAAA+AAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACYAAAAAAAAAAAAAAAAAD/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAAADQAAAAAAAAAAAAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAHAAAAAAAAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAOAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAH8AAAAGAB4P4Pz+AAAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAAAAB//jAAH//////////wAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAACA////8Af///////////gAAAAAAAAAAAAAAAAAAAAAA/4AAAAAAAAAAAAAAAP3////8D/////////////4AAAAAAAAAAAAAAAAAAAAA/8AAAAAAAAAAB+/////////4f//////////////wAAAAAAAAAAAAAAAAAAAH/+AAAAAAAAf////////////4////////////////4AAAAAAAAAAAAAA+AAAAz+AAAAAAAB//////////////////////////////4AAAAAAAAAADgAB///nj/+AAAAAAAP//////////////////////////////wAAAAAAAA////4Af/////8AAAAAAAP/////////////////////////////8AAAAAAAD/////////////wAAAAAAD//////////////////////////////wAAAAAAAP////////////wAAAAAAf///////////////////////////////wAAAAAD/////////////8AAAAAAD////////////////////////////////wAAAADx/////////////gAAAD8A/////////////////////////////////+AAAAA4D////////////gAAAH+A////////////////////////////////+AAAAAAAAH////////////g/A/4AA///////////////////////////////+AAAAAAAf//////////////4ADg//////////////////////////////////AAAAAAAH///////////////h////////////////////////////////////4AAAAAAP/////////////////////////////////////////////////////gA+/D////////////////////////////////////////////////////////8AAAAB8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -752,156 +724,164 @@
     for(i=0;i<bin.length;i++){ var c=bin.charCodeAt(i); for(b=0;b<8;b++) land[i*8+b]=(c>>(7-b))&1; }
 
     /* evenly spread points on a sphere, keep the ones that fall on land */
-    var N=13000, GA=Math.PI*(3-Math.sqrt(5)), cl=[], sl=[], cL=[], sL=[];
+    var N=window.innerWidth<700?26000:46000, GA=Math.PI*(3-Math.sqrt(5)), cl=[], sl=[], cL=[], sL=[];
     for(i=0;i<N;i++){
-      var z=1-2*(i+.5)/N, lat=Math.asin(z), lon=(GA*i)%(2*Math.PI);
-      var latD=lat*180/Math.PI, lonD=lon*180/Math.PI-180;
+      var z=1-2*(i+.5)/N, lat=Math.asin(z), lon=(GA*i)%TAU, latD=lat/rad, lonD=lon/rad-180;
       if(land[Math.min(179,Math.floor(90-latD))*360+Math.min(359,Math.floor(lonD+180))]){
-        var lr=lonD*Math.PI/180;
-        cl.push(Math.cos(lat)); sl.push(Math.sin(lat)); cL.push(Math.cos(lr)); sL.push(Math.sin(lr));
+        var lr=lonD*rad; cl.push(Math.cos(lat)); sl.push(Math.sin(lat)); cL.push(Math.cos(lr)); sL.push(Math.sin(lr));
       }
     }
     var D=cl.length;
 
-    /* illustrative headlines: [tag, text, lat, lon] */
+    /* risk types reuse the icons from "The risks we watch" below */
+    var TYPES={
+      trade:['Trade barriers & tariffs','M6 45 L64 45 M56 39 L64 45 L56 51 M78 18 L78 72 M92 18 L92 72 M78 26 L92 18 M78 40 L92 32 M78 54 L92 46 M78 68 L92 60'],
+      chip:['Components & materials','M38 24 H82 V66 H38 Z M49 35 H71 V55 H49 Z M46 24 V14 M60 24 V14 M74 24 V14 M46 66 V76 M60 66 V76 M74 66 V76 M38 36 H28 M38 45 H28 M38 54 H28 M82 36 H92 M82 45 H92 M82 54 H92'],
+      reg:['Regulation & compliance','M26 36 L60 16 L94 36 Z M36 42 V68 M52 42 V68 M68 42 V68 M84 42 V68 M22 73 H98 M16 80 H104'],
+      disrupt:['Disruption & disasters','M86 45 A26 26 0 1 1 34 45 A26 26 0 1 1 86 45 M60 19 C46 27 46 63 60 71 M60 19 C74 27 74 63 60 71 M34 45 L86 45 M38 28 L50 40 L42 52 L58 58 L52 68'],
+      cost:['Cost & currency','M20 65 L52 32 M42 32 L52 32 L52 42 M68 32 L100 65 M100 55 L100 65 L90 65'],
+      depend:['Centralisation & dependencies','M34 55 L56 29 M65 29 L87 55 M35 61 L55 66 M65 66 L85 61 M35 60 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M65 24 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M95 60 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M64 68 a4 4 0 1 0 -8 0 a4 4 0 1 0 8 0']
+    };
+    Object.keys(TYPES).forEach(function(k){ TYPES[k][2]=new Path2D(TYPES[k][1]); });
+
+    /* illustrative signals: [type, headline (shown on hover), lat, lon] */
     var HEADS=[
-      ['Regulation','New EU rules tighten chemical imports',50.8,4.4],
-      ['Tariffs','US tariff round hits EU parts exporters',38.9,-77],
-      ['Supplier','Single-source supplier halts production',35,105],
-      ['Energy','Gas supply cut forces plant shutdowns',55.7,37.6],
-      ['Compliance','Supply chain due-diligence rules widen',52.5,13.4],
-      ['Port','Red Sea rerouting adds weeks to transit',20,38],
-      ['Weather','Typhoon closes ports, ships queue for days',24,121],
-      ['Components','Chip lead times stretch to 40 weeks',52.2,5.3],
-      ['Currency','Sterling slide raises import costs',51.5,-0.1],
-      ['Energy','Pipeline outage lifts chemical input prices',57,19],
-      ['Sourcing','Nearshoring gains as Asia freight costs rise',19.4,-99.1],
-      ['Cyber','Ransomware hits a logistics provider',1.35,103.8],
-      ['Materials','Cobalt supply tightens for battery makers',-3,24],
-      ['Port','Gulf hub congestion delays pharma cargo',25.2,55.3],
-      ['Quality','Plant audit failure halts API supply',28.6,77.2],
-      ['Disaster','Earthquake disrupts chip material output',35.7,139.7],
-      ['Materials','Drought cuts lithium output',-23,-68]
-    ];    var rad=Math.PI/180;
+      ['reg','New EU rules tighten chemical imports',50.8,4.4],
+      ['trade','US tariff round hits EU parts exporters',38.9,-77],
+      ['depend','Single-source supplier halts production',35,105],
+      ['cost','Gas supply cut forces plant shutdowns',55.7,37.6],
+      ['reg','Supply chain due-diligence rules widen',52.5,13.4],
+      ['disrupt','Red Sea rerouting adds weeks to transit',20,38],
+      ['disrupt','Typhoon closes ports, ships queue for days',24,121],
+      ['chip','Chip lead times stretch to 40 weeks',52.2,5.3],
+      ['cost','Sterling slide raises import costs',51.5,-0.1],
+      ['cost','Pipeline outage lifts chemical input prices',57,19],
+      ['depend','Nearshoring gains as Asia freight costs rise',19.4,-99.1],
+      ['disrupt','Ransomware hits a logistics provider',1.35,103.8],
+      ['chip','Cobalt supply tightens for battery makers',-3,24],
+      ['disrupt','Gulf hub congestion delays pharma cargo',25.2,55.3],
+      ['depend','Plant audit failure halts API supply',28.6,77.2],
+      ['disrupt','Earthquake disrupts chip material output',35.7,139.7],
+      ['chip','Drought cuts lithium output',-23,-68]
+    ];
     HEADS.forEach(function(h){ h.phi=h[2]*rad; h.lam=h[3]*rad; h.sp=Math.sin(h.phi); h.cp=Math.cos(h.phi); });
 
-    var W=0,H=0,R=0,cx=0,cy=0,dpr=1, lam0=15*rad, phi0=22*rad, sp0=Math.sin(phi0), cp0=Math.cos(phi0);
-    var maxActive=7, visible=true, cards=[];
+    var W=0,H=0,dpr=1,cx=0,cy=0,R=0,lam0=18*rad,phi0=20*rad,sp0=Math.sin(phi0),cp0=Math.cos(phi0);
+    var act=[], visible=true, last=0, nextSpawn=0, hov=-1, tipUntil=0, maxAct=6, copyEl=hero.querySelector('.hero-copy');
+    /* markers fade out as they drift behind the headline text */
+    function textClear(x,y){
+      var hr=hero.getBoundingClientRect(), r=copyEl.getBoundingClientRect();
+      var dx=Math.max(r.left-hr.left-x, 0, x-(r.right-hr.left)), dy=Math.max(r.top-hr.top-y, 0, y-(r.bottom-hr.top));
+      return clamp(Math.hypot(dx,dy)/70,0,1);
+    }
 
     function size(){
-      dpr=Math.min(window.devicePixelRatio||1,2);
-      W=panel.clientWidth; H=panel.clientHeight;
-      canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      R=Math.min(W,H)*0.37; cx=W/2; cy=H*0.47;
-      maxActive=W<400?4:7;
+      dpr=Math.min(window.devicePixelRatio||1,1.5);
+      W=hero.clientWidth; H=hero.clientHeight; if(!W) return;
+      [gc,sc].forEach(function(c){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); });
+      g.setTransform(dpr,0,0,dpr,0,0); s.setTransform(dpr,0,0,dpr,0,0);
+      if(W>=760){ cx=W*0.66; cy=H*0.5; R=Math.min(H*0.58,W*0.36); maxAct=6; }
+      else { cx=W*0.5; cy=H*0.31; R=Math.min(W*0.66,H*0.34); maxAct=4; }
+      if(reduce) frame(0);
     }
     function proj(sp,cp,lam){
       var dl=lam-lam0, cd=Math.cos(dl);
       return { x:cx+R*cp*Math.sin(dl), y:cy-R*(cp0*sp-sp0*cp*cd), z:sp0*sp+cp0*cp*cd };
     }
+    function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+    function ease(x){ x=clamp(x,0,1); return x*x*(3-2*x); }
 
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      var g=ctx.createRadialGradient(cx-R*.3,cy-R*.35,R*.1,cx,cy,R);
-      g.addColorStop(0,'#20242b'); g.addColorStop(1,'#101216');
-      ctx.beginPath(); ctx.arc(cx,cy,R,0,6.2832); ctx.fillStyle=g; ctx.fill();
-      ctx.lineWidth=1; ctx.strokeStyle='rgba(255,255,255,0.16)'; ctx.stroke();
-
-      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=Math.max(.9,R/150);
+    function drawGlobe(){
+      g.clearRect(0,0,W,H);
+      var glow=g.createRadialGradient(cx,cy,R*0.96,cx,cy,R*1.28); glow.addColorStop(0,'rgba(255,255,255,0.07)'); glow.addColorStop(1,'rgba(255,255,255,0)');
+      g.beginPath(); g.arc(cx,cy,R*1.28,0,TAU); g.fillStyle=glow; g.fill();
+      var bg=g.createRadialGradient(cx-R*0.3,cy-R*0.35,R*0.1,cx,cy,R); bg.addColorStop(0,'#1c2128'); bg.addColorStop(1,'#0c0e11');
+      g.beginPath(); g.arc(cx,cy,R,0,TAU); g.fillStyle=bg; g.fill(); g.lineWidth=1; g.strokeStyle='rgba(255,255,255,0.14)'; g.stroke();
+      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=clamp(R/190,0.9,2.3);
       var back=new Path2D(), f1=new Path2D(), f2=new Path2D(), f3=new Path2D();
       for(var k=0;k<D;k++){
-        var cd=cL[k]*c0+sL[k]*s0, sd=sL[k]*c0-cL[k]*s0;
-        var z=sp0*sl[k]+cp0*cl[k]*cd;
+        var cd=cL[k]*c0+sL[k]*s0, sd=sL[k]*c0-cL[k]*s0, zz=sp0*sl[k]+cp0*cl[k]*cd;
         var x=cx+R*cl[k]*sd, y=cy-R*(cp0*sl[k]-sp0*cl[k]*cd);
-        var p=z<0?back:(z<.35?f1:(z<.7?f2:f3));
-        p.moveTo(x+r,y); p.arc(x,y,r,0,6.2832);
+        if(x<-4||x>W+4||y<-4||y>H+4) continue;
+        var p=zz<0?back:(zz<.35?f1:(zz<.7?f2:f3));
+        p.moveTo(x+r,y); p.arc(x,y,r,0,TAU);
       }
-      ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.fill(back);
-      ctx.fillStyle='rgba(255,255,255,0.32)'; ctx.fill(f1);
-      ctx.fillStyle='rgba(255,255,255,0.62)'; ctx.fill(f2);
-      ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill(f3);
-    }
-
-    function drawPins(t){
-      cards.forEach(function(c){
-        if(!c.pos) return;
-        var p=c.pos, k=((t-c.born)/1400)%1;
-        ctx.strokeStyle='rgba(238,138,46,0.75)'; ctx.lineWidth=1;
-        ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(c.lx,c.ly); ctx.stroke();
-        ctx.beginPath(); ctx.arc(p.x,p.y,3,0,6.2832); ctx.fillStyle='#EE8A2E'; ctx.fill();
-        ctx.beginPath(); ctx.arc(p.x,p.y,3+k*13,0,6.2832);
-        ctx.strokeStyle='rgba(238,138,46,'+(0.8*(1-k)).toFixed(2)+')'; ctx.stroke();
-      });
-    }
-
-    function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
-    function place(c,p){
-      var left=clamp(p.x+c.ox-c.w/2,8,W-c.w-8), top=clamp(p.y+c.oy-c.h/2,34,H-c.h-64);
-      c.left=left; c.top=top; c.lx=left+c.w/2; c.ly=top+c.h/2;
-      c.el.style.transform='translate3d('+left.toFixed(1)+'px,'+top.toFixed(1)+'px,0)';
-    }
-    function hits(l,t,w,h){
-      for(var i=0;i<cards.length;i++){
-        var c=cards[i];
-        if(l<c.left+c.w+3 && l+w+3>c.left && t<c.top+c.h+3 && t+h+3>c.top) return true;
-      }
-      return false;
+      g.fillStyle='rgba(255,255,255,0.06)'; g.fill(back);
+      g.fillStyle='rgba(255,255,255,0.3)'; g.fill(f1);
+      g.fillStyle='rgba(255,255,255,0.58)'; g.fill(f2);
+      g.fillStyle='rgba(255,255,255,0.9)'; g.fill(f3);
     }
 
     function spawn(t){
-      if(cards.length>=maxActive) return;
-      for(var tries=0;tries<18;tries++){
+      if(act.length>=maxAct) return;
+      for(var tries=0;tries<20;tries++){
         var h=HEADS[Math.floor(Math.random()*HEADS.length)];
-        if(cards.some(function(c){ return c.head===h; })) continue;
+        if(act.some(function(a){ return a.h===h; })) continue;
         var p=proj(h.sp,h.cp,h.lam);
-        if(p.z<.3) continue;
-        var el=document.createElement('div'); el.className='gcard';
-        el.innerHTML='<div class="gc-in"><span class="gc-tag"></span><span class="gc-txt"></span></div>';
-        el.querySelector('.gc-tag').textContent=h[0]; el.querySelector('.gc-txt').textContent=h[1];
-        feed.appendChild(el);
-        var w=el.offsetWidth, hh=el.offsetHeight;
-        var dx=p.x-cx, dy=p.y-cy, len=Math.sqrt(dx*dx+dy*dy)||1; dx/=len; dy/=len;
-        var c={el:el,head:h,w:w,h:hh,born:t,life:reduce?Infinity:5500+Math.random()*3000,ox:dx*(w*.5+26),oy:dy*(hh*.5+24)+(dy<0?-6:6)};
-        var left=clamp(p.x+c.ox-w/2,8,W-w-8), top=clamp(p.y+c.oy-hh/2,34,H-hh-64);
-        if(hits(left,top,w,hh)){ feed.removeChild(el); continue; }
-        c.pos=p; place(c,p);
-        cards.push(c);
-        requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('in'); }); });
+        if(p.z<0.45||p.x<30||p.x>W-30||p.y<90||p.y>H-90) continue;
+        if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<70; })) continue;
+        if(textClear(p.x,p.y)<1) continue;
+        act.push({h:h,born:t,life:reduce?1e12:5200+Math.random()*3800,p:p});
         return;
       }
     }
 
-    function update(t){
-      for(var i=cards.length-1;i>=0;i--){
-        var c=cards[i], p=proj(c.head.sp,c.head.cp,c.head.lam);
-        c.pos=p;
-        if(t-c.born>c.life || p.z<.12){
-          c.el.classList.remove('in');
-          (function(el){ setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); },400); })(c.el);
-          cards.splice(i,1); continue;
-        }
-        place(c,p);
+    function drawSignals(t){
+      s.clearRect(0,0,W,H);
+      var base=R>300?15:13;
+      for(var i=act.length-1;i>=0;i--){
+        var a=act[i], p=proj(a.h.sp,a.h.cp,a.h.lam); a.p=p;
+        var age=t-a.born;
+        if(age>a.life || p.z<0.1){ act.splice(i,1); continue; }
+        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/450), out=clamp((a.life-age)/700,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
+        var r=base*(0.6+0.4*k), isH=(i===hov);
+        if(!reduce){ var q=(age/1700)%1; s.beginPath(); s.arc(p.x,p.y,r+q*20,0,TAU); s.strokeStyle='rgba(238,138,46,'+(0.45*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
+        s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,r,0,TAU); s.fillStyle=ORANGE; s.fill();
+        if(isH){ s.lineWidth=1.5; s.strokeStyle='#fff'; s.stroke(); }
+        s.save(); s.translate(p.x,p.y); var kk=r*1.28/80; s.scale(kk,kk); s.translate(-60,-45);
+        s.lineWidth=7; s.lineCap='round'; s.lineJoin='round'; s.strokeStyle='#14161A'; s.stroke(TYPES[a.h[0]][2]); s.restore();
+        s.globalAlpha=1;
       }
     }
 
-    var last=0, nextSpawn=0, nextCount=0, n=1100+Math.floor(Math.random()*200);
     function frame(t){
-      requestAnimationFrame(frame);
-      if(!visible){ last=t; return; }
-      var dt=Math.min(.05,(t-last)/1000); last=t;
-      if(!reduce) lam0+=dt*0.2;
-      update(t);
-      if(!reduce && t>nextSpawn){ spawn(t); nextSpawn=t+300+Math.random()*380; }
-      if(!reduce && t>nextCount){ n+=1+Math.floor(Math.random()*9); nEl.textContent=n.toLocaleString('en-US'); nextCount=t+110; }
-      draw(); drawPins(t);
+      if(!reduce) requestAnimationFrame(frame);
+      if(!visible||!W) return;
+      var dt=Math.min(0.05,(t-last)/1000); last=t;
+      if(!reduce) lam0+=dt*0.055;
+      drawGlobe();
+      if(reduce){ if(!act.length){ for(var q=0;q<5;q++) spawn(0); } }
+      else if(t>nextSpawn){ spawn(t); nextSpawn=t+650+Math.random()*450; }
+      drawSignals(reduce?1500:t);
+      if(tip.style.opacity==='1' && t>tipUntil && hov<0) tip.style.opacity=0;
     }
 
+    /* hover (or tap) a marker to read the signal */
+    function point(e){
+      var r=hero.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=-1, bd=22;
+      act.forEach(function(a,i){ if(!a.p) return; var d=Math.hypot(a.p.x-mx,a.p.y-my); if(d<bd){ bd=d; best=i; } });
+      hov=best;
+      if(best>=0){
+        var h=act[best].h, tt=TYPES[h[0]][0];
+        tip.innerHTML='<small></small><span></span>'; tip.firstChild.textContent=tt; tip.lastChild.textContent=h[1];
+        var w=tip.offsetWidth, hh=tip.offsetHeight;
+        tip.style.transform='translate('+clamp(act[best].p.x+16,8,W-w-8).toFixed(0)+'px,'+clamp(act[best].p.y-hh-14,70,H-hh-8).toFixed(0)+'px)';
+        tip.style.opacity=1; tipUntil=performance.now()+2600;
+      } else if(e.pointerType==='mouse') tip.style.opacity=0;
+    }
+    hero.addEventListener('pointermove',point);
+    hero.addEventListener('pointerdown',point);
+    hero.addEventListener('pointerleave',function(){ hov=-1; tip.style.opacity=0; });
+
     size();
-    if(window.ResizeObserver) new ResizeObserver(function(){ size(); }).observe(panel);
-    if(window.IntersectionObserver) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; }).observe(panel);
-    if(reduce){ for(var q=0;q<4;q++) spawn(0); draw(); drawPins(0); nEl.textContent=n.toLocaleString('en-US'); }
-    else requestAnimationFrame(frame);
+    if(window.ResizeObserver) new ResizeObserver(size).observe(hero); else window.addEventListener('resize',size);
+    if(window.IntersectionObserver) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; },{threshold:0.02}).observe(hero);
+    if(reduce) frame(0); else requestAnimationFrame(frame);
+  })();
+  (function(){
+    var h=document.querySelector('header'), hero=document.getElementById('hero'); if(!h||!hero) return;
+    function upd(){ h.classList.toggle('over', hero.getBoundingClientRect().bottom>72); }
+    window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd();
   })();
   (function(){
     var root=document.getElementById('wyg'); if(!root) return;
@@ -1135,12 +1115,12 @@
     var panel = document.getElementById('mobile-nav-panel');
     if (!btn || !panel) return;
     btn.addEventListener('click', function(){
-      var isOpen = panel.classList.toggle('open');
+      var isOpen = panel.classList.toggle('open'); document.querySelector('header').classList.toggle('menu-open', isOpen);
       btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
     panel.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click', function(){
-        panel.classList.remove('open');
+        panel.classList.remove('open'); document.querySelector('header').classList.remove('menu-open');
         btn.setAttribute('aria-expanded', 'false');
       });
     });
