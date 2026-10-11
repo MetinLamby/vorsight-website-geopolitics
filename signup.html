@@ -6,7 +6,8 @@
 <title>Vorsight — Get Started</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=3">
 <style>
   :root{
     --bg:#FFFFFF; --bg-subtle:#F5F6F8; --surface:#FFFFFF;
@@ -35,7 +36,7 @@
   ::selection{ background:var(--ink); color:var(--bg); }
 
   .eyebrow{
-    font-family:var(--mono); font-size:11px; font-weight:600;
+    font-family:var(--mono); font-size:12px; font-weight:500;
     letter-spacing:1.6px; text-transform:uppercase; color:var(--ink-3);
     display:flex; align-items:center; gap:8px;
   }
@@ -56,10 +57,10 @@
   }
   .brand{ display:flex; align-items:center; gap:8px; text-decoration:none; }
   .brand-mark{ flex-shrink:0; color:var(--ink); }
-  .brand-name{ font-family:var(--mono); font-weight:600; letter-spacing:3px; font-size:12px; color:var(--ink); }
+  .brand-name{ font-family:var(--mono); font-weight:500; letter-spacing:3px; font-size:12px; color:var(--ink); }
   .header-right{ margin-left:auto; display:flex; align-items:center; gap:16px; }
   .back-link{
-    font-family:var(--mono); font-size:11.5px; font-weight:600;
+    font-family:var(--mono); font-size:12px; font-weight:500;
     letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-2);
     text-decoration:none; display:flex; align-items:center; gap:6px;
   }
@@ -67,7 +68,7 @@
 
   .btn{
     display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--mono); font-size:11px; font-weight:600;
+    font-family:var(--mono); font-size:12px; font-weight:500;
     text-transform:uppercase; letter-spacing:0.4px;
     padding:10px 16px; border-radius:3px; text-decoration:none;
     border:1px solid var(--ink); cursor:pointer; white-space:nowrap;
@@ -85,13 +86,13 @@
     background-image:radial-gradient(var(--grid-dot) 1px, transparent 1px);
     background-size:22px 22px;
   }
-  #page-hero h1{ font-size:34px; font-weight:600; letter-spacing:-0.4px; line-height:1.16; margin:14px 0 12px; }
+  #page-hero h1{ font-size:34px; font-weight:500; letter-spacing:-0.4px; line-height:1.16; margin:14px 0 12px; }
   #page-hero .lede{ font-size:15.5px; color:var(--ink-2); max-width:56ch; line-height:1.6; }
   @media (max-width:640px){ #page-hero h1{ font-size:26px; } }
 
   /* ---------- progress steps ---------- */
   .steps{ display:flex; gap:0; margin-top:28px; }
-  .step{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.4px; color:var(--ink-3); }
+  .step{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.4px; color:var(--ink-3); }
   .step .num{
     width:20px; height:20px; border-radius:50%; border:1px solid var(--border-strong);
     display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;
@@ -105,7 +106,7 @@
   main{ padding:44px 0 96px; }
   .form-section{ margin-bottom:40px; }
   .form-section-head{ margin-bottom:20px; }
-  .form-section-head h2{ font-size:18px; font-weight:700; margin:8px 0 6px; }
+  .form-section-head h2{ font-size:18px; font-weight:500; margin:8px 0 6px; }
   .form-section-head p{ font-size:13px; color:var(--ink-2); line-height:1.55; max-width:60ch; }
 
   .field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
@@ -113,7 +114,7 @@
   .field{ display:flex; flex-direction:column; gap:6px; }
   .field.full{ grid-column:1 / -1; }
   .field label{
-    font-family:var(--mono); font-size:10px; font-weight:600; text-transform:uppercase;
+    font-family:var(--mono); font-size:12px; font-weight:500; text-transform:uppercase;
     letter-spacing:0.4px; color:var(--ink-2);
   }
   .field input, .field select, .field textarea{
@@ -157,8 +158,8 @@
   @media (prefers-reduced-motion: reduce){ .rec-btn.recording::after{ animation:none; } }
   .rec-btn svg{ width:26px; height:26px; }
 
-  .rec-status{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(255,255,255,0.55); text-align:center; }
-  .rec-timer{ font-family:var(--mono); font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--bg); }
+  .rec-status{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:rgba(255,255,255,0.55); text-align:center; }
+  .rec-timer{ font-family:var(--mono); font-size:22px; font-weight:500; font-variant-numeric:tabular-nums; color:var(--bg); }
 
   .rec-bars{ display:flex; align-items:center; justify-content:center; gap:3px; height:28px; }
   .rec-bars span{ width:3px; border-radius:1px; background:rgba(255,255,255,0.35); height:4px; transition:height .08s ease; }
@@ -175,23 +176,23 @@
   .rec-play-btn svg{ width:14px; height:14px; }
   .rec-scrub{ flex:1; height:3px; background:rgba(255,255,255,0.2); border-radius:2px; position:relative; }
   .rec-scrub-fill{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--bg); border-radius:2px; }
-  .rec-duration{ font-family:var(--mono); font-size:10.5px; color:rgba(255,255,255,0.5); font-variant-numeric:tabular-nums; flex-shrink:0; }
+  .rec-duration{ font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.5); font-variant-numeric:tabular-nums; flex-shrink:0; }
 
   .rec-actions{ display:flex; gap:10px; align-items:center; }
   .rec-link{
-    font-family:var(--mono); font-size:10.5px; font-weight:600; text-transform:uppercase;
+    font-family:var(--mono); font-size:12px; font-weight:500; text-transform:uppercase;
     letter-spacing:0.4px; color:rgba(255,255,255,0.55); text-decoration:underline; cursor:pointer; background:none; border:none; padding:4px;
   }
   .rec-link:hover{ color:var(--bg); }
-  .rec-error{ font-family:var(--mono); font-size:11px; color:#FF9B8F; text-align:center; max-width:320px; display:none; }
+  .rec-error{ font-family:var(--mono); font-size:12px; color:#FF9B8F; text-align:center; max-width:320px; display:none; }
   .rec-error.show{ display:block; }
-  .rec-confirmed{ display:none; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; color:var(--green); text-transform:uppercase; letter-spacing:0.4px; }
+  .rec-confirmed{ display:none; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--green); text-transform:uppercase; letter-spacing:0.4px; }
   .rec-confirmed.show{ display:flex; }
   .rec-prompts{ margin-top:18px; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.6; max-width:480px; text-align:center; }
 
   /* ---------- form actions ---------- */
   .form-actions{ display:flex; align-items:center; gap:16px; margin-top:40px; }
-  .form-error{ font-family:var(--mono); font-size:11.5px; color:var(--red-ink); display:none; }
+  .form-error{ font-family:var(--mono); font-size:12px; color:var(--red-ink); display:none; }
   .form-error.show{ display:block; }
 
   /* ---------- pipeline / success panel ---------- */
@@ -217,10 +218,10 @@
   @keyframes pdot-pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
   .pipeline-step.done .pipeline-dot{ border-color:var(--green); background:var(--green); }
   .pipeline-step.done .pipeline-dot svg{ width:12px; height:12px; stroke:var(--bg); }
-  .pipeline-step-text .title{ font-size:13.5px; font-weight:600; color:var(--ink); }
+  .pipeline-step-text .title{ font-size:13.5px; font-weight:500; color:var(--ink); }
   .pipeline-step-text .desc{ font-size:12px; color:var(--ink-3); margin-top:1px; }
 
-  .pipeline-caption{ margin-top:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+  .pipeline-caption{ margin-top:18px; font-family:var(--mono); font-size:12px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
   .pipeline-done-note{
     display:none; margin-top:20px; padding:14px 16px; border-radius:6px; background:var(--green-soft);
     border:1px solid var(--green); color:var(--green-ink); font-size:13px; line-height:1.55;
@@ -229,7 +230,11 @@
 
   footer{ padding:28px 0; border-top:1px solid var(--border); }
   .foot-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-  .foot-note{ font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+  .foot-note{ font-family:var(--mono); font-size:12px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.4px; }
+
+  /* shared system overrides */
+  .header-right{ margin-left:auto; }
+  .back-link{ font-family:var(--sans); font-size:var(--t-small); letter-spacing:0; text-transform:none; }
 </style>
 </head>
 <body>
@@ -242,7 +247,7 @@
       <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
       <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
     </svg>
-    <span class="brand-name">VORSIGHT</span>
+    <span class="brand-name">Vorsight</span>
   </a>
   <div class="header-right">
     <a class="back-link" href="index.html">&larr; Back to home</a>
@@ -393,7 +398,7 @@
       <circle cx="13" cy="2.5" r="1.5" fill="currentColor"/>
       <circle cx="13" cy="13.5" r="1.5" fill="currentColor"/>
     </svg>
-      <span class="brand-name">VORSIGHT</span>
+      <span class="brand-name">Vorsight</span>
     </div>
     <span class="foot-note">Illustrative preview — figures shown are for demonstration, not live output</span>
   </div>

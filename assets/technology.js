@@ -274,13 +274,13 @@
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = g; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.stroke();
 
       var rr = clamp(0.8 + cam.z * 0.16, 0.9, 2.1), b1 = mkBks(rr);
-      drawSet(REST, R, c0, s0, cp0, sp0, b1, 0.02); fillBks(b1, 0.12, 0.3, 0.5);
+      drawSet(REST, R, c0, s0, cp0, sp0, b1, 0.02); fillBks(b1, 0.1, 0.24, 0.4);
       Object.keys(HI).forEach(function (kk) {
         var b2 = mkBks(clamp(STEP[kk] * R * rad * 0.3, 0.7, 2.1));
-        drawSet(HI[kk], R, c0, s0, cp0, sp0, b2, 0.02); fillBks(b2, 0.55, 0.8, 1);
+        drawSet(HI[kk], R, c0, s0, cp0, sp0, b2, 0.02); fillBks(b2, 0.4, 0.62, 0.82);
       });
 
-      ctx.font = '600 9px "IBM Plex Mono",monospace'; ctx.textBaseline = 'middle';
+      ctx.font = '400 11px "Geist Mono",ui-monospace,monospace'; ctx.textBaseline = 'middle';
       if (cam.z < 3.2) CLABEL.forEach(function (cl) {
         var la = cl[1] * rad, lo = cl[2] * rad, p = project({ cl: Math.cos(la), sl: Math.sin(la), cL: Math.cos(lo), sL: Math.sin(lo) }, 1, c0, s0, cp0, sp0, R);
         if (p.z > 0.25) halo(cl[0], p.x, p.y, 'rgba(255,255,255,0.55)', 'center');
@@ -305,7 +305,7 @@
       });
 
       /* pins + labels */
-      pinPos = {}; ctx.font = '600 10.5px "Hanken Grotesk",Inter,sans-serif';
+      pinPos = {}; ctx.font = '400 12.5px "Hanken Grotesk",Inter,sans-serif';
       N.forEach(function (n) {
         var la = n.lat * rad, lo = n.lon * rad, p = project({ cl: Math.cos(la), sl: Math.sin(la), cL: Math.cos(lo), sL: Math.sin(lo) }, 1, c0, s0, cp0, sp0, R);
         if (p.z < 0.06 || p.x < -10 || p.x > W + 10 || p.y < -10 || p.y > H + 10) return;
@@ -547,7 +547,7 @@
         ctx.globalAlpha = 1;
       });
       /* labels */
-      ctx.font = '600 10.5px "Hanken Grotesk",Inter,sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.font = '400 12.5px "Hanken Grotesk",Inter,sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
       nodes.forEach(function (n, i) {
         var on = !any || set[n.id]; if (!n.hub && i !== hover && n.id !== selId) return; if (!on && i !== hover) return;
         var x = sx(n), y = sy(n), r = n.r * Math.max(0.7, Math.min(1.5, sc * 0.9));
