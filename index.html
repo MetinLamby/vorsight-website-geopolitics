@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vorsight</title>
-<meta name="description" content="Vorsight helps risk teams at small and mid-sized European manufacturers see supply chain disruption early, then diversify and hedge before it hits delivery.">
+<meta name="description" content="Vorsight is a modern SaaS tool for geopolitical risk assessment. It turns global developments into decisions for small and mid-sized European companies in supply-chain-heavy industries.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
@@ -39,40 +39,18 @@
       linear-gradient(0deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.35) 38%, rgba(8,8,8,0) 60%),
       linear-gradient(180deg, rgba(8,8,8,0.6) 0%, rgba(8,8,8,0) 22%);
   }
-  .hero-inner{ position:relative; z-index:3; width:100%; padding:0 var(--pad) clamp(44px,8vh,84px); pointer-events:none; }
-  .hero-copy{ max-width:1100px; pointer-events:auto; }
-  .hero-copy h1{ font-size:var(--t-hero); letter-spacing:-0.045em; line-height:0.98; color:#fff; }
-  .hero-copy .lede{ margin-top:clamp(22px,3.4vh,34px); max-width:52ch; font-size:clamp(17px,1.4vw,20px); line-height:1.5; color:rgba(255,255,255,0.74); }
-  .built-in{ display:flex; align-items:center; gap:14px; margin-top:clamp(22px,3.4vh,32px); }
-  .built-in-txt{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
-  .eu-flag{ display:block; flex-shrink:0; box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
+  .hero-inner{ position:relative; z-index:3; width:100%; padding:0 var(--pad) clamp(48px,10vh,96px); pointer-events:none; }
+  .hero-copy{ max-width:760px; pointer-events:auto; }
+  .hero-copy h1{ font-size:clamp(34px,4.6vw,66px); letter-spacing:-0.035em; line-height:1.04; color:#fff; }
+  .hero-copy .lede{ margin-top:clamp(16px,2.6vh,24px); max-width:38ch; font-size:clamp(16px,1.2vw,18px); line-height:1.5; color:rgba(255,255,255,0.68); }
   .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
-  .hero-tag{
-    position:absolute; right:var(--pad); bottom:clamp(20px,4vh,36px); z-index:3; display:flex; align-items:center; gap:8px;
-    font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.5);
-  }
-  .hero-tag i{ width:6px; height:6px; border-radius:50%; background:var(--orange); animation:livepulse 1.4s ease-in-out infinite; }
-  @keyframes livepulse{ 50%{ opacity:.25; } }
   .gp-tip{
     position:absolute; left:0; top:0; z-index:4; max-width:260px; pointer-events:none; opacity:0; transition:opacity .15s ease;
-    background:rgba(14,14,14,0.94); border:1px solid rgba(255,255,255,0.18); padding:10px 13px 11px;
+    background:rgba(14,14,14,0.94); border:1px solid rgba(255,255,255,0.18); padding:9px 12px 10px;
+    font-size:var(--t-small); line-height:1.35; color:#fff;
   }
-  .gp-tip small{ display:block; margin-bottom:4px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--orange); }
-  .gp-tip span{ display:block; font-size:var(--t-small); line-height:1.35; color:#fff; }
-  @media (max-width:640px){ .hero-tag{ display:none; } }
-  @media (prefers-reduced-motion: reduce){ .hero-tag i{ animation:none; } }
 
   /* ---------- problem ---------- */
-  .flow-row{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:36px clamp(24px,4vw,64px); }
-  .flow-box{ padding:20px 0 0; border-top:1px solid var(--border-strong); background:none; }
-  .flow-box.result{ border-top-color:var(--orange); background:none; }
-  .flow-lbl{ display:block; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .flow-lbl .dot{ display:none; }
-  .flow-title{ margin-top:16px; font-size:var(--t-h3); line-height:1.22; letter-spacing:-0.015em; }
-  .flow-desc{ margin-top:14px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
-  .flow-join{ display:none; }
-  @media (max-width:760px){ .flow-row{ grid-template-columns:1fr; } }
-
   .readiness{ margin-top:clamp(88px,13vh,150px); padding:clamp(32px,5vw,72px); background:var(--dark); color:#fff; }
   .readiness .eyebrow{ color:rgba(255,255,255,0.5); }
   .readiness h3{ margin:16px 0 clamp(40px,7vh,72px); max-width:20ch; font-size:var(--t-h2); line-height:1.06; letter-spacing:-0.025em; color:#fff; }
@@ -89,27 +67,104 @@
   .gap{ display:flex; align-items:center; gap:12px; font-size:clamp(17px,1.4vw,20px); color:#fff; }
   .gap-mark{ width:7px; height:7px; border-radius:50%; background:var(--orange); font-size:0; flex-shrink:0; }
 
-  .subhead{ margin:clamp(96px,14vh,170px) 0 clamp(36px,6vh,64px); }
-  .subhead h3{ margin-top:14px; font-size:var(--t-h2); line-height:1.06; letter-spacing:-0.025em; }
-  .risk-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(40px,6vw,88px) clamp(24px,3.4vw,56px); }
-  @media (max-width:980px){ .risk-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  @media (max-width:620px){ .risk-grid{ grid-template-columns:1fr; gap:44px; } }
-  .risk-card{ display:block; border-top:1px solid var(--border-strong); background:none; }
-  .risk-art{ display:block; height:auto; padding:28px 0 24px; background:none; border:0; }
-  .risk-art svg{ width:76px; height:57px; }
-  .risk-name{ margin-bottom:14px; font-size:var(--t-h3); line-height:1.2; letter-spacing:-0.015em; }
-  .risk-list li{ padding:3px 0; font-size:var(--t-small); line-height:1.45; color:var(--ink-2); }
+  /* ---------- three-column statements (problem, trust) ---------- */
+  .cmp{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:36px clamp(24px,4vw,64px); }
+  .cmp-i{ padding-top:20px; border-top:1px solid var(--border-strong); }
+  .cmp-i.us{ border-top-color:var(--orange); }
+  .cmp-k{ display:block; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+  .cmp-i.us .cmp-k{ color:var(--orange); }
+  .cmp-i h3{ margin-top:16px; font-size:var(--t-h3); line-height:1.2; letter-spacing:-0.015em; }
+  .cmp-i p{ margin-top:12px; max-width:34ch; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
+  @media (max-width:760px){ .cmp{ grid-template-columns:1fr; } }
+  .readiness{ margin-top:clamp(80px,12vh,140px); }
+  .trust-sec{ background:#fff; }
 
-  /* ---------- solution (dark) ---------- */
-  #solution{ background:var(--dark); color:#fff; }
-  #solution .eyebrow{ color:rgba(255,255,255,0.5); }
-  #solution .section-head h2{ color:#fff; }
-  #solution .section-head p{ color:rgba(255,255,255,0.66); }
-  #solution .flow-box{ border-top-color:rgba(255,255,255,0.24); }
-  #solution .flow-box.result{ border-top-color:var(--orange); }
-  #solution .flow-lbl{ color:rgba(255,255,255,0.5); }
-  #solution .flow-title{ color:#fff; }
-  #solution .flow-desc{ color:rgba(255,255,255,0.62); }
+  /* ---------- platform overview: quiet boxes in an off-white frame ---------- */
+  #platform{ background:#fff; }
+  .plat{ display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px); padding:clamp(16px,2.6vw,40px); background:var(--bg-subtle); }
+  .pbox{ background:#fff; border:1px solid var(--border); }
+  .plbl{ display:block; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+  .psrc{ display:flex; align-items:center; flex-wrap:wrap; gap:10px 28px; padding:16px clamp(16px,2vw,28px); }
+  .psrc-l{ display:flex; flex-wrap:wrap; gap:6px 28px; font-size:var(--t-small); color:var(--ink); }
+  .pmain{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .pcol{ position:relative; padding:clamp(20px,2.4vw,34px); border-left:1px solid var(--border); opacity:.7; transition:opacity .5s ease; }
+  .pcol:first-child{ border-left:0; }
+  .pcol.on{ opacity:1; }
+  .pcol:not(:last-child)::after{ content:"→"; position:absolute; right:-9px; top:50%; z-index:2; width:18px; height:18px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--border); font-size:11px; color:var(--ink-3); }
+  .ptag{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+  .pn{ display:block; margin:clamp(22px,4vh,40px) 0 14px; font-family:var(--mono); font-size:var(--t-label); color:var(--ink-3); transition:color .4s; }
+  .pcol.on .pn{ color:var(--orange); }
+  .pcol h3{ font-size:clamp(19px,1.6vw,23px); line-height:1.2; letter-spacing:-0.012em; }
+  .pcol p{ margin-top:12px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); max-width:30ch; }
+  .pviz{ display:block; width:100%; max-width:230px; margin-top:clamp(20px,3.4vh,34px); color:var(--ink); overflow:visible; }
+  .pviz polygon{ fill:#fff; stroke:currentColor; stroke-width:1; }
+  .pviz .o polygon, .pviz polygon.o{ stroke:var(--orange); fill:var(--orange); }
+  .pviz path{ stroke:currentColor; }
+  .pviz .grey circle{ fill:var(--border-strong); }
+  .pviz .o circle{ fill:var(--orange); }
+  .pviz .o{ stroke:var(--orange); }
+  .pviz path.o{ stroke:var(--orange); }
+  .pviz path.w{ stroke:var(--ink); }
+  .pviz path.m{ stroke:var(--ink); }
+  .pcol.on .pviz .o circle{ animation:pdot 1.6s ease-in-out infinite; }
+  @keyframes pdot{ 50%{ opacity:.25; } }
+  .pout{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,1.2vw,16px); }
+  .pout .pbox{ padding:16px clamp(16px,2vw,28px); }
+  .pout b{ display:block; margin-top:6px; font-size:clamp(16px,1.3vw,19px); font-weight:400; letter-spacing:-0.01em; }
+  @media (max-width:980px){
+    .pmain{ grid-template-columns:1fr 1fr; }
+    .pcol:nth-child(3){ border-left:0; }
+    .pcol:nth-child(n+3){ border-top:1px solid var(--border); }
+    .pcol:not(:last-child)::after{ display:none; }
+  }
+  @media (max-width:620px){
+    .pmain{ grid-template-columns:1fr; }
+    .pcol{ border-left:0; border-top:1px solid var(--border); }
+    .pcol:first-child{ border-top:0; }
+    .pcol{ opacity:1; }
+    .pout{ grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){ .pcol{ opacity:1; } .pcol.on .pviz .o circle{ animation:none; } }
+
+  /* ---------- industries carousel ---------- */
+  #industries{ background:var(--bg-subtle); }
+  .car-track{
+    display:flex; gap:clamp(12px,1.6vw,24px); overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    padding-bottom:6px; scrollbar-width:none; outline:none;
+  }
+  .car-track::-webkit-scrollbar{ display:none; }
+  .car-track:focus-visible{ outline:1px solid var(--ink); outline-offset:6px; }
+  .ind{
+    flex:0 0 min(400px,84vw); scroll-snap-align:start; display:flex; flex-direction:column; min-height:480px;
+    padding:clamp(22px,2.2vw,32px); background:#fff; border:1px solid var(--border);
+  }
+  .ind-top{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:clamp(36px,6vh,64px); }
+  .ind-k, .ind-live{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+  .ind-live{ display:inline-flex; align-items:center; gap:7px; }
+  .ind-live i{ width:6px; height:6px; border-radius:50%; background:var(--orange); animation:livepulse 1.4s ease-in-out infinite; }
+  @keyframes livepulse{ 50%{ opacity:.25; } }
+  .ind h3{ font-size:clamp(24px,2.1vw,30px); line-height:1.1; letter-spacing:-0.02em; }
+  .ind-lead{ margin-top:14px; min-height:4.5em; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
+  .ind-th{ margin-top:auto; padding-top:20px; }
+  .ind-th li{ padding:14px 0; border-top:1px solid var(--border); }
+  .ind-th b{ display:block; font-size:var(--t-small); font-weight:500; }
+  .ind-th span{ display:block; margin-top:3px; font-size:14px; line-height:1.45; color:var(--ink-2); }
+  .car-ctl{ display:flex; align-items:center; justify-content:space-between; margin-top:clamp(20px,3vh,32px); }
+  .car-n{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; color:var(--ink-3); }
+  .car-btns{ display:flex; gap:8px; }
+  .car-b{ width:44px; height:44px; background:#fff; border:1px solid var(--border-strong); border-radius:0; font-size:17px; color:var(--ink); cursor:pointer; }
+  .car-b:hover{ border-color:var(--ink); }
+  .car-b:disabled{ opacity:.35; cursor:default; }
+  .car-b:focus-visible{ outline:1px solid var(--ink); outline-offset:3px; }
+  @media (prefers-reduced-motion: reduce){ .ind-live i{ animation:none; } .car-track{ scroll-behavior:auto; } }
+
+  /* ---------- outcomes (dark) ---------- */
+  #outcomes{ background:var(--dark); color:#fff; }
+  #outcomes .eyebrow{ color:rgba(255,255,255,0.5); }
+  #outcomes .section-head h2{ color:#fff; }
+  #outcomes .section-head p{ color:rgba(255,255,255,0.66); }
+  .foot-eu{ display:inline-flex; align-items:center; gap:12px; }
+  .foot-eu .eu-flag{ box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
 
   /* what you get: a quiet selector list next to one minimal illustration */
   .wyg{ display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(32px,6vw,96px); align-items:start; }
@@ -182,7 +237,8 @@
   </a>
   <nav class="site-nav">
     <a href="#problem">Problem</a>
-    <a href="#solution">Solution</a>
+    <a href="#platform">Platform</a>
+    <a href="#industries">Industries</a>
     <a href="technology.html">Technology</a>
     <a href="about.html">About us</a>
   </nav>
@@ -195,7 +251,8 @@
   </div>
   <div class="mobile-nav-panel" id="mobile-nav-panel">
     <a href="#problem">Problem</a>
-    <a href="#solution">Solution</a>
+    <a href="#platform">Platform</a>
+    <a href="#industries">Industries</a>
     <a href="technology.html">Technology</a>
     <a href="about.html">About us</a>
     <a href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
@@ -206,57 +263,36 @@
 <section id="hero" aria-label="Vorsight">
   <canvas id="globe-canvas" aria-hidden="true"></canvas>
   <div class="hero-shade" aria-hidden="true"></div>
-  <canvas id="sig-canvas" role="img" aria-label="A slowly rotating globe with orange markers for live supply chain risk signals. Illustrative."></canvas>
+  <canvas id="sig-canvas" role="img" aria-label="A slowly rotating globe with orange dots for live geopolitical signals. Illustrative."></canvas>
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <h1>Resilience in times<br>of uncertainty.</h1>
-      <p class="lede">Vorsight helps risk teams at European manufacturers navigate the complexity of geopolitics and keep supply chains on time: see disruption early, then diversify and hedge before it hits delivery.</p>
-      <div class="built-in">
-      <svg class="eu-flag" viewBox="0 0 54 36" width="60" height="40" role="img" aria-label="Flag of the European Union">
-        <defs><polygon id="eu-star" points="0.00,-2.00 0.47,-0.65 1.90,-0.62 0.76,0.25 1.18,1.62 0.00,0.80 -1.18,1.62 -0.76,0.25 -1.90,-0.62 -0.47,-0.65"/></defs>
-        <rect width="54" height="36" fill="#003399"/>
-        <g fill="#FFCC00"><use href="#eu-star" x="27.00" y="6.00"/><use href="#eu-star" x="33.00" y="7.61"/><use href="#eu-star" x="37.39" y="12.00"/><use href="#eu-star" x="39.00" y="18.00"/><use href="#eu-star" x="37.39" y="24.00"/><use href="#eu-star" x="33.00" y="28.39"/><use href="#eu-star" x="27.00" y="30.00"/><use href="#eu-star" x="21.00" y="28.39"/><use href="#eu-star" x="16.61" y="24.00"/><use href="#eu-star" x="15.00" y="18.00"/><use href="#eu-star" x="16.61" y="12.00"/><use href="#eu-star" x="21.00" y="7.61"/></g>
-      </svg>
-      <span class="built-in-txt">Built in Europe</span>
-      </div>
+      <h1>Your copilot for<br>geopolitical risk.</h1>
+      <p class="lede">A modern SaaS tool that turns global developments into decisions for your company.</p>
     </div>
   </div>
 
-  <div class="hero-tag" aria-hidden="true"><i></i>Live risk signals · illustrative</div>
   <div class="gp-tip" id="gp-tip" role="status"></div>
 </section>
 
 <!-- ============ 2. PROBLEM ============ -->
 <section id="problem">
   <div class="wrap">
-
     <div class="section-head reveal">
       <div class="eyebrow">THE PROBLEM</div>
-      <h2>Efficiency built a fragile supply chain.</h2>
-      <p>Your KPIs don't care about typhoons; they only measure whether products arrive on time. For decades, Europe's growth model rested on open trade and global supply chains. Rising trade frictions and a more multipolar world now test it, and mid-sized firms feel it first.</p>
+      <h2>There is no shortage of geopolitical analysis. There is too much of it.</h2>
+      <p>Think tanks publish reports nobody has time to read. Consultancies deliver deep studies that are outdated by the time they arrive. And none of it is written for your company.</p>
     </div>
 
-    <div class="flow-row reveal">
-      <div class="flow-box">
-        <span class="flow-lbl"><span class="dot" style="background:var(--ink-3);"></span>Pressure 1</span>
-        <div class="flow-title">Europe's open-trade growth model is under strain</div>
-      </div>
-      <div class="flow-join">+</div>
-      <div class="flow-box">
-        <span class="flow-lbl"><span class="dot" style="background:var(--ink);"></span>Pressure 2</span>
-        <div class="flow-title">Supply chains concentrated in a few suppliers and regions</div>
-      </div>
-      <div class="flow-join">→</div>
-      <div class="flow-box result">
-        <span class="flow-lbl"><span class="dot" style="background:var(--orange);"></span>The result</span>
-        <div class="flow-title">Teams must find single points of failure, build resilience, and diversify or hedge before delivery slips.</div>
-      </div>
+    <div class="cmp reveal">
+      <div class="cmp-i"><span class="cmp-k">Think tanks</span><h3>Too much to read.</h3><p>Heavy reports, generic by design. More than any risk team can get through, and none of it tailored to your suppliers and markets.</p></div>
+      <div class="cmp-i"><span class="cmp-k">Consultancies</span><h3>Too slow to trust.</h3><p>In-depth analysis, but geopolitics moves faster than a project. Findings and recommendations age within weeks.</p></div>
+      <div class="cmp-i us"><span class="cmp-k">Vorsight</span><h3>Personal and live.</h3><p>Built around your supply chain and updated as the world changes. Only what matters to you, in minutes rather than days.</p></div>
     </div>
 
     <div class="readiness reveal">
       <div class="eyebrow">THE READINESS GAP</div>
-      <h3>Disruption is rising — but corporate readiness is lagging.</h3>
+      <h3>Geopolitical risk is rising — but readiness is lagging.</h3>
 
       <!-- TODO: add the source/year of these survey figures before publishing -->
       <div class="stat-grid">
@@ -301,185 +337,160 @@
       </div>
     </div>
 
-    <div class="subhead reveal">
-      <div class="eyebrow">WHERE WE LOOK</div>
-      <h3>The risks we watch in your supply chain</h3>
+  </div>
+</section>
+
+<!-- ============ 3. PLATFORM ============ -->
+<section id="platform">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">THE PLATFORM</div>
+      <h2>From your supply chain to the signal that matters.</h2>
+      <p>Vorsight is a modern SaaS tool for geopolitical risk assessment. It is not a supply chain system. It reads your supply chain data alongside the world, and tells you what changes for you.</p>
     </div>
 
-    <div class="risk-grid reveal">
+    <div class="plat reveal" id="plat">
+      <div class="pbox psrc">
+        <span class="plbl">Global data sources</span>
+        <ul class="psrc-l"><li>Official journals</li><li>Customs &amp; trade data</li><li>News in many languages</li><li>Analyst notes</li><li>Market data</li></ul>
+      </div>
 
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <path d="M6 45 L64 45" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M56 39 L64 45 L56 51" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M78 18 L78 72 M92 18 L92 72" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M78 26 L92 18 M78 40 L92 32 M78 54 L92 46 M78 68 L92 60" stroke="var(--ink-2)" stroke-width="1.6"/>
-            <circle cx="85" cy="10" r="3" fill="var(--orange)"/>
-          </svg>
+      <div class="pbox pmain">
+        <div class="pcol on" data-i="0">
+          <span class="ptag">Private · yours</span>
+          <span class="pn">1</span>
+          <h3>You share your supply chain</h3>
+          <p>Suppliers, materials, sites and routes. A short voice note or form is enough.</p>
+          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M30 50H170M65 22L100 50M135 78L100 50"/><polygon points="26.5,43.9 33.5,43.9 37.0,50.0 33.5,56.1 26.5,56.1 23.0,50.0"/><polygon points="96.5,43.9 103.5,43.9 107.0,50.0 103.5,56.1 96.5,56.1 93.0,50.0"/><polygon class="o" points="166.5,43.9 173.5,43.9 177.0,50.0 173.5,56.1 166.5,56.1 163.0,50.0"/><polygon points="62.5,17.7 67.5,17.7 70.0,22.0 67.5,26.3 62.5,26.3 60.0,22.0"/><polygon points="132.5,73.7 137.5,73.7 140.0,78.0 137.5,82.3 132.5,82.3 130.0,78.0"/></g></svg>
         </div>
-        <div class="risk-body">
-          <div class="risk-name">Trade Barriers &amp; Tariffs</div>
-          <ul class="risk-list">
-            <li>Tariffs &amp; duties</li>
-            <li>Import/export controls</li>
-            <li>Sanctions &amp; embargoes</li>
-            <li>Customs delays</li>
-          </ul>
+        <div class="pcol" data-i="1">
+          <span class="ptag">Shared · the world</span>
+          <span class="pn">2</span>
+          <h3>We separate signal from noise</h3>
+          <p>Thousands of items a day, filtered down to the developments that actually move risk.</p>
+          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g class="grey"><circle cx="72.8" cy="69.3" r="1.7"/><circle cx="90.7" cy="85.4" r="1.7"/><circle cx="84.9" cy="83.8" r="1.7"/><circle cx="11.0" cy="47.2" r="1.7"/><circle cx="106.1" cy="61.9" r="1.7"/><circle cx="101.7" cy="19.1" r="1.7"/><circle cx="56.8" cy="29.7" r="1.7"/><circle cx="64.6" cy="55.9" r="1.7"/><circle cx="9.4" cy="27.3" r="1.7"/><circle cx="37.1" cy="83.3" r="1.7"/><circle cx="87.6" cy="22.8" r="1.7"/><circle cx="90.9" cy="21.1" r="1.7"/><circle cx="72.2" cy="20.1" r="1.7"/><circle cx="8.2" cy="79.7" r="1.7"/><circle cx="29.8" cy="27.2" r="1.7"/><circle cx="110.2" cy="79.8" r="1.7"/><circle cx="38.1" cy="86.9" r="1.7"/><circle cx="64.1" cy="64.2" r="1.7"/><circle cx="29.3" cy="85.3" r="1.7"/><circle cx="79.8" cy="87.3" r="1.7"/><circle cx="100.9" cy="33.9" r="1.7"/><circle cx="45.6" cy="23.3" r="1.7"/></g><path d="M128 8V92" stroke-width="1" stroke-dasharray="2 3"/><g class="o" stroke-width="0"><circle cx="160" cy="28" r="3.6"/><circle cx="168" cy="52" r="3.6"/><circle cx="156" cy="74" r="3.6"/></g></svg>
+        </div>
+        <div class="pcol" data-i="2">
+          <span class="ptag">Shared · the world</span>
+          <span class="pn">3</span>
+          <h3>Our geopolitics model updates in real time</h3>
+          <p>It understands how the world is changing and learns from live data feeds.</p>
+          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M100 18V52M100 52L52 80M100 52L148 80M52 80L30 66M52 80L40 94M148 80L170 66M148 80L160 94"/><polygon points="97.0,12.8 103.0,12.8 106.0,18.0 103.0,23.2 97.0,23.2 94.0,18.0"/><polygon points="96.5,45.9 103.5,45.9 107.0,52.0 103.5,58.1 96.5,58.1 93.0,52.0"/><polygon points="49.0,74.8 55.0,74.8 58.0,80.0 55.0,85.2 49.0,85.2 46.0,80.0"/><polygon class="o" points="145.0,74.8 151.0,74.8 154.0,80.0 151.0,85.2 145.0,85.2 142.0,80.0"/><polygon points="28.0,62.5 32.0,62.5 34.0,66.0 32.0,69.5 28.0,69.5 26.0,66.0"/><polygon points="38.0,90.5 42.0,90.5 44.0,94.0 42.0,97.5 38.0,97.5 36.0,94.0"/><polygon points="168.0,62.5 172.0,62.5 174.0,66.0 172.0,69.5 168.0,69.5 166.0,66.0"/><polygon points="158.0,90.5 162.0,90.5 164.0,94.0 162.0,97.5 158.0,97.5 156.0,94.0"/></g></svg>
+        </div>
+        <div class="pcol" data-i="3">
+          <span class="ptag">Private · yours</span>
+          <span class="pn">4</span>
+          <h3>Your model updates and alerts you</h3>
+          <p>Only relevant signals reach your private model, refresh your scenarios and flag disruption to your supply chain.</p>
+          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M20 28H160M20 52H160M20 76H160"/></g><g stroke-width="3"><path d="M20 28H92" class="w"/><path d="M20 52H122" class="w"/><path d="M20 76H64" class="o"/></g><g stroke-width="1"><path d="M60 22V34M96 46V58M124 70V82" class="m"/></g><g class="o" stroke-width="0"><circle cx="184" cy="14" r="4"/></g></svg>
         </div>
       </div>
 
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <rect x="38" y="24" width="44" height="42" rx="3" stroke="var(--ink)" stroke-width="2"/>
-            <rect x="49" y="35" width="22" height="20" rx="2" stroke="var(--ink-2)" stroke-width="1.6"/>
-            <path d="M46 24V14 M60 24V14 M74 24V14 M46 66V76 M60 66V76 M74 66V76 M38 36H28 M38 45H28 M38 54H28 M82 36H92 M82 45H92 M82 54H92" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="60" cy="45" r="3" fill="var(--orange)"/>
-          </svg>
-        </div>
-        <div class="risk-body">
-          <div class="risk-name">Components &amp; Materials</div>
-          <ul class="risk-list">
-            <li>Chip &amp; raw-material shortages</li>
-          </ul>
-        </div>
+      <div class="pout">
+        <div class="pbox"><span class="plbl">You receive</span><b>Updated scenario analyses</b></div>
+        <div class="pbox"><span class="plbl">You receive</span><b>Supply chain disruption alerts</b></div>
+        <div class="pbox"><span class="plbl">You receive</span><b>Recommended actions</b></div>
       </div>
-
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <path d="M26 36 L60 16 L94 36 Z" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M36 42 V68 M52 42 V68 M68 42 V68 M84 42 V68" stroke="var(--ink-2)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M22 73 H98" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M16 80 H104" stroke="var(--ink-3)" stroke-width="1.6" stroke-linecap="round"/>
-            <circle cx="60" cy="28" r="3" fill="var(--orange)"/>
-          </svg>
-        </div>
-        <div class="risk-body">
-          <div class="risk-name">Regulation &amp; Compliance</div>
-          <ul class="risk-list">
-            <li>Product &amp; chemical regulation</li>
-            <li>Supply chain due diligence</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <circle cx="60" cy="45" r="26" stroke="var(--ink)" stroke-width="2"/>
-            <path d="M60 19 C46 27,46 63,60 71" stroke="var(--ink-2)" stroke-width="1.6"/>
-            <path d="M60 19 C74 27,74 63,60 71" stroke="var(--ink-2)" stroke-width="1.6"/>
-            <path d="M34 45 L86 45" stroke="var(--ink-3)" stroke-width="1.6"/>
-            <path d="M38 28 L50 40 L42 52 L58 58 L52 68" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="52" cy="68" r="3" fill="var(--orange)"/>
-          </svg>
-        </div>
-        <div class="risk-body">
-          <div class="risk-name">Disruption &amp; Disasters</div>
-          <ul class="risk-list">
-            <li>Typhoons, floods &amp; earthquakes</li>
-            <li>Conflict &amp; cyber attacks</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <path d="M20 65 L52 32" stroke="var(--ink-2)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M42 32 L52 32 L52 42" stroke="var(--ink-2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M68 32 L100 65" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M100 55 L100 65 L90 65" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="60" cy="48" r="3.5" fill="var(--orange)"/>
-          </svg>
-        </div>
-        <div class="risk-body">
-          <div class="risk-name">Cost &amp; Currency</div>
-          <ul class="risk-list">
-            <li>Price, freight &amp; currency swings</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="risk-card">
-        <div class="risk-art">
-          <svg viewBox="0 0 120 90" fill="none" aria-hidden="true">
-            <path d="M34 55 L56 29" stroke="var(--ink-2)" stroke-width="2"/>
-            <path d="M65 29 L87 55" stroke="var(--orange)" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round"/>
-            <path d="M35 61 L55 66" stroke="var(--ink-2)" stroke-width="2"/>
-            <path d="M65 66 L85 61" stroke="var(--ink-2)" stroke-width="2"/>
-            <circle cx="30" cy="60" r="5" stroke="var(--ink)" stroke-width="2" fill="var(--bg-subtle)"/>
-            <circle cx="60" cy="24" r="5" stroke="var(--ink)" stroke-width="2" fill="var(--bg-subtle)"/>
-            <circle cx="90" cy="60" r="5" stroke="var(--ink)" stroke-width="2" fill="var(--bg-subtle)"/>
-            <circle cx="60" cy="68" r="4" stroke="var(--ink-2)" stroke-width="2" fill="var(--bg-subtle)"/>
-          </svg>
-        </div>
-        <div class="risk-body">
-          <div class="risk-name">Centralisation &amp; Dependencies</div>
-          <ul class="risk-list">
-            <li>Single-source suppliers, ports &amp; regions</li>
-          </ul>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ============ 3. SOLUTION ============ -->
-<section id="solution">
+<!-- ============ 4. INDUSTRIES ============ -->
+<section id="industries">
   <div class="wrap">
-
     <div class="section-head reveal">
-      <div class="eyebrow">THE SOLUTION</div>
-      <h2>From early warning to a plan you can execute.</h2>
-      <p>We map where your supply chain is concentrated, track what could break it, and turn each risk into scenarios and playbooks your team can use. That gives risk teams resilience they can measure, not just a register.</p>
+      <div class="eyebrow">WHO IT IS FOR</div>
+      <h2>Built for supply-chain-heavy industries.</h2>
+      <p>We serve small and mid-sized European companies whose business depends on global supply chains. Here is what is active for your industry, and why it matters to you.</p>
     </div>
 
-    <div class="flow-row reveal">
-      <div class="flow-box">
-        <span class="flow-lbl"><span class="dot" style="background:var(--ink-3);"></span>What is happening at the moment?</span>
-        <div class="flow-title">Horizon scanning</div>
-        <div class="flow-desc">Mapping your suppliers, sites and routes, and tracking early signals of disruption across them.</div>
+    <div class="car reveal" id="car">
+      <div class="car-track" id="car-track" tabindex="0" role="region" aria-label="Industries and the geopolitical threats that matter to them">
+        <article class="ind">
+          <div class="ind-top"><span class="ind-k">01 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
+          <h3>Chemicals &amp; petrochemicals</h3>
+          <p class="ind-lead">Energy, feedstock and shipping lanes set your margins. Policy moves them first.</p>
+          <ul class="ind-th"><li><b>Gas and energy shocks</b><span>Supply cuts and sanctions can change input costs within days.</span></li><li><b>Trade defence and tariffs</b><span>Anti-dumping duties and retaliation reshape export markets.</span></li><li><b>Shipping chokepoints</b><span>Red Sea and Gulf disruption delays feedstock and deliveries.</span></li></ul>
+        </article>
+        <article class="ind">
+          <div class="ind-top"><span class="ind-k">02 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
+          <h3>Automotive manufacturing</h3>
+          <p class="ind-lead">Electrification ties every carmaker and supplier to a few countries and a few materials.</p>
+          <ul class="ind-th"><li><b>Rare earth export licensing</b><span>Magnets for motors and sensors can be held up at the border.</span></li><li><b>Tariffs on vehicles and parts</b><span>US and EU–China disputes change the price of every export.</span></li><li><b>Chip supply concentration</b><span>Export controls and tension around a few fabs.</span></li></ul>
+        </article>
+        <article class="ind">
+          <div class="ind-top"><span class="ind-k">03 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
+          <h3>Electronics, electrical engineering &amp; semiconductors</h3>
+          <p class="ind-lead">Your products depend on technology and materials that governments now treat as strategic.</p>
+          <ul class="ind-th"><li><b>Chip export controls</b><span>Rules on equipment and advanced chips change who can buy what.</span></li><li><b>Critical minerals</b><span>Licensing on gallium, germanium and graphite squeezes inputs.</span></li><li><b>Taiwan Strait risk</b><span>Advanced chip output is concentrated in one exposed place.</span></li></ul>
+        </article>
+        <article class="ind">
+          <div class="ind-top"><span class="ind-k">04 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
+          <h3>Food, beverage &amp; FMCG</h3>
+          <p class="ind-lead">Thin margins and fast turnover leave no room for a blocked port or a new duty.</p>
+          <ul class="ind-th"><li><b>Shipping and canal disruption</b><span>Red Sea and Panama bottlenecks lift freight costs and delay stock.</span></li><li><b>Fertiliser and grain trade</b><span>Black Sea tension and export bans move input prices.</span></li><li><b>Retaliatory tariffs</b><span>Agri-food is the first target in trade disputes.</span></li></ul>
+        </article>
+        <article class="ind">
+          <div class="ind-top"><span class="ind-k">05 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
+          <h3>Pharmaceuticals &amp; life sciences</h3>
+          <p class="ind-lead">A single missing ingredient or a delayed cold chain can stop a product line.</p>
+          <ul class="ind-th"><li><b>Active ingredient concentration</b><span>Key inputs come from a few countries that can restrict exports.</span></li><li><b>Tariffs on pharma imports</b><span>New duties reshape pricing and where you manufacture.</span></li><li><b>Logistics hub disruption</b><span>Cold chains depend on a handful of air and sea hubs.</span></li></ul>
+        </article>
       </div>
-      <div class="flow-join">→</div>
-      <div class="flow-box">
-        <span class="flow-lbl"><span class="dot" style="background:var(--bg);"></span>What could happen in the future?</span>
-        <div class="flow-title">Scenario planning</div>
-        <div class="flow-desc">Building scenarios for each risk, with probabilities, costs and the delivery KPIs they would hit.</div>
-      </div>
-      <div class="flow-join">→</div>
-      <div class="flow-box result">
-        <span class="flow-lbl"><span class="dot" style="background:var(--orange);"></span>What should we do if…?</span>
-        <div class="flow-title">Contingency planning</div>
-        <div class="flow-desc">Playbooks to diversify suppliers, hedge exposure and keep products on time when a scenario gets closer.</div>
+      <div class="car-ctl">
+        <span class="car-n" id="car-n" aria-live="polite">1 / 5</span>
+        <div class="car-btns">
+          <button type="button" class="car-b" id="car-prev" aria-label="Previous industry">←</button>
+          <button type="button" class="car-b" id="car-next" aria-label="Next industry">→</button>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="subhead reveal">
+<!-- ============ 5. TRUST ============ -->
+<section id="trust" class="trust-sec">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">WHY YOU CAN TRUST IT</div>
+      <h2>A copilot you can check.</h2>
+      <p>Risk teams answer to boards and auditors. So every part of Vorsight is built to be explained.</p>
+    </div>
+    <div class="cmp reveal">
+      <div class="cmp-i"><span class="cmp-k">01</span><h3>Private by design.</h3><p>Your supply chain data lives in your own model. It is never shared with other clients.</p></div>
+      <div class="cmp-i"><span class="cmp-k">02</span><h3>Humans in the loop.</h3><p>Our analysts review every material change before it reaches you.</p></div>
+      <div class="cmp-i"><span class="cmp-k">03</span><h3>Numbers you can trace.</h3><p>Every probability can be traced to the signals behind it. No black box.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. OUTCOMES ============ -->
+<section id="outcomes">
+  <div class="wrap">
+    <div class="section-head reveal">
       <div class="eyebrow">WHAT YOU GET</div>
+      <h2>Answers, not another report.</h2>
+      <p>Plain answers to the questions your board asks: what changed, does it hit us, and what should we do about it?</p>
     </div>
 
     <div class="wyg reveal" id="wyg">
       <div class="wyg-list" role="tablist" aria-label="What you get">
         <button type="button" class="wyg-item active" role="tab" id="wyg-t0" aria-selected="true" aria-controls="wyg-stage" data-i="0">
           <span class="wyg-num">01</span>
-          <span><span class="wyg-title">Resilience you can measure.</span>
-          <span class="wyg-desc">Your KPIs only see late deliveries. We show the supplier, port or region behind them, and what it means for your on-time performance.</span></span>
+          <span><span class="wyg-title">Finding calm in the geopolitical storm.</span>
+          <span class="wyg-desc">Everyone tells you what's happening in the world. We tell you what it means for your company.</span></span>
           <span class="wyg-bar"><i></i></span>
         </button>
         <button type="button" class="wyg-item" role="tab" id="wyg-t1" aria-selected="false" aria-controls="wyg-stage" data-i="1" tabindex="-1">
           <span class="wyg-num">02</span>
           <span><span class="wyg-title">Small odds. Big consequences.</span>
-          <span class="wyg-desc">We weigh the probability and cost of each disruption, so you know which risks to ignore, which to hedge, and which need a second supplier.</span></span>
+          <span class="wyg-desc">We weigh the probability and impact of what could happen, so you know which risks to ignore, which to hedge, and which are worth taking.</span></span>
           <span class="wyg-bar"><i></i></span>
         </button>
         <button type="button" class="wyg-item" role="tab" id="wyg-t2" aria-selected="false" aria-controls="wyg-stage" data-i="2" tabindex="-1">
           <span class="wyg-num">03</span>
           <span><span class="wyg-title">See it before it costs you.</span>
-          <span class="wyg-desc">Preparation is cheaper than reaction. Diversify and hedge in days, not months, whether disruption hits or a new source opens.</span></span>
+          <span class="wyg-desc">Preparation is cheaper than reaction. Act in days, not months, whether disruption hits or an opportunity opens.</span></span>
           <span class="wyg-bar"><i></i></span>
         </button>
       </div>
@@ -500,9 +511,9 @@
 <section id="cta">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">START WITH ONE SUPPLY CHAIN</div>
-      <h2>Put your supply chain on the map.</h2>
-      <p>Bring one supply chain you already worry about — a single-source supplier, a congested port, a key material — and we'll show you the scenarios and the early warnings that would signal trouble.</p>
+      <div class="eyebrow">GET STARTED</div>
+      <h2>Tell us your supply chain. See your first assessment.</h2>
+      <p>Record a short voice note about your suppliers, materials and markets. We build your private model and show you the scenarios that matter to you.</p>
     </div>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="signup.html">Get started</a>
@@ -522,7 +533,11 @@
       </svg>
       <span class="brand-name">Vorsight</span>
     </div>
-    <span class="foot-note">Supply chain resilience for European industry</span>
+    <span class="foot-note foot-eu"><svg class="eu-flag" viewBox="0 0 54 36" width="30" height="20" role="img" aria-label="Flag of the European Union">
+        <defs><polygon id="eu-star" points="0.00,-2.00 0.47,-0.65 1.90,-0.62 0.76,0.25 1.18,1.62 0.00,0.80 -1.18,1.62 -0.76,0.25 -1.90,-0.62 -0.47,-0.65"/></defs>
+        <rect width="54" height="36" fill="#003399"/>
+        <g fill="#FFCC00"><use href="#eu-star" x="27.00" y="6.00"/><use href="#eu-star" x="33.00" y="7.61"/><use href="#eu-star" x="37.39" y="12.00"/><use href="#eu-star" x="39.00" y="18.00"/><use href="#eu-star" x="37.39" y="24.00"/><use href="#eu-star" x="33.00" y="28.39"/><use href="#eu-star" x="27.00" y="30.00"/><use href="#eu-star" x="21.00" y="28.39"/><use href="#eu-star" x="16.61" y="24.00"/><use href="#eu-star" x="15.00" y="18.00"/><use href="#eu-star" x="16.61" y="12.00"/><use href="#eu-star" x="21.00" y="7.61"/></g>
+      </svg>Geopolitical risk copilot for European industry. Built in Europe.</span>
   </div>
 </footer>
 
@@ -533,7 +548,7 @@
     var sc=document.getElementById('sig-canvas'), s=sc.getContext('2d');
     var tip=document.getElementById('gp-tip');
     var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var rad=Math.PI/180, TAU=Math.PI*2, ORANGE='#EE8A2E';
+    var rad=Math.PI/180, TAU=Math.PI*2, ORANGE='#E8832A';
 
     /* 1-degree land mask (Natural Earth 110m, public domain), row-major from 90N / 180W */
     var MASK="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH///8AAf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB////n///////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////7////////wAAAAA/gAADwAAAAAAP4AAAAAAAAAAAAAAAAAAAAAAAAAAA///+A////////AAAAB//wAAAAAAAAAAH8gAAAAAAAAAAAAAAAAAAAAAAAYH3H//x////////+AAAAA/mAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAA8cAAwP/A////////+AAAAAPGAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAAAAD4DA8+/+AP///////8AAAAAAAAAAAAAf4AAAAH/8AAAAAAAAAAAAAAAAAAAAAH/w83/8AAAf/////8AAAAAAAAAAAAH+AAAB////AAAB/sAAAAAAAAAAAAAAcA4AAw/8AAAP/////8AAAAAAAAAAAAeAAAAP///4AAAAAAAAAAAAAAAAAAAAf+AYe+d3gAAD/////4AAAAAAAAAAAB4AAAH/////+HwAOAAAAAAAAAAAAAAA//+4/4//wAAB/////wAAAAAAAAAAADwAHk3///////4Af4AAAAAwAAAAAAAAff/4O4///AAD/////wAAAAAAAAAAAHwAff////////4///gAAABAAA//gAACAP/+B8f//8AB////+wAAAAAAB/gAAAAAfv/////////////8AAAAAB///+P//H//n+D4f+AA3////AAAAAAA//8AAAA8fv///////////////P+wAf////////R6Cfz4f+AAf///4AAAAAAD///4ID/////////////////////8AD/////////////4Z/wA///4AAAAAAAP///+O////v//////////////////4H/////////////gD/8A///wAwYAAAAf//9+v///////////////////////4/////////////+A/84Af/8AA/8AAAA/8f+D///////////////////////BgP////////////zw//gAP/wAAf8AAAD/4/+f//////////////////////+AOB////////////HcA/gAP/gAADAAAAH/z/////////////////////////+AAH///////////8AwwPAAD/AAAAAAAB//H/////////////////////////+AAP///////////4AA/gAAB/AAAAAAAB//H//////////////////////3v/AAAP//z////////wAA/4AAAOAAAAAAAB//D/////////////////////+A/4AAAA/7AH///////wAA/4wAAAAAAAAAAB//gf////////////////////+DwAAAAArwAA///////4AA/94AAAAAAAAAYA5+A///////////////////4AAHgAAAAAD8AAD//////8AAf/8AAAAAAAAA8AC+C///////////////////wAAfgAAAAAOAAAB///////wAf/+AAAAAAAAA8AO8H///////////////////AAA/gAAAABwAAAA///////+A///AAAAAAAAA8ANwH//////////////////+AAB/AAAAAGAAAAAf///////z///4AAAAAAAHOAOD///////////////////+AAB+AAAAAAAAAABP///////x///8AAAAAAAPPB//////////////////////6AA8AAAAAAAAAAAj///////5///+AAAAAAAOfz//////////////////////+AA4AAAAAAAAAAAD///////////8AAAAAAAAfn//////////////////////6AAwAAAAAAAAAAAD///////////sAAAAAAAA8f//////////////////////7AAAAAAAAAAAAAAB/////////+MPAAAAAAAAD///////////////////////7AAAAAAAAAAAAAAAf/////////wfgAAAAAAAf///////////////////////yAAAAAAAAAAAAAAAf/////////gfgAAAAAAAH///////////////////////iAAAAAAAAAAAAAAAP/////////5AgAAAAAAAD//////v/x//////////////DAAAAAAAAAAAAAAAP/////////+AAAAAAAAAB/////H//B/////////////+AAAAAAAAAAAAAAAAP////////84AAAAAAAAAD//n/+AP+H/////////////8HAAAAAAAAAAAAAAAP////////wgAAAAAAAAH//jz/+AD+H/////////////4PwAAAAAAAAAAAAAAf////////gAAAAAAAAAH/4F4/8AB/B////////////+APAAAAAAAAAAAAAAAP////////wAAAAAAAAAH/4A+f+Ph/g////////////8AIAAAAAAAAAAAAAAAP///////+AAAAAAAAAAH/gMPfP///x///////////v4AMAAAAAAAAAAAAAAAP///////8AAAAAAAAAAH/AMCOP///h//////////+ZwAMAAAAAAAAAAAAAAAH///////4AAAAAAAAAAP/AAGHP///g//////////8B4AYAAAAAAAAAAAAAAAH///////wAAAAAAAAAAH+AAcHH///w//////////+w4A4AAAAAAAAAAAAAAAD///////wAAAAAAAAAAA8f+ACD///////////////g8D4AAAAAAAAAAAAAAAB///////wAAAAAAAAAAAz/+AAQE//////////////A4f4AAAAAAAAAAAAAAAB///////gAAAAAAAAAAB//+AAAA//////////////Ax/gAAAAAAAAAAAAAAAAP/////+AAAAAAAAAAAD//+AAAB//////////////gD8AAAAAAAAAAAAAAAAAH/////8AAAAAAAAAAAH///4OAB//////////////gDAAAAAAAAAAAAAAAAAAH/////4AAAAAAAAAAAP///8P4j//////////////wDAAAAAAAAAAAAAAAAAACf////4AAAAAAAAAAAP/////////////////////wAAAAAAAAAAAAAAAAAAABf//zgYAAAAAAAAAAAP/////////P///////////wAAAAAAAAAAAAAAAAAAAAv//AAcAAAAAAAAAAA//////////n///////////wAAAAAAAAAAAAAAAAAAAB3/+AAcAAAAAAAAAAB///////9//j///////////gAAAAAAAAAAAAAAAAAAAAb/+AANgAAAAAAAAAD///////8//wn//////////AAAAAAAAAAAAAAAAAAAAAJ/+AAMAAAAAAAAAAH///////+f/8b//////////AAAAAAAAAAAAAAAAAAAAAM/+AAAgAAAAAAAAAH///////+f/84Af///////+wAAAAAAAAAAAAAAAAAAAAGf8AAAAAAAAAAAAAP////////P//+AP///////4wAAAAAAAAAAAAAAAAAAAAAP8AA/AAAAAAAAAAf////////n///AH///////ggAAAAAAAAAAAAAAAAAAAAAP+A4BgAAAAAAAAAf////////n///AD//+P//8AAAAAAAAAAAAAAAAAAAAAAAP+B4A8AAAAAAAAAf////////j//+AAf/4P/+IAAAAAAAAAAAAAAAgAAAAAAAH/B4AB4AAAAAAAAf////////j//8AAf/wH/8YAAAAAAAAAAAAAAAAAAAAAAAD//wAj9AAAAAAAAP////////x//4AAf/AD/8QAQAAAAAAAAAAAAAAAAAAAAAA//wAAAAAAAAAAAP////////4//wAAf+AD/+AA4AAAAAAAAAAAAAAAAAAAAAAP/wAAAAAAAAAAAf////////4f/AAAf8AD//AA4AAAAAAAAAAAAAAAAAAAAAAAP/AAAAAAAAAAAf////////8f8AAAP4AAP/gAwAAAAAAAAAAAAAAAAAAAAAAAD/gAAAAAAAAAAf////////+fwAAAPwAAP/gAwAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAf/////////eAAAAPwAAP/wA8AAAAAAAAAAAAAAAAAAAAAAAAHgAgAAAAAAAAf/////////4AAAAHwAAN/gASAAAAAAAAAAAAAAAAAAAAAAAADAB4AAAAAAAAP/////////g4AAAHwAAMfgALAAAAAAAAAAAAAAAAAAAAAAAADgP/eAAAAAAAH//////////4AAADwAAIPABOAAAAAAAAAAAAAAAAAAAAAAAAByP/+AAAAAAAD//////////4AAADoAAMEACNAAAAAAAAAAAAAAAAAAAAAAAAA9///AAAAAAAB//////////wAAABMAAMAAAHgAAAAAAAAAAAAAAAAAAAAAAAAE///wAAAAAAB//////////wAAAAMAAGAAAPgAAAAAAAAAAAAAAAAAAAAAAAAA///wAAAAAAAf/////////gAAAAMAADAAMDAAAAAAAAAAAAAAAAAAAAAAAAAA////gAAAAAAP/B///////gAAAAAAADgAeAAAAAAAAAAAAAAAAAAAAAAAAAAA////wAAAAAACAA///////AAAAAAAAzwA+AAAAAAAAAAAAAAAAAAAAAAAAAAA////4AAAAAAAAAH/////+AAAAAAAAZwB8AAAAAAAAAAAAAAAAAAAAAAAAAAB////4AAAAAAAAAH/////8AAAAAAAAfwH8AAAAAAAAAAAAAAAAAAAAAAAAAAB////8AAAAAAAAAH/////4AAAAAAAAHwf8AYAAAAAAAAAAAAAAAAAAAAAAAAD////8AAAAAAAAAH/////wAAAAAAAAHwf8+YAAAAAAAAAAAAAAAAAAAAAAAAH/////AAAAAAAAAH/////gAAAAAAAADwf9AAgAAAAAAAAAAAAAAAAAAAAAAAH/////4AAAAAAAAH/////AAAAAAAAAD4P54BxAAAAAAAAAAAAAAAAAAAAAAAH//////AAAAAAAAD////+AAAAAAAAAB8P5wA74AAAAAAAAAAAAAAAAAAAAAAH//////4AAAAAAAB////8AAAAAAAAAA8A54uf/AIAAAAAAAAAAAAAAAAAAAAH//////+AAAAAAAB////8AAAAAAAAAAcAB4AH/wYAAAAAAAAAAAAAAAAAAAAH///////gAAAAAAA////4AAAAAAAAAAMABIAA/xyAAAAAAAAAAAAAAAAAAAAH///////gAAAAAAA////4AAAAAAAAAAHkAAAI/8BAAAAAAAAAAAAAAAAAAAAD///////wAAAAAAAf///4AAAAAAAAAAB+AAAA/8AIAAAAAAAAAAAAAAAAAAAB///////gAAAAAAAf///8AAAAAAAAAAADmpgAvMAAAAAAAAAAAAAAAAAAAAAB///////gAAAAAAAf///8AAAAAAAAAAAABCAAAHACAAAAAAAAAAAAAAAAAAAA///////AAAAAAAAf///8AAAAAAAAAAAAAAAAABgBAAAAAAAAAAAAAAAAAAAA//////+AAAAAAAAf///+AAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAAAAAAAAAAf/////8AAAAAAAAf///+AQAAAAAAAAAAAAB+DAAAAAAAAAAAAAAAAAAAAAAAf/////8AAAAAAAA////+AwAAAAAAAAAAAAD8HAAAAAAAAAAAAAAAAAAAAAAAP/////4AAAAAAAA////+AwAAAAAAAAAAAB38HgAAAAAAAAAAAAAAAAAAAAAAH/////4AAAAAAAA////+D4AAAAAAAAAAAD/+HwAAAAAAAAAAAAAAAAAAAAAAB/////4AAAAAAAB////8PwAAAAAAAAAAAH//HwAAAABAAAAAAAAAAAAAAAAAA/////4AAAAAAAB////wPwAAAAAAAAAAAP///wAAAAGAAAAAAAAAAAAAAAAAAf////4AAAAAAAA////gPgAAAAAAAAAAAP///wAAAAAAAAAAAAAAAAAAAAAAAP////wAAAAAAAAf//+APgAAAAAAAAAAAf///8AAAAAAAAAAAAAAAAAAAAAAAP////wAAAAAAAAf//+APgAAAAAAAAAAH////+AAIAAAAAAAAAAAAAAAAAAAAP////gAAAAAAAAP//+AfAAAAAAAAAAAf/////AAGAAAAAAAAAAAAAAAAAAAAP////AAAAAAAAAP///AfAAAAAAAAAAA//////gAAAAAAAAAAAAAAAAAAAAAAf///4AAAAAAAAAP///AfAAAAAAAAAAA//////gAAAAAAAAAAAAAAAAAAAAAAf///gAAAAAAAAAP//+AOAAAAAAAAAAB//////wAAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAP//4AEAAAAAAAAAAA//////4AAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAH//4AAAAAAAAAAAAB//////4AAAAAAAAAAAAAAAAAAAAAAf///AAAAAAAAAAH//4AAAAAAAAAAAAA//////4AAAAAAAAAAAAAAAAAAAAAAf//+AAAAAAAAAAD//wAAAAAAAAAAAAA//////8AAAAAAAAAAAAAAAAAAAAAA///8AAAAAAAAAAB//wAAAAAAAAAAAAAf/////8AAAAAAAAAAAAAAAAAAAAAA///8AAAAAAAAAAB//gAAAAAAAAAAAAAf/////4AAAAAAAAAAAAAAAAAAAAAA///4AAAAAAAAAAA//AAAAAAAAAAAAAAf/////4AAAAAAAAAAAAAAAAAAAAAA///wAAAAAAAAAAA/+AAAAAAAAAAAAAAP/AP//4AAAAAAAAAAAAAAAAAAAAAA///gAAAAAAAAAAA/4AAAAAAAAAAAAAAf8AH//wAAAAAAAAAAAAAAAAAAAAAA///AAAAAAAAAAAAcAAAAAAAAAAAAAAAfAAF//gAAAAAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//gAABgAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AAAAgAAAAAAAAAAAAAAAAAD//4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AAAAwAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYAAAA+AAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACYAAAAAAAAAAAAAAAAAD/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeAAADQAAAAAAAAAAAAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAHAAAAAAAAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAOAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAH8AAAAGAB4P4Pz+AAAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAAAAB//jAAH//////////wAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAACA////8Af///////////gAAAAAAAAAAAAAAAAAAAAAA/4AAAAAAAAAAAAAAAP3////8D/////////////4AAAAAAAAAAAAAAAAAAAAA/8AAAAAAAAAAB+/////////4f//////////////wAAAAAAAAAAAAAAAAAAAH/+AAAAAAAAf////////////4////////////////4AAAAAAAAAAAAAA+AAAAz+AAAAAAAB//////////////////////////////4AAAAAAAAAADgAB///nj/+AAAAAAAP//////////////////////////////wAAAAAAAA////4Af/////8AAAAAAAP/////////////////////////////8AAAAAAAD/////////////wAAAAAAD//////////////////////////////wAAAAAAAP////////////wAAAAAAf///////////////////////////////wAAAAAD/////////////8AAAAAAD////////////////////////////////wAAAADx/////////////gAAAD8A/////////////////////////////////+AAAAA4D////////////gAAAH+A////////////////////////////////+AAAAAAAAH////////////g/A/4AA///////////////////////////////+AAAAAAAf//////////////4ADg//////////////////////////////////AAAAAAAH///////////////h////////////////////////////////////4AAAAAAP/////////////////////////////////////////////////////gA+/D////////////////////////////////////////////////////////8AAAAB8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -550,42 +565,29 @@
     }
     var D=cl.length;
 
-    /* risk types reuse the icons from "The risks we watch" below */
-    var TYPES={
-      trade:['Trade barriers & tariffs','M6 45 L64 45 M56 39 L64 45 L56 51 M78 18 L78 72 M92 18 L92 72 M78 26 L92 18 M78 40 L92 32 M78 54 L92 46 M78 68 L92 60'],
-      chip:['Components & materials','M38 24 H82 V66 H38 Z M49 35 H71 V55 H49 Z M46 24 V14 M60 24 V14 M74 24 V14 M46 66 V76 M60 66 V76 M74 66 V76 M38 36 H28 M38 45 H28 M38 54 H28 M82 36 H92 M82 45 H92 M82 54 H92'],
-      reg:['Regulation & compliance','M26 36 L60 16 L94 36 Z M36 42 V68 M52 42 V68 M68 42 V68 M84 42 V68 M22 73 H98 M16 80 H104'],
-      disrupt:['Disruption & disasters','M86 45 A26 26 0 1 1 34 45 A26 26 0 1 1 86 45 M60 19 C46 27 46 63 60 71 M60 19 C74 27 74 63 60 71 M34 45 L86 45 M38 28 L50 40 L42 52 L58 58 L52 68'],
-      cost:['Cost & currency','M20 65 L52 32 M42 32 L52 32 L52 42 M68 32 L100 65 M100 55 L100 65 L90 65'],
-      depend:['Centralisation & dependencies','M34 55 L56 29 M65 29 L87 55 M35 61 L55 66 M65 66 L85 61 M35 60 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M65 24 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M95 60 a5 5 0 1 0 -10 0 a5 5 0 1 0 10 0 M64 68 a4 4 0 1 0 -8 0 a4 4 0 1 0 8 0']
-    };
-    Object.keys(TYPES).forEach(function(k){ TYPES[k][2]=new Path2D(TYPES[k][1]); });
-
-    /* illustrative signals: [type, headline (shown on hover), lat, lon] */
+    /* illustrative signals: [headline (shown on hover), lat, lon] */
     var HEADS=[
-      ['reg','New EU rules tighten chemical imports',50.8,4.4],
-      ['trade','US tariff round hits EU parts exporters',38.9,-77],
-      ['depend','Single-source supplier halts production',35,105],
-      ['cost','Gas supply cut forces plant shutdowns',55.7,37.6],
-      ['reg','Supply chain due-diligence rules widen',52.5,13.4],
-      ['disrupt','Red Sea rerouting adds weeks to transit',20,38],
-      ['disrupt','Typhoon closes ports, ships queue for days',24,121],
-      ['chip','Chip lead times stretch to 40 weeks',52.2,5.3],
-      ['cost','Sterling slide raises import costs',51.5,-0.1],
-      ['cost','Pipeline outage lifts chemical input prices',57,19],
-      ['depend','Nearshoring gains as Asia freight costs rise',19.4,-99.1],
-      ['disrupt','Ransomware hits a logistics provider',1.35,103.8],
-      ['chip','Cobalt supply tightens for battery makers',-3,24],
-      ['disrupt','Gulf hub congestion delays pharma cargo',25.2,55.3],
-      ['depend','Plant audit failure halts API supply',28.6,77.2],
-      ['disrupt','Earthquake disrupts chip material output',35.7,139.7],
-      ['chip','Drought cuts lithium output',-23,-68]
+      ['New EU rules tighten chemical imports',50.8,4.4],['US tariff round hits EU parts exporters',38.9,-77],
+      ['Single-source supplier halts production',35,105],['Gas supply cut forces plant shutdowns',55.7,37.6],
+      ['Supply chain due-diligence rules widen',52.5,13.4],['Red Sea rerouting adds weeks to transit',20,38],
+      ['Typhoon closes ports, ships queue for days',24,121],['Chip lead times stretch to 40 weeks',52.2,5.3],
+      ['Sterling slide raises import costs',51.5,-0.1],['Pipeline outage lifts chemical input prices',57,19],
+      ['Nearshoring gains as Asia freight costs rise',19.4,-99.1],['Ransomware hits a logistics provider',1.35,103.8],
+      ['Cobalt supply tightens for battery makers',-3,24],['Gulf hub congestion delays pharma cargo',25.2,55.3],
+      ['Plant audit failure halts API supply',28.6,77.2],['Earthquake disrupts chip material output',35.7,139.7],
+      ['Drought cuts lithium output',-23,-68],['Export licence rules widen on key minerals',31.2,121.5],
+      ['New port fees hit foreign-built ships',37.5,127],['Sanctions package targets energy trade',48.8,2.3],
+      ['Canal restrictions slow grain shipments',9,-79.5],['Export ban on a key ingredient',22.5,114],
+      ['Customs checks slow EU–UK freight',51.1,1.3],['Strike closes a major European port',51.9,4.5]
     ];
-    HEADS.forEach(function(h){ h.phi=h[2]*rad; h.lam=h[3]*rad; h.sp=Math.sin(h.phi); h.cp=Math.cos(h.phi); });
+    HEADS.forEach(function(h){ h.phi=h[1]*rad; h.lam=h[2]*rad; h.sp=Math.sin(h.phi); h.cp=Math.cos(h.phi); });
 
     var W=0,H=0,dpr=1,cx=0,cy=0,R=0,lam0=18*rad,phi0=20*rad,sp0=Math.sin(phi0),cp0=Math.cos(phi0);
-    var act=[], visible=true, last=0, nextSpawn=0, hov=-1, tipUntil=0, maxAct=6, copyEl=hero.querySelector('.hero-copy');
-    /* markers fade out as they drift behind the headline text */
+    var act=[], visible=true, last=0, nextSpawn=0, hov=-1, tipUntil=0, maxAct=10, copyEl=hero.querySelector('.hero-copy');
+
+    function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+    function ease(x){ x=clamp(x,0,1); return x*x*(3-2*x); }
+    /* dots fade out as they drift behind the headline text */
     function textClear(x,y){
       var hr=hero.getBoundingClientRect(), r=copyEl.getBoundingClientRect();
       var dx=Math.max(r.left-hr.left-x, 0, x-(r.right-hr.left)), dy=Math.max(r.top-hr.top-y, 0, y-(r.bottom-hr.top));
@@ -597,24 +599,22 @@
       W=hero.clientWidth; H=hero.clientHeight; if(!W) return;
       [gc,sc].forEach(function(c){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); });
       g.setTransform(dpr,0,0,dpr,0,0); s.setTransform(dpr,0,0,dpr,0,0);
-      if(W>=760){ cx=W*0.66; cy=H*0.5; R=Math.min(H*0.58,W*0.36); maxAct=6; }
-      else { cx=W*0.5; cy=H*0.31; R=Math.min(W*0.66,H*0.34); maxAct=4; }
+      if(W>=760){ cx=W*0.68; cy=H*0.46; R=Math.min(H*0.55,W*0.34); maxAct=10; }
+      else { cx=W*0.5; cy=H*0.3; R=Math.min(W*0.64,H*0.33); maxAct=7; }
       if(reduce) frame(0);
     }
     function proj(sp,cp,lam){
       var dl=lam-lam0, cd=Math.cos(dl);
       return { x:cx+R*cp*Math.sin(dl), y:cy-R*(cp0*sp-sp0*cp*cd), z:sp0*sp+cp0*cp*cd };
     }
-    function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
-    function ease(x){ x=clamp(x,0,1); return x*x*(3-2*x); }
 
     function drawGlobe(){
       g.clearRect(0,0,W,H);
-      var glow=g.createRadialGradient(cx,cy,R*0.96,cx,cy,R*1.28); glow.addColorStop(0,'rgba(255,255,255,0.07)'); glow.addColorStop(1,'rgba(255,255,255,0)');
+      var glow=g.createRadialGradient(cx,cy,R*0.96,cx,cy,R*1.28); glow.addColorStop(0,'rgba(255,255,255,0.06)'); glow.addColorStop(1,'rgba(255,255,255,0)');
       g.beginPath(); g.arc(cx,cy,R*1.28,0,TAU); g.fillStyle=glow; g.fill();
-      var bg=g.createRadialGradient(cx-R*0.3,cy-R*0.35,R*0.1,cx,cy,R); bg.addColorStop(0,'#1c2128'); bg.addColorStop(1,'#0c0e11');
-      g.beginPath(); g.arc(cx,cy,R,0,TAU); g.fillStyle=bg; g.fill(); g.lineWidth=1; g.strokeStyle='rgba(255,255,255,0.14)'; g.stroke();
-      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=clamp(R/190,0.9,2.3);
+      var bg=g.createRadialGradient(cx-R*0.3,cy-R*0.35,R*0.1,cx,cy,R); bg.addColorStop(0,'#1b1b1b'); bg.addColorStop(1,'#0c0c0c');
+      g.beginPath(); g.arc(cx,cy,R,0,TAU); g.fillStyle=bg; g.fill(); g.lineWidth=1; g.strokeStyle='rgba(255,255,255,0.12)'; g.stroke();
+      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=clamp(R/200,0.9,2.1);
       var back=new Path2D(), f1=new Path2D(), f2=new Path2D(), f3=new Path2D();
       for(var k=0;k<D;k++){
         var cd=cL[k]*c0+sL[k]*s0, sd=sL[k]*c0-cL[k]*s0, zz=sp0*sl[k]+cp0*cl[k]*cd;
@@ -623,40 +623,35 @@
         var p=zz<0?back:(zz<.35?f1:(zz<.7?f2:f3));
         p.moveTo(x+r,y); p.arc(x,y,r,0,TAU);
       }
-      g.fillStyle='rgba(255,255,255,0.06)'; g.fill(back);
-      g.fillStyle='rgba(255,255,255,0.3)'; g.fill(f1);
-      g.fillStyle='rgba(255,255,255,0.58)'; g.fill(f2);
-      g.fillStyle='rgba(255,255,255,0.9)'; g.fill(f3);
+      g.fillStyle='rgba(255,255,255,0.05)'; g.fill(back);
+      g.fillStyle='rgba(255,255,255,0.26)'; g.fill(f1);
+      g.fillStyle='rgba(255,255,255,0.5)'; g.fill(f2);
+      g.fillStyle='rgba(255,255,255,0.78)'; g.fill(f3);
     }
 
     function spawn(t){
       if(act.length>=maxAct) return;
-      for(var tries=0;tries<20;tries++){
+      for(var tries=0;tries<24;tries++){
         var h=HEADS[Math.floor(Math.random()*HEADS.length)];
         if(act.some(function(a){ return a.h===h; })) continue;
         var p=proj(h.sp,h.cp,h.lam);
-        if(p.z<0.45||p.x<30||p.x>W-30||p.y<90||p.y>H-90) continue;
-        if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<70; })) continue;
+        if(p.z<0.4||p.x<24||p.x>W-24||p.y<80||p.y>H-60) continue;
+        if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<46; })) continue;
         if(textClear(p.x,p.y)<1) continue;
-        act.push({h:h,born:t,life:reduce?1e12:5200+Math.random()*3800,p:p});
+        act.push({h:h,born:t,life:reduce?1e12:3600+Math.random()*3200,p:p});
         return;
       }
     }
 
     function drawSignals(t){
       s.clearRect(0,0,W,H);
-      var base=R>300?15:13;
       for(var i=act.length-1;i>=0;i--){
         var a=act[i], p=proj(a.h.sp,a.h.cp,a.h.lam); a.p=p;
         var age=t-a.born;
         if(age>a.life || p.z<0.1){ act.splice(i,1); continue; }
-        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/450), out=clamp((a.life-age)/700,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
-        var r=base*(0.6+0.4*k), isH=(i===hov);
-        if(!reduce){ var q=(age/1700)%1; s.beginPath(); s.arc(p.x,p.y,r+q*20,0,TAU); s.strokeStyle='rgba(238,138,46,'+(0.45*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
-        s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,r,0,TAU); s.fillStyle=ORANGE; s.fill();
-        if(isH){ s.lineWidth=1.5; s.strokeStyle='#fff'; s.stroke(); }
-        s.save(); s.translate(p.x,p.y); var kk=r*1.28/80; s.scale(kk,kk); s.translate(-60,-45);
-        s.lineWidth=7; s.lineCap='round'; s.lineJoin='round'; s.strokeStyle='#14161A'; s.stroke(TYPES[a.h[0]][2]); s.restore();
+        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/500), out=clamp((a.life-age)/800,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
+        if(!reduce){ var q=(age/1500)%1; s.beginPath(); s.arc(p.x,p.y,4+q*16,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.4*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
+        s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,(i===hov?5.5:4)*(0.5+0.5*k),0,TAU); s.fillStyle=ORANGE; s.fill();
         s.globalAlpha=1;
       }
     }
@@ -665,25 +660,24 @@
       if(!reduce) requestAnimationFrame(frame);
       if(!visible||!W) return;
       var dt=Math.min(0.05,(t-last)/1000); last=t;
-      if(!reduce) lam0+=dt*0.055;
+      if(!reduce) lam0+=dt*0.05;
       drawGlobe();
-      if(reduce){ if(!act.length){ for(var q=0;q<5;q++) spawn(0); } }
-      else if(t>nextSpawn){ spawn(t); nextSpawn=t+650+Math.random()*450; }
+      if(reduce){ if(!act.length){ for(var q=0;q<6;q++) spawn(0); } }
+      else if(t>nextSpawn){ spawn(t); nextSpawn=t+260+Math.random()*260; }
       drawSignals(reduce?1500:t);
       if(tip.style.opacity==='1' && t>tipUntil && hov<0) tip.style.opacity=0;
     }
 
-    /* hover (or tap) a marker to read the signal */
+    /* hover (or tap) a dot to read the signal */
     function point(e){
-      var r=hero.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=-1, bd=22;
+      var r=hero.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=-1, bd=20;
       act.forEach(function(a,i){ if(!a.p) return; var d=Math.hypot(a.p.x-mx,a.p.y-my); if(d<bd){ bd=d; best=i; } });
       hov=best;
       if(best>=0){
-        var h=act[best].h, tt=TYPES[h[0]][0];
-        tip.innerHTML='<small></small><span></span>'; tip.firstChild.textContent=tt; tip.lastChild.textContent=h[1];
+        tip.textContent=act[best].h[0];
         var w=tip.offsetWidth, hh=tip.offsetHeight;
-        tip.style.transform='translate('+clamp(act[best].p.x+16,8,W-w-8).toFixed(0)+'px,'+clamp(act[best].p.y-hh-14,70,H-hh-8).toFixed(0)+'px)';
-        tip.style.opacity=1; tipUntil=performance.now()+2600;
+        tip.style.transform='translate('+clamp(act[best].p.x+14,8,W-w-8).toFixed(0)+'px,'+clamp(act[best].p.y-hh-12,70,H-hh-8).toFixed(0)+'px)';
+        tip.style.opacity=1; tipUntil=performance.now()+2400;
       } else if(e.pointerType==='mouse') tip.style.opacity=0;
     }
     hero.addEventListener('pointermove',point);
@@ -694,6 +688,32 @@
     if(window.ResizeObserver) new ResizeObserver(size).observe(hero); else window.addEventListener('resize',size);
     if(window.IntersectionObserver) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; },{threshold:0.02}).observe(hero);
     if(reduce) frame(0); else requestAnimationFrame(frame);
+  })();
+  (function(){
+    /* platform overview: quietly walk through the four steps */
+    var root=document.getElementById('plat'); if(!root) return;
+    var cols=[].slice.call(root.querySelectorAll('.pcol')), cur=0, hover=false, vis=false, reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function set(i){ cur=i; cols.forEach(function(c,k){ c.classList.toggle('on',k===i); }); }
+    cols.forEach(function(c,i){ c.addEventListener('mouseenter',function(){ hover=true; set(i); }); c.addEventListener('mouseleave',function(){ hover=false; }); });
+    if(reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(es){ vis=es[0].isIntersecting; },{threshold:0.3}).observe(root);
+    setInterval(function(){ if(vis && !hover && window.innerWidth>620) set((cur+1)%cols.length); },2600);
+  })();
+  (function(){
+    /* industries carousel */
+    var track=document.getElementById('car-track'); if(!track) return;
+    var cards=[].slice.call(track.querySelectorAll('.ind')), n=document.getElementById('car-n'), prev=document.getElementById('car-prev'), next=document.getElementById('car-next');
+    function idx(){ var best=0, bd=1e9; cards.forEach(function(c,i){ var d=Math.abs(c.offsetLeft-track.scrollLeft); if(d<bd){ bd=d; best=i; } }); return best; }
+    function update(){
+      var i=idx(), end=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;
+      n.textContent=(end?cards.length:i+1)+' / '+cards.length;
+      prev.disabled=track.scrollLeft<4; next.disabled=end;
+    }
+    function go(d){ var i=Math.max(0,Math.min(cards.length-1,idx()+d)); track.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft,behavior:'smooth'}); }
+    prev.addEventListener('click',function(){ go(-1); }); next.addEventListener('click',function(){ go(1); });
+    track.addEventListener('scroll',function(){ window.requestAnimationFrame(update); },{passive:true});
+    track.addEventListener('keydown',function(e){ if(e.key==='ArrowRight'){ e.preventDefault(); go(1); } if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1); } });
+    window.addEventListener('resize',update); update();
   })();
   (function(){
     var h=document.querySelector('header'), hero=document.getElementById('hero'); if(!h||!hero) return;
@@ -759,7 +779,7 @@
       var k=ease((c-.8)/.2);
       if(k>0){
         ctx.textAlign='right'; ctx.fillStyle='rgba(238,138,46,'+k.toFixed(2)+')';
-        ctx.fillText('WHAT IT MEANS FOR YOUR DELIVERIES',W-18,mid-20);
+        ctx.fillText('WHAT IT MEANS FOR YOUR COMPANY',W-18,mid-20);
         ctx.beginPath(); ctx.arc(W-16,sy,4.5*k,0,6.2832); ctx.fill();
       }
       hideTip();
