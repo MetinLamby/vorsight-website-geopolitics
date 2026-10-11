@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vorsight</title>
-<meta name="description" content="Vorsight is a modern SaaS tool for geopolitical risk assessment. It turns global developments into decisions for small and mid-sized European companies in supply-chain-heavy industries.">
+<meta name="description" content="Vorsight is an intelligence platform for geopolitical risk. It shows small and mid-sized European companies how global developments hit their supply chains, and what to do about it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
@@ -42,8 +42,16 @@
   .hero-inner{ position:relative; z-index:3; width:100%; padding:0 var(--pad) clamp(48px,10vh,96px); pointer-events:none; }
   .hero-copy{ max-width:760px; pointer-events:auto; }
   .hero-copy h1{ font-size:clamp(34px,4.6vw,66px); letter-spacing:-0.035em; line-height:1.04; color:#fff; }
-  .hero-copy .lede{ margin-top:clamp(16px,2.6vh,24px); max-width:38ch; font-size:clamp(16px,1.2vw,18px); line-height:1.5; color:rgba(255,255,255,0.68); }
+  .hero-copy .lede{ margin-top:clamp(16px,2.6vh,24px); max-width:44ch; font-size:clamp(16px,1.2vw,18px); line-height:1.5; color:rgba(255,255,255,0.68); }
   .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-legend{
+    position:absolute; right:var(--pad); bottom:clamp(20px,4vh,36px); z-index:3; display:flex; align-items:center; gap:22px;
+    font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.5);
+  }
+  .hero-legend span{ display:inline-flex; align-items:center; gap:9px; }
+  .hero-legend .ln{ width:22px; height:1px; background:rgba(255,255,255,0.7); }
+  .hero-legend .dt{ width:7px; height:7px; border-radius:50%; background:var(--orange); }
+  @media (max-width:760px){ .hero-legend{ display:none; } }
   .gp-tip{
     position:absolute; left:0; top:0; z-index:4; max-width:260px; pointer-events:none; opacity:0; transition:opacity .15s ease;
     background:rgba(14,14,14,0.94); border:1px solid rgba(255,255,255,0.18); padding:9px 12px 10px;
@@ -79,52 +87,85 @@
   .readiness{ margin-top:clamp(80px,12vh,140px); }
   .trust-sec{ background:#fff; }
 
-  /* ---------- platform overview: quiet boxes in an off-white frame ---------- */
+  /* ---------- platform overview: quiet boxes in an off-white frame, alive on interaction ---------- */
   #platform{ background:#fff; }
   .plat{ display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px); padding:clamp(16px,2.6vw,40px); background:var(--bg-subtle); }
   .pbox{ background:#fff; border:1px solid var(--border); }
   .plbl{ display:block; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .psrc{ display:flex; align-items:center; flex-wrap:wrap; gap:10px 28px; padding:16px clamp(16px,2vw,28px); }
-  .psrc-l{ display:flex; flex-wrap:wrap; gap:6px 28px; font-size:var(--t-small); color:var(--ink); }
-  .pmain{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
-  .pcol{ position:relative; padding:clamp(20px,2.4vw,34px); border-left:1px solid var(--border); opacity:.7; transition:opacity .5s ease; }
-  .pcol:first-child{ border-left:0; }
+  .plat-try{ display:flex; align-items:center; flex-wrap:wrap; gap:10px 18px; padding:0 2px 4px; }
+  .plat-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pchip{ padding:9px 14px; background:#fff; border:1px solid var(--border-strong); border-radius:0; font-family:var(--sans); font-size:var(--t-small); color:var(--ink-2); cursor:pointer; transition:border-color .2s, color .2s, background .2s; }
+  .pchip:hover{ border-color:var(--ink); color:var(--ink); }
+  .pchip.on{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .pchip:focus-visible{ outline:1px solid var(--ink); outline-offset:3px; }
+  .plat-note{ margin-left:auto; }
+  .psrc{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:14px 32px; align-items:center; padding:18px clamp(16px,2vw,28px); }
+  .psrc-l{ display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:10px; font-size:var(--t-small); color:var(--ink-2); }
+  .psrc-l li{ display:inline-flex; align-items:center; gap:8px; transition:color .3s; }
+  .psrc-l li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--border-strong); transition:background .3s; }
+  .psrc-l li.on{ color:var(--ink); }
+  .psrc-l li.on::before{ background:var(--orange); animation:pdot 1s ease-in-out infinite; }
+  .pinc{ display:flex; align-items:center; gap:12px; font-size:var(--t-small); color:var(--ink); line-height:1.35; }
+  .pinc i{ flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--orange); animation:pdot 1.2s ease-in-out infinite; }
+  .pmain{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .ptrack{ position:absolute; left:0; right:0; top:0; height:2px; background:var(--border); }
+  .ptrack i{ display:block; height:100%; width:0; background:var(--orange); transition:width .9s ease; }
+  .pcol{ position:relative; padding:clamp(20px,2.4vw,34px); border-left:1px solid var(--border); opacity:.62; transition:opacity .5s ease; }
+  .pcol:first-of-type{ border-left:0; }
   .pcol.on{ opacity:1; }
   .pcol:not(:last-child)::after{ content:"→"; position:absolute; right:-9px; top:50%; z-index:2; width:18px; height:18px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--border); font-size:11px; color:var(--ink-3); }
   .ptag{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .pn{ display:block; margin:clamp(22px,4vh,40px) 0 14px; font-family:var(--mono); font-size:var(--t-label); color:var(--ink-3); transition:color .4s; }
+  .pn{ display:block; margin:clamp(22px,4vh,38px) 0 14px; font-family:var(--mono); font-size:var(--t-label); color:var(--ink-3); transition:color .4s; }
   .pcol.on .pn{ color:var(--orange); }
   .pcol h3{ font-size:clamp(19px,1.6vw,23px); line-height:1.2; letter-spacing:-0.012em; }
   .pcol p{ margin-top:12px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); max-width:30ch; }
-  .pviz{ display:block; width:100%; max-width:230px; margin-top:clamp(20px,3.4vh,34px); color:var(--ink); overflow:visible; }
-  .pviz polygon{ fill:#fff; stroke:currentColor; stroke-width:1; }
-  .pviz .o polygon, .pviz polygon.o{ stroke:var(--orange); fill:var(--orange); }
-  .pviz path{ stroke:currentColor; }
-  .pviz .grey circle{ fill:var(--border-strong); }
-  .pviz .o circle{ fill:var(--orange); }
-  .pviz .o{ stroke:var(--orange); }
-  .pviz path.o{ stroke:var(--orange); }
-  .pviz path.w{ stroke:var(--ink); }
-  .pviz path.m{ stroke:var(--ink); }
-  .pcol.on .pviz .o circle{ animation:pdot 1.6s ease-in-out infinite; }
-  @keyframes pdot{ 50%{ opacity:.25; } }
+  .pv{ display:block; width:100%; max-width:240px; margin-top:clamp(18px,3vh,30px); color:var(--ink); overflow:visible; }
+  .pv1, .pv3{ height:auto; }
+  .pv2{ height:112px; }
+  .pv polygon{ fill:#fff; stroke:currentColor; stroke-width:1; transition:fill .4s, stroke .4s; }
+  .pv polygon.lit{ fill:var(--orange); stroke:var(--orange); animation:pdot 1.1s ease-in-out infinite; }
+  .pv path{ stroke:currentColor; opacity:.55; transition:stroke .4s, opacity .4s; }
+  .pv .lbl text{ font-family:var(--mono); font-size:11px; fill:var(--ink-3); stroke:none; letter-spacing:0.03em; }
+  .pv path.run{ stroke:var(--orange); opacity:1; stroke-dasharray:4 4; animation:pdash .8s linear infinite; }
+  .pv3 polygon{ animation:none; }
+  @keyframes pdash{ to{ stroke-dashoffset:-16; } }
+  @keyframes pdot{ 50%{ opacity:.3; } }
+  .pst{ margin-top:16px !important; min-height:2.9em; font-family:var(--mono); font-size:var(--t-label) !important; letter-spacing:0.02em; line-height:1.45 !important; color:var(--ink-3) !important; max-width:none !important; }
+  .pcol.on .pst{ color:var(--ink) !important; }
+  .pbar{ margin-top:clamp(18px,3vh,30px); max-width:240px; }
+  .pbar-h{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:var(--t-small); }
+  .pbar-h b{ font-family:var(--sans); font-size:clamp(28px,2.4vw,36px); font-weight:300; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; }
+  .pbar-t{ height:3px; margin-top:8px; background:var(--border); }
+  .pbar-t i{ display:block; height:100%; width:20%; background:var(--ink); transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+  .pbar.alert .pbar-t i{ background:var(--orange); }
+  .pcol p.pbar-a{ display:flex; align-items:center; gap:9px; margin-top:12px; font-size:13px; color:var(--ink-3); }
+  .pbar-a i{ width:7px; height:7px; border-radius:50%; background:var(--border-strong); flex-shrink:0; }
+  .pbar.alert .pbar-a{ color:var(--ink); }
+  .pbar.alert .pbar-a i{ background:var(--orange); animation:pdot 1s ease-in-out infinite; }
   .pout{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,1.2vw,16px); }
-  .pout .pbox{ padding:16px clamp(16px,2vw,28px); }
-  .pout b{ display:block; margin-top:6px; font-size:clamp(16px,1.3vw,19px); font-weight:400; letter-spacing:-0.01em; }
+  .pout .pbox{ padding:16px clamp(16px,2vw,28px) 18px; }
+  .pout b{ display:block; margin-top:8px; min-height:2.7em; font-size:clamp(16px,1.25vw,18px); font-weight:400; line-height:1.35; letter-spacing:-0.005em; }
+  .pout b.fresh{ animation:fadeUp .5s ease both; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(6px); } }
   @media (max-width:980px){
     .pmain{ grid-template-columns:1fr 1fr; }
-    .pcol:nth-child(3){ border-left:0; }
-    .pcol:nth-child(n+3){ border-top:1px solid var(--border); }
+    .pcol:nth-of-type(3){ border-left:0; }
+    .pcol:nth-of-type(n+3){ border-top:1px solid var(--border); }
     .pcol:not(:last-child)::after{ display:none; }
+    .psrc{ grid-template-columns:1fr; }
   }
   @media (max-width:620px){
     .pmain{ grid-template-columns:1fr; }
-    .pcol{ border-left:0; border-top:1px solid var(--border); }
-    .pcol:first-child{ border-top:0; }
-    .pcol{ opacity:1; }
+    .pcol{ border-left:0; border-top:1px solid var(--border); opacity:1; }
+    .pcol:first-of-type{ border-top:0; }
+    .ptrack{ display:none; }
     .pout{ grid-template-columns:1fr; }
+    .plat-note{ margin-left:0; }
   }
-  @media (prefers-reduced-motion: reduce){ .pcol{ opacity:1; } .pcol.on .pviz .o circle{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .pcol{ opacity:1; } .pv polygon.lit, .pinc i, .psrc-l li.on::before, .pbar.alert .pbar-a i, .pv path.run{ animation:none; }
+    .ptrack i, .pbar-t i{ transition:none; }
+  }
 
   /* ---------- industries carousel ---------- */
   #industries{ background:var(--bg-subtle); }
@@ -268,10 +309,11 @@
   <div class="hero-inner">
     <div class="hero-copy">
       <h1>Your copilot for<br>geopolitical risk.</h1>
-      <p class="lede">A modern SaaS tool that turns global developments into decisions for your company.</p>
+      <p class="lede">The intelligence platform that shows how geopolitical developments hit your supply chains, and what to do about it.</p>
     </div>
   </div>
 
+  <div class="hero-legend" aria-hidden="true"><span><i class="ln"></i>Supply routes</span><span><i class="dt"></i>Geopolitical signals</span></div>
   <div class="gp-tip" id="gp-tip" role="status"></div>
 </section>
 
@@ -280,7 +322,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">THE PROBLEM</div>
-      <h2>There is no shortage of geopolitical analysis. There is too much of it.</h2>
+      <h2>Businesses don't need more geopolitical reports. They need intelligence they can act on.</h2>
       <p>Think tanks publish reports nobody has time to read. Consultancies deliver deep studies that are outdated by the time they arrive. And none of it is written for your company.</p>
     </div>
 
@@ -345,51 +387,74 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">THE PLATFORM</div>
-      <h2>From your supply chain to the signal that matters.</h2>
-      <p>Vorsight is a modern SaaS tool for geopolitical risk assessment. It is not a supply chain system. It reads your supply chain data alongside the world, and tells you what changes for you.</p>
+      <h2>Geopolitical intelligence, built around your supply chain.</h2>
+      <p>Vorsight is an intelligence platform that sits alongside your supply chain systems. It combines your data with a live model of the world, filters the noise, and tells you which developments hit you, how likely they are, and what to do about it.</p>
     </div>
 
     <div class="plat reveal" id="plat">
+      <div class="plat-try">
+        <span class="plbl">Try a signal</span>
+        <div class="plat-chips" role="group" aria-label="Choose a sample signal">
+          <button type="button" class="pchip on" data-s="0">Red Sea closure</button>
+          <button type="button" class="pchip" data-s="1">Gas supply cut</button>
+          <button type="button" class="pchip" data-s="2">Rare earth licensing</button>
+          <button type="button" class="pchip" data-s="3">New tariffs</button>
+        </div>
+        <span class="plbl plat-note">Illustrative example</span>
+      </div>
+
       <div class="pbox psrc">
-        <span class="plbl">Global data sources</span>
-        <ul class="psrc-l"><li>Official journals</li><li>Customs &amp; trade data</li><li>News in many languages</li><li>Analyst notes</li><li>Market data</li></ul>
+        <div>
+          <span class="plbl">Global data sources</span>
+          <ul class="psrc-l"><li>Official journals</li><li>Customs &amp; trade data</li><li>News in many languages</li><li>Analyst notes</li><li>Market data</li></ul>
+        </div>
+        <p class="pinc"><i></i><span id="plat-inc">Incoming: shipping lines suspend Suez transits</span></p>
       </div>
 
       <div class="pbox pmain">
+        <div class="ptrack" aria-hidden="true"><i></i></div>
         <div class="pcol on" data-i="0">
           <span class="ptag">Private · yours</span>
           <span class="pn">1</span>
           <h3>You share your supply chain</h3>
           <p>Suppliers, materials, sites and routes. A short voice note or form is enough.</p>
-          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M30 50H170M65 22L100 50M135 78L100 50"/><polygon points="26.5,43.9 33.5,43.9 37.0,50.0 33.5,56.1 26.5,56.1 23.0,50.0"/><polygon points="96.5,43.9 103.5,43.9 107.0,50.0 103.5,56.1 96.5,56.1 93.0,50.0"/><polygon class="o" points="166.5,43.9 173.5,43.9 177.0,50.0 173.5,56.1 166.5,56.1 163.0,50.0"/><polygon points="62.5,17.7 67.5,17.7 70.0,22.0 67.5,26.3 62.5,26.3 60.0,22.0"/><polygon points="132.5,73.7 137.5,73.7 140.0,78.0 137.5,82.3 132.5,82.3 130.0,78.0"/></g></svg>
+          <svg class="pv pv1" viewBox="0 0 220 96" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M28 40H192M82 40V72M138 40V72"/><polygon data-n="0" points="24.0,33.1 32.0,33.1 36.0,40.0 32.0,46.9 24.0,46.9 20.0,40.0"/><polygon data-n="1" points="78.0,33.1 86.0,33.1 90.0,40.0 86.0,46.9 78.0,46.9 74.0,40.0"/><polygon data-n="2" points="134.0,33.1 142.0,33.1 146.0,40.0 142.0,46.9 134.0,46.9 130.0,40.0"/><polygon data-n="3" points="188.0,33.1 196.0,33.1 200.0,40.0 196.0,46.9 188.0,46.9 184.0,40.0"/><polygon  points="79.5,67.7 84.5,67.7 87.0,72.0 84.5,76.3 79.5,76.3 77.0,72.0"/><polygon  points="135.5,67.7 140.5,67.7 143.0,72.0 140.5,76.3 135.5,76.3 133.0,72.0"/></g><g class="lbl" text-anchor="middle"><text x="28" y="18">Supplier</text><text x="82" y="18">Route</text><text x="138" y="18">Plant</text><text x="192" y="18">Market</text></g></svg>
+          <p class="pst" id="pst0">Mapped: supplier, route, plant, market</p>
         </div>
         <div class="pcol" data-i="1">
           <span class="ptag">Shared · the world</span>
           <span class="pn">2</span>
           <h3>We separate signal from noise</h3>
           <p>Thousands of items a day, filtered down to the developments that actually move risk.</p>
-          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g class="grey"><circle cx="72.8" cy="69.3" r="1.7"/><circle cx="90.7" cy="85.4" r="1.7"/><circle cx="84.9" cy="83.8" r="1.7"/><circle cx="11.0" cy="47.2" r="1.7"/><circle cx="106.1" cy="61.9" r="1.7"/><circle cx="101.7" cy="19.1" r="1.7"/><circle cx="56.8" cy="29.7" r="1.7"/><circle cx="64.6" cy="55.9" r="1.7"/><circle cx="9.4" cy="27.3" r="1.7"/><circle cx="37.1" cy="83.3" r="1.7"/><circle cx="87.6" cy="22.8" r="1.7"/><circle cx="90.9" cy="21.1" r="1.7"/><circle cx="72.2" cy="20.1" r="1.7"/><circle cx="8.2" cy="79.7" r="1.7"/><circle cx="29.8" cy="27.2" r="1.7"/><circle cx="110.2" cy="79.8" r="1.7"/><circle cx="38.1" cy="86.9" r="1.7"/><circle cx="64.1" cy="64.2" r="1.7"/><circle cx="29.3" cy="85.3" r="1.7"/><circle cx="79.8" cy="87.3" r="1.7"/><circle cx="100.9" cy="33.9" r="1.7"/><circle cx="45.6" cy="23.3" r="1.7"/></g><path d="M128 8V92" stroke-width="1" stroke-dasharray="2 3"/><g class="o" stroke-width="0"><circle cx="160" cy="28" r="3.6"/><circle cx="168" cy="52" r="3.6"/><circle cx="156" cy="74" r="3.6"/></g></svg>
+          <canvas class="pv pv2" id="pv2" aria-hidden="true"></canvas>
+          <p class="pst" id="pst1">Reading thousands of items</p>
         </div>
         <div class="pcol" data-i="2">
           <span class="ptag">Shared · the world</span>
           <span class="pn">3</span>
           <h3>Our geopolitics model updates in real time</h3>
           <p>It understands how the world is changing and learns from live data feeds.</p>
-          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M100 18V52M100 52L52 80M100 52L148 80M52 80L30 66M52 80L40 94M148 80L170 66M148 80L160 94"/><polygon points="97.0,12.8 103.0,12.8 106.0,18.0 103.0,23.2 97.0,23.2 94.0,18.0"/><polygon points="96.5,45.9 103.5,45.9 107.0,52.0 103.5,58.1 96.5,58.1 93.0,52.0"/><polygon points="49.0,74.8 55.0,74.8 58.0,80.0 55.0,85.2 49.0,85.2 46.0,80.0"/><polygon class="o" points="145.0,74.8 151.0,74.8 154.0,80.0 151.0,85.2 145.0,85.2 142.0,80.0"/><polygon points="28.0,62.5 32.0,62.5 34.0,66.0 32.0,69.5 28.0,69.5 26.0,66.0"/><polygon points="38.0,90.5 42.0,90.5 44.0,94.0 42.0,97.5 38.0,97.5 36.0,94.0"/><polygon points="168.0,62.5 172.0,62.5 174.0,66.0 172.0,69.5 168.0,69.5 166.0,66.0"/><polygon points="158.0,90.5 162.0,90.5 164.0,94.0 162.0,97.5 158.0,97.5 156.0,94.0"/></g></svg>
+          <svg class="pv pv3" viewBox="0 0 220 96" fill="none" aria-hidden="true"><g stroke-width="1"><path class="pe" id="pe0" d="M110 16V48"/><path class="pe" id="pe1" d="M110 48L40 84"/><path class="pe" id="pe2" d="M110 48L80 84"/><path class="pe" id="pe3" d="M110 48L140 84"/><path class="pe" id="pe4" d="M110 48L180 84"/><polygon class="hx" id="hx0" points="107.0,10.8 113.0,10.8 116.0,16.0 113.0,21.2 107.0,21.2 104.0,16.0"/><polygon class="hx" id="hx1" points="106.5,41.9 113.5,41.9 117.0,48.0 113.5,54.1 106.5,54.1 103.0,48.0"/><polygon class="hx" data-l="0" points="37.5,79.7 42.5,79.7 45.0,84.0 42.5,88.3 37.5,88.3 35.0,84.0"/><polygon class="hx" data-l="1" points="77.5,79.7 82.5,79.7 85.0,84.0 82.5,88.3 77.5,88.3 75.0,84.0"/><polygon class="hx" data-l="2" points="137.5,79.7 142.5,79.7 145.0,84.0 142.5,88.3 137.5,88.3 135.0,84.0"/><polygon class="hx" data-l="3" points="177.5,79.7 182.5,79.7 185.0,84.0 182.5,88.3 177.5,88.3 175.0,84.0"/></g></svg>
+          <p class="pst" id="pst2">Model up to date</p>
         </div>
         <div class="pcol" data-i="3">
           <span class="ptag">Private · yours</span>
           <span class="pn">4</span>
           <h3>Your model updates and alerts you</h3>
           <p>Only relevant signals reach your private model, refresh your scenarios and flag disruption to your supply chain.</p>
-          <svg class="pviz" viewBox="0 0 200 100" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M20 28H160M20 52H160M20 76H160"/></g><g stroke-width="3"><path d="M20 28H92" class="w"/><path d="M20 52H122" class="w"/><path d="M20 76H64" class="o"/></g><g stroke-width="1"><path d="M60 22V34M96 46V58M124 70V82" class="m"/></g><g class="o" stroke-width="0"><circle cx="184" cy="14" r="4"/></g></svg>
+          <div class="pbar">
+            <div class="pbar-h"><span id="pb-l">Route disruption</span><b id="pb-n">20%</b></div>
+            <div class="pbar-t"><i id="pb-i"></i></div>
+            <p class="pbar-a"><i></i><span id="pb-a">No alert</span></p>
+          </div>
+          <p class="pst" id="pst3">Your scenarios are current</p>
         </div>
       </div>
 
       <div class="pout">
-        <div class="pbox"><span class="plbl">You receive</span><b>Updated scenario analyses</b></div>
-        <div class="pbox"><span class="plbl">You receive</span><b>Supply chain disruption alerts</b></div>
-        <div class="pbox"><span class="plbl">You receive</span><b>Recommended actions</b></div>
+        <div class="pbox"><span class="plbl">Updated scenario analysis</span><b id="po0">Route disruption: 20% to 55%</b></div>
+        <div class="pbox"><span class="plbl">Supply chain disruption alert</span><b id="po1">Asia–Europe sea freight delayed by about two weeks</b></div>
+        <div class="pbox"><span class="plbl">Recommended action</span><b id="po2">Book alternative capacity, extend inventory cover</b></div>
       </div>
     </div>
   </div>
@@ -556,7 +621,7 @@
     for(i=0;i<bin.length;i++){ var c=bin.charCodeAt(i); for(b=0;b<8;b++) land[i*8+b]=(c>>(7-b))&1; }
 
     /* evenly spread points on a sphere, keep the ones that fall on land */
-    var N=window.innerWidth<700?26000:46000, GA=Math.PI*(3-Math.sqrt(5)), cl=[], sl=[], cL=[], sL=[];
+    var N=window.innerWidth<700?24000:42000, GA=Math.PI*(3-Math.sqrt(5)), cl=[], sl=[], cL=[], sL=[];
     for(i=0;i<N;i++){
       var z=1-2*(i+.5)/N, lat=Math.asin(z), lon=(GA*i)%TAU, latD=lat/rad, lonD=lon/rad-180;
       if(land[Math.min(179,Math.floor(90-latD))*360+Math.min(359,Math.floor(lonD+180))]){
@@ -565,48 +630,73 @@
     }
     var D=cl.length;
 
-    /* illustrative signals: [headline (shown on hover), lat, lon] */
+    /* ---- supply routes: ports, canals and chokepoints joined by great-circle arcs ---- */
+    var HUB={ sha:[31.2,121.5], shz:[22.5,114], sin:[1.3,103.8], rot:[51.9,4.4], ham:[53.5,10], ant:[51.2,4.4], lax:[33.7,-118.3], nyc:[40.6,-74],
+              dxb:[25,55], bom:[19,72.8], sao:[-23.9,-46.3], hou:[29.7,-95], pus:[35.1,129], suez:[30,32.5], pan:[9,-79.5], cape:[-34,18.5] };
+    var ROUTES=[ ['sha','sin','suez','rot'], ['shz','lax'], ['ham','nyc'], ['bom','suez','ant'], ['dxb','bom'], ['sao','rot'], ['hou','ant'],
+                 ['pus','lax'], ['lax','pan','nyc'], ['sin','cape','ham'], ['sha','pus'], ['hou','pan','shz'], ['dxb','suez'], ['nyc','rot'] ];
+    var POOL={
+      suez:['Red Sea rerouting adds weeks to transit','Canal congestion delays Asia–Europe sailings'], pan:['Canal restrictions slow shipments','Drought cuts canal transits'],
+      sin:['Congestion builds at Singapore hub','Port strike threatens Asian transshipment'], rot:['Strike closes a major European port','Customs checks slow arrivals in Rotterdam'],
+      ham:['Rail disruption strands containers at Hamburg','New due-diligence rules slow imports'], lax:['Port backlog delays Asia imports','Dockworker dispute threatens West Coast flows'],
+      nyc:['Tariff round hits EU exporters','Inspections slow arrivals at New York'], cape:['Cape reroute adds ten days','Storms delay vessels off South Africa'],
+      sha:['Typhoon closes ports, ships queue for days','Export licence rules widen on key inputs'], shz:['Factory shutdowns follow power cuts','Export ban on a key ingredient'],
+      dxb:['Gulf hub congestion delays cargo','Sanctions package targets energy trade'], bom:['Plant audit failure halts API supply','Heatwave slows inland logistics'],
+      sao:['Drought cuts river and port capacity','Export tax changes hit commodity flows'], hou:['Hurricane risk halts petrochemical loading','Pipeline outage lifts input prices'],
+      ant:['Gas supply cut forces plant shutdowns','Low water slows barge traffic'], pus:['Chip lead times stretch to 40 weeks','Port fees hit foreign-built ships']
+    };
+    function vec(h){ var la=h[0]*rad, lo=h[1]*rad; return [Math.cos(la)*Math.cos(lo), Math.cos(la)*Math.sin(lo), Math.sin(la)]; }
+    function arc(a,b,name,first){
+      var A=vec(a), B=vec(b), dot=Math.max(-1,Math.min(1,A[0]*B[0]+A[1]*B[1]+A[2]*B[2])), ang=Math.acos(dot), so=Math.sin(ang)||1, n=Math.max(8,Math.ceil(ang/rad/4)), out=[];
+      for(var t=first?0:1;t<=n;t++){
+        var u=t/n, ka=Math.sin((1-u)*ang)/so, kb=Math.sin(u*ang)/so, x=ka*A[0]+kb*B[0], y=ka*A[1]+kb*B[1], zz=ka*A[2]+kb*B[2];
+        var la=Math.asin(zz), lo=Math.atan2(y,x), f=1+(0.012+0.06*ang/Math.PI)*Math.sin(Math.PI*u);
+        out.push({cl:Math.cos(la),sl:Math.sin(la),cL:Math.cos(lo),sL:Math.sin(lo),f:f,hub:name});
+      }
+      return out;
+    }
+    var used={};
+    ROUTES.forEach(function(r,ri){
+      var pts=[];
+      for(var j=0;j<r.length-1;j++){ pts=pts.concat(arc(HUB[r[j]],HUB[r[j+1]],r[j],j===0)); used[r[j]]=1; used[r[j+1]]=1; }
+      r.pts=pts; r.hit=null; r.P=[]; r.pk=[];
+      var np=2+(ri%2); for(var q=0;q<np;q++) r.pk.push({u:Math.random()*(pts.length-1), v:(pts.length-1)/(11+Math.random()*9)});
+    });
+
+    /* ---- illustrative fixed signals ---- */
     var HEADS=[
-      ['New EU rules tighten chemical imports',50.8,4.4],['US tariff round hits EU parts exporters',38.9,-77],
-      ['Single-source supplier halts production',35,105],['Gas supply cut forces plant shutdowns',55.7,37.6],
-      ['Supply chain due-diligence rules widen',52.5,13.4],['Red Sea rerouting adds weeks to transit',20,38],
-      ['Typhoon closes ports, ships queue for days',24,121],['Chip lead times stretch to 40 weeks',52.2,5.3],
-      ['Sterling slide raises import costs',51.5,-0.1],['Pipeline outage lifts chemical input prices',57,19],
-      ['Nearshoring gains as Asia freight costs rise',19.4,-99.1],['Ransomware hits a logistics provider',1.35,103.8],
-      ['Cobalt supply tightens for battery makers',-3,24],['Gulf hub congestion delays pharma cargo',25.2,55.3],
-      ['Plant audit failure halts API supply',28.6,77.2],['Earthquake disrupts chip material output',35.7,139.7],
-      ['Drought cuts lithium output',-23,-68],['Export licence rules widen on key minerals',31.2,121.5],
-      ['New port fees hit foreign-built ships',37.5,127],['Sanctions package targets energy trade',48.8,2.3],
-      ['Canal restrictions slow grain shipments',9,-79.5],['Export ban on a key ingredient',22.5,114],
-      ['Customs checks slow EU–UK freight',51.1,1.3],['Strike closes a major European port',51.9,4.5]
+      ['New EU rules tighten chemical imports',50.8,4.4],['Single-source supplier halts production',35,105],['Gas supply cut forces plant shutdowns',55.7,37.6],
+      ['Supply chain due-diligence rules widen',52.5,13.4],['Chip lead times stretch to 40 weeks',52.2,5.3],['Sterling slide raises import costs',51.5,-0.1],
+      ['Pipeline outage lifts chemical input prices',57,19],['Nearshoring gains as Asia freight costs rise',19.4,-99.1],['Ransomware hits a logistics provider',1.35,103.8],
+      ['Cobalt supply tightens for battery makers',-3,24],['Plant audit failure halts API supply',28.6,77.2],['Earthquake disrupts chip material output',35.7,139.7],
+      ['Drought cuts lithium output',-23,-68],['Export licence rules widen on key minerals',31.2,121.5],['Sanctions package targets energy trade',48.8,2.3],
+      ['Export ban on a key ingredient',22.5,114],['Customs checks slow EU–UK freight',51.1,1.3],['Fertiliser exports restricted',46,30],['Tariffs hit retaliation list',39,116]
     ];
-    HEADS.forEach(function(h){ h.phi=h[1]*rad; h.lam=h[2]*rad; h.sp=Math.sin(h.phi); h.cp=Math.cos(h.phi); });
 
     var W=0,H=0,dpr=1,cx=0,cy=0,R=0,lam0=18*rad,phi0=20*rad,sp0=Math.sin(phi0),cp0=Math.cos(phi0);
-    var act=[], visible=true, last=0, nextSpawn=0, hov=-1, tipUntil=0, maxAct=10, copyEl=hero.querySelector('.hero-copy');
+    var act=[], visible=true, last=0, nextSpawn=0, nextBurst=2500, burst=0, burstAt=null, hov=-1, tipUntil=0, maxAct=34, copyEl=hero.querySelector('.hero-copy');
 
     function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
     function ease(x){ x=clamp(x,0,1); return x*x*(3-2*x); }
-    /* dots fade out as they drift behind the headline text */
     function textClear(x,y){
       var hr=hero.getBoundingClientRect(), r=copyEl.getBoundingClientRect();
       var dx=Math.max(r.left-hr.left-x, 0, x-(r.right-hr.left)), dy=Math.max(r.top-hr.top-y, 0, y-(r.bottom-hr.top));
-      return clamp(Math.hypot(dx,dy)/70,0,1);
+      return clamp(Math.hypot(dx,dy)/60,0,1);
     }
-
     function size(){
       dpr=Math.min(window.devicePixelRatio||1,1.5);
       W=hero.clientWidth; H=hero.clientHeight; if(!W) return;
       [gc,sc].forEach(function(c){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); });
       g.setTransform(dpr,0,0,dpr,0,0); s.setTransform(dpr,0,0,dpr,0,0);
-      if(W>=760){ cx=W*0.68; cy=H*0.46; R=Math.min(H*0.55,W*0.34); maxAct=10; }
-      else { cx=W*0.5; cy=H*0.3; R=Math.min(W*0.64,H*0.33); maxAct=7; }
+      if(W>=760){ cx=W*0.68; cy=H*0.46; R=Math.min(H*0.55,W*0.34); maxAct=34; }
+      else { cx=W*0.5; cy=H*0.3; R=Math.min(W*0.64,H*0.33); maxAct=18; }
       if(reduce) frame(0);
     }
-    function proj(sp,cp,lam){
+    function pj(sp,cp,lam,f){
       var dl=lam-lam0, cd=Math.cos(dl);
-      return { x:cx+R*cp*Math.sin(dl), y:cy-R*(cp0*sp-sp0*cp*cd), z:sp0*sp+cp0*cp*cd };
+      return { x:cx+R*f*cp*Math.sin(dl), y:cy-R*f*(cp0*sp-sp0*cp*cd), z:f*(sp0*sp+cp0*cp*cd) };
     }
+    function proj(sp,cp,lam){ return pj(sp,cp,lam,1); }
 
     function drawGlobe(){
       g.clearRect(0,0,W,H);
@@ -614,7 +704,7 @@
       g.beginPath(); g.arc(cx,cy,R*1.28,0,TAU); g.fillStyle=glow; g.fill();
       var bg=g.createRadialGradient(cx-R*0.3,cy-R*0.35,R*0.1,cx,cy,R); bg.addColorStop(0,'#1b1b1b'); bg.addColorStop(1,'#0c0c0c');
       g.beginPath(); g.arc(cx,cy,R,0,TAU); g.fillStyle=bg; g.fill(); g.lineWidth=1; g.strokeStyle='rgba(255,255,255,0.12)'; g.stroke();
-      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=clamp(R/200,0.9,2.1);
+      var c0=Math.cos(lam0), s0=Math.sin(lam0), r=clamp(R/210,0.8,2);
       var back=new Path2D(), f1=new Path2D(), f2=new Path2D(), f3=new Path2D();
       for(var k=0;k<D;k++){
         var cd=cL[k]*c0+sL[k]*s0, sd=sL[k]*c0-cL[k]*s0, zz=sp0*sl[k]+cp0*cl[k]*cd;
@@ -624,34 +714,74 @@
         p.moveTo(x+r,y); p.arc(x,y,r,0,TAU);
       }
       g.fillStyle='rgba(255,255,255,0.05)'; g.fill(back);
-      g.fillStyle='rgba(255,255,255,0.26)'; g.fill(f1);
-      g.fillStyle='rgba(255,255,255,0.5)'; g.fill(f2);
-      g.fillStyle='rgba(255,255,255,0.78)'; g.fill(f3);
+      g.fillStyle='rgba(255,255,255,0.22)'; g.fill(f1);
+      g.fillStyle='rgba(255,255,255,0.4)'; g.fill(f2);
+      g.fillStyle='rgba(255,255,255,0.62)'; g.fill(f3);
     }
 
+    /* routes, cargo and breaks live on the signal layer, above the darkening */
+    function drawRoutes(t,dt){
+      ROUTES.forEach(function(r){
+        var P=r.P, pts=r.pts, n=pts.length, hit=r.hit, hitOn=false, hk=0;
+        if(hit){ var ha=t-hit.t0; if(ha>hit.dur){ r.hit=hit=null; } else { hitOn=true; hk=Math.min(ha/300,1)*Math.min((hit.dur-ha)/500,1); } }
+        for(var j=0;j<n;j++){ var q=pts[j], p=pj(q.sl,q.cl,Math.atan2(q.sL,q.cL),q.f); p.ok=(p.z>0.02)||(Math.hypot(p.x-cx,p.y-cy)>R*1.001); P[j]=p; }
+        s.beginPath(); var on=false;
+        for(j=0;j<n;j++){ var pp=P[j]; if(pp.ok){ if(!on){ s.moveTo(pp.x,pp.y); on=true; } else s.lineTo(pp.x,pp.y); } else on=false; }
+        s.lineWidth=hitOn?1.4:0.8;
+        s.strokeStyle=hitOn?'rgba(232,131,42,'+(0.35+0.55*hk).toFixed(2)+')':'rgba(255,255,255,0.2)';
+        s.setLineDash(hitOn?[4,4]:[]); s.stroke(); s.setLineDash([]);
+        r.pk.forEach(function(k){
+          if(!(hitOn && Math.abs(k.u-hit.i)<3)) k.u=(k.u+k.v*dt)%(n-1);
+          var i0=Math.floor(k.u), a=P[i0], b2=P[i0+1]; if(!a||!b2||!a.ok||!b2.ok) return;
+          var f=k.u-i0; s.beginPath(); s.arc(a.x+(b2.x-a.x)*f,a.y+(b2.y-a.y)*f,hitOn?2.1:1.6,0,TAU);
+          s.fillStyle=hitOn?'rgba(232,131,42,0.95)':'rgba(255,255,255,0.8)'; s.fill();
+        });
+        if(hitOn){ var bp=P[hit.i]; if(bp&&bp.ok){ var rr=6+((t-hit.t0)/500%1)*10; s.beginPath(); s.arc(bp.x,bp.y,rr,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.5*hk*(1-(rr-6)/10)).toFixed(2)+')'; s.lineWidth=1; s.stroke();
+          s.beginPath(); s.moveTo(bp.x-4,bp.y-4); s.lineTo(bp.x+4,bp.y+4); s.moveTo(bp.x+4,bp.y-4); s.lineTo(bp.x-4,bp.y+4); s.strokeStyle='rgba(232,131,42,'+hk.toFixed(2)+')'; s.lineWidth=1.4; s.stroke(); }
+        }
+      });
+      Object.keys(used).forEach(function(k){
+        var h=HUB[k], la=h[0]*rad, lo=h[1]*rad, p=proj(Math.sin(la),Math.cos(la),lo); if(p.z<0.05) return;
+        s.beginPath(); s.arc(p.x,p.y,2,0,TAU); s.fillStyle='rgba(255,255,255,0.75)'; s.fill();
+      });
+    }
+
+    function addSignal(t,text,la,lo,route,idx){
+      var o={t:text,sp:Math.sin(la),cp:Math.cos(la),lam:lo,born:t,life:reduce?1e12:2400+Math.random()*2400,route:route};
+      var p=proj(o.sp,o.cp,o.lam);
+      if(p.z<0.25||p.x<20||p.x>W-20||p.y<76||p.y>H-40||textClear(p.x,p.y)<1) return false;
+      if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<20; })) return false;
+      o.p=p; act.push(o);
+      if(route && !route.hit && Math.random()<0.4 && !reduce) route.hit={t0:t,dur:3200+Math.random()*2200,i:idx};
+      return true;
+    }
     function spawn(t){
       if(act.length>=maxAct) return;
-      for(var tries=0;tries<24;tries++){
-        var h=HEADS[Math.floor(Math.random()*HEADS.length)];
-        if(act.some(function(a){ return a.h===h; })) continue;
-        var p=proj(h.sp,h.cp,h.lam);
-        if(p.z<0.4||p.x<24||p.x>W-24||p.y<80||p.y>H-60) continue;
-        if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<46; })) continue;
-        if(textClear(p.x,p.y)<1) continue;
-        act.push({h:h,born:t,life:reduce?1e12:3600+Math.random()*3200,p:p});
-        return;
+      for(var tries=0;tries<16;tries++){
+        if(burst>0 && burstAt){
+          var la=clamp(burstAt[0]+(Math.random()-.5)*26,-70,75)*rad, lo=(burstAt[1]+(Math.random()-.5)*34)*rad;
+          var h=HEADS[Math.floor(Math.random()*HEADS.length)];
+          if(addSignal(t,h[0],la,lo,null,0)){ burst--; return; }
+          burst-=0.25; continue;
+        }
+        if(Math.random()<0.58){
+          var r=ROUTES[Math.floor(Math.random()*ROUTES.length)], idx=1+Math.floor(Math.random()*(r.pts.length-2)), q=r.pts[idx], pool=POOL[q.hub]||['Shipping delays reported on this route'];
+          if(addSignal(t,pool[Math.floor(Math.random()*pool.length)],Math.asin(q.sl),Math.atan2(q.sL,q.cL),r,idx)) return;
+        } else {
+          var hh=HEADS[Math.floor(Math.random()*HEADS.length)];
+          if(addSignal(t,hh[0],hh[1]*rad,hh[2]*rad,null,0)) return;
+        }
       }
     }
 
     function drawSignals(t){
-      s.clearRect(0,0,W,H);
       for(var i=act.length-1;i>=0;i--){
-        var a=act[i], p=proj(a.h.sp,a.h.cp,a.h.lam); a.p=p;
+        var a=act[i], p=proj(a.sp,a.cp,a.lam); a.p=p;
         var age=t-a.born;
         if(age>a.life || p.z<0.1){ act.splice(i,1); continue; }
-        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/500), out=clamp((a.life-age)/800,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
-        if(!reduce){ var q=(age/1500)%1; s.beginPath(); s.arc(p.x,p.y,4+q*16,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.4*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
-        s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,(i===hov?5.5:4)*(0.5+0.5*k),0,TAU); s.fillStyle=ORANGE; s.fill();
+        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/350), out=clamp((a.life-age)/600,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
+        if(!reduce){ var q=(age/1100)%1; s.beginPath(); s.arc(p.x,p.y,3+q*13,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.38*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
+        s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,(i===hov?5:3.4)*(0.5+0.5*k),0,TAU); s.fillStyle=ORANGE; s.fill();
         s.globalAlpha=1;
       }
     }
@@ -660,21 +790,27 @@
       if(!reduce) requestAnimationFrame(frame);
       if(!visible||!W) return;
       var dt=Math.min(0.05,(t-last)/1000); last=t;
-      if(!reduce) lam0+=dt*0.05;
+      if(!reduce) lam0+=dt*0.14;
       drawGlobe();
-      if(reduce){ if(!act.length){ for(var q=0;q<6;q++) spawn(0); } }
-      else if(t>nextSpawn){ spawn(t); nextSpawn=t+260+Math.random()*260; }
-      drawSignals(reduce?1500:t);
+      s.clearRect(0,0,W,H);
+      var now=reduce?1500:t;
+      drawRoutes(now,reduce?0:dt);
+      if(reduce){ if(!act.length){ for(var q=0;q<14;q++) spawn(0); } }
+      else {
+        if(t>nextBurst){ var hk=Object.keys(used), hb=HUB[hk[Math.floor(Math.random()*hk.length)]]; burstAt=hb; burst=6+Math.floor(Math.random()*6); nextBurst=t+4200+Math.random()*3600; }
+        if(t>nextSpawn){ spawn(t); nextSpawn=t+(burst>0?55:90)+Math.random()*(burst>0?50:90); }
+      }
+      drawSignals(now);
       if(tip.style.opacity==='1' && t>tipUntil && hov<0) tip.style.opacity=0;
     }
 
     /* hover (or tap) a dot to read the signal */
     function point(e){
-      var r=hero.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=-1, bd=20;
+      var r=hero.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top, best=-1, bd=18;
       act.forEach(function(a,i){ if(!a.p) return; var d=Math.hypot(a.p.x-mx,a.p.y-my); if(d<bd){ bd=d; best=i; } });
       hov=best;
       if(best>=0){
-        tip.textContent=act[best].h[0];
+        tip.textContent=act[best].t;
         var w=tip.offsetWidth, hh=tip.offsetHeight;
         tip.style.transform='translate('+clamp(act[best].p.x+14,8,W-w-8).toFixed(0)+'px,'+clamp(act[best].p.y-hh-12,70,H-hh-8).toFixed(0)+'px)';
         tip.style.opacity=1; tipUntil=performance.now()+2400;
@@ -690,14 +826,88 @@
     if(reduce) frame(0); else requestAnimationFrame(frame);
   })();
   (function(){
-    /* platform overview: quietly walk through the four steps */
+    /* platform overview: send a sample signal through the four steps */
     var root=document.getElementById('plat'); if(!root) return;
-    var cols=[].slice.call(root.querySelectorAll('.pcol')), cur=0, hover=false, vis=false, reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function set(i){ cur=i; cols.forEach(function(c,k){ c.classList.toggle('on',k===i); }); }
-    cols.forEach(function(c,i){ c.addEventListener('mouseenter',function(){ hover=true; set(i); }); c.addEventListener('mouseleave',function(){ hover=false; }); });
-    if(reduce || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function(es){ vis=es[0].isIntersecting; },{threshold:0.3}).observe(root);
-    setInterval(function(){ if(vis && !hover && window.innerWidth>620) set((cur+1)%cols.length); },2600);
+    var Q=function(sel){ return root.querySelector(sel); }, QA=function(sel){ return [].slice.call(root.querySelectorAll(sel)); };
+    var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var chips=QA('.pchip'), cols=QA('.pcol'), srcs=QA('.psrc-l li'), incEl=Q('#plat-inc'), fill=Q('.ptrack i');
+    var st=[Q('#pst0'),Q('#pst1'),Q('#pst2'),Q('#pst3')], nodes=QA('.pv1 polygon[data-n]'), leaves=QA('.pv3 polygon[data-l]'), hx=[Q('#hx0'),Q('#hx1')], pe=[0,1,2,3,4].map(function(i){ return Q('#pe'+i); });
+    var bar=Q('.pbar'), pbL=Q('#pb-l'), pbN=Q('#pb-n'), pbI=Q('#pb-i'), pbA=Q('#pb-a'), po=[Q('#po0'),Q('#po1'),Q('#po2')];
+    var S=[
+      { n:'Red Sea closure', src:2, inc:'Shipping lines suspend Suez transits', node:1, leaf:0, kept:'1 kept of 4,812 items', model:'Suez transit risk rises', yours:'Route disruption', from:20, to:55, alert:'Asia–Europe route delayed', a1:'Asia–Europe sea freight delayed by about two weeks', a2:'Book alternative capacity, extend inventory cover' },
+      { n:'Gas supply cut', src:4, inc:'Pipeline outage cuts gas to Central Europe', node:2, leaf:1, kept:'1 kept of 5,236 items', model:'Energy supply risk rises', yours:'Input cost spike', from:25, to:60, alert:'Feedstock costs up at two sites', a1:'Feedstock costs rise at two production sites', a2:'Hedge energy exposure, review pricing clauses' },
+      { n:'Rare earth licensing', src:0, inc:'China introduces export licensing for magnets', node:0, leaf:2, kept:'1 kept of 4,390 items', model:'Critical-minerals risk rises', yours:'Supply squeeze', from:35, to:55, alert:'Magnet supplier exposed', a1:'Magnet supplier in China exposed: licence delays likely', a2:'Qualify a second supplier, build buffer stock' },
+      { n:'New tariffs', src:1, inc:'US announces new tariffs on EU exports', node:3, leaf:3, kept:'1 kept of 4,967 items', model:'Tariff risk rises', yours:'Margin pressure', from:40, to:62, alert:'US-bound volume exposed', a1:'US-bound volume faces higher duties', a2:'Shift allocation, renegotiate price clauses' }
+    ];
+    var cur=0, runId=0, timers=[], touched=false, vis=false, idle=false;
+
+    /* ---- step 2: a stream of noise, most of it dropped at the gate ---- */
+    var nc=Q('#pv2'), nx=nc.getContext('2d'), NW=0, NH=0, dots=[], sigs=[], kept=[], lastT=0, acc=0;
+    function nSize(){ var d=Math.min(window.devicePixelRatio||1,2); NW=nc.clientWidth; NH=nc.clientHeight; if(!NW) return; nc.width=Math.round(NW*d); nc.height=Math.round(NH*d); nx.setTransform(d,0,0,d,0,0); }
+    function nDraw(t){
+      requestAnimationFrame(nDraw);
+      if(!vis||!NW) { lastT=t; return; }
+      var dt=Math.min(0.05,(t-lastT)/1000); lastT=t; var gate=NW*0.56, i;
+      if(!reduce){ acc+=dt*16; while(acc>=1){ dots.push({x:-3,y:8+Math.random()*(NH-16),v:(0.18+Math.random()*0.3)*NW,a:0.7,dy:(Math.random()-0.5)*14}); acc--; } }
+      nx.clearRect(0,0,NW,NH);
+      nx.strokeStyle='rgba(22,22,22,0.28)'; nx.lineWidth=1; nx.setLineDash([2,3]); nx.beginPath(); nx.moveTo(gate,6); nx.lineTo(gate,NH-6); nx.stroke(); nx.setLineDash([]);
+      for(i=dots.length-1;i>=0;i--){ var d=dots[i]; d.x+=d.v*dt; if(d.x>gate){ d.a-=dt*3.2; d.y+=d.dy*dt*2; } if(d.a<=0||d.x>NW){ dots.splice(i,1); continue; } nx.globalAlpha=d.a; nx.fillStyle='#CBC9C2'; nx.beginPath(); nx.arc(d.x,d.y,1.7,0,6.2832); nx.fill(); }
+      nx.globalAlpha=1;
+      for(i=sigs.length-1;i>=0;i--){ var q=sigs[i]; q.x+=NW*0.42*dt; if(q.x>=NW*0.82){ kept.push({x:NW*0.82,y:q.y+(kept.length%3-1)*16,t0:t}); sigs.splice(i,1); continue; } nx.fillStyle='#E8832A'; nx.beginPath(); nx.arc(q.x,q.y,3.4,0,6.2832); nx.fill(); }
+      kept.forEach(function(k){ var pu=((t-k.t0)/900)%1; nx.strokeStyle='rgba(232,131,42,'+(0.5*(1-pu)).toFixed(2)+')'; nx.lineWidth=1; nx.beginPath(); nx.arc(k.x,k.y,3.4+pu*8,0,6.2832); nx.stroke(); nx.fillStyle='#E8832A'; nx.beginPath(); nx.arc(k.x,k.y,3.4,0,6.2832); nx.fill(); });
+    }
+    function emitSignal(){ sigs.push({x:-3,y:NH*0.5+(Math.random()-0.5)*20}); }
+
+    /* ---- orchestration ---- */
+    function T(fn,ms){ var id=runId; timers.push(setTimeout(function(){ if(id===runId) fn(); },ms)); }
+    function setStep(i){ cols.forEach(function(c,k){ c.classList.toggle('on',k===i); }); if(fill) fill.style.width=((i+1)*25)+'%'; }
+    function setCount(el,from,to,ms){
+      if(reduce){ el.textContent=to+'%'; return; }
+      var t0=performance.now(); (function f(t){ var k=Math.min(1,(t-t0)/ms); el.textContent=Math.round(from+(to-from)*k)+'%'; if(k<1) requestAnimationFrame(f); })(t0);
+    }
+    function show(el,txt){ el.textContent=txt; el.classList.remove('fresh'); void el.offsetWidth; if(!reduce) el.classList.add('fresh'); }
+    function clear(){
+      timers.forEach(clearTimeout); timers=[]; runId++;
+      nodes.forEach(function(n){ n.classList.remove('lit'); }); leaves.forEach(function(n){ n.classList.remove('lit'); }); hx.forEach(function(n){ n.classList.remove('lit'); });
+      pe.forEach(function(e){ e.classList.remove('run'); }); bar.classList.remove('alert');
+      sigs.length=0; kept.length=0; srcs.forEach(function(x){ x.classList.remove('on'); });
+    }
+    function final(i){
+      var d=S[i]; clear(); setStep(3);
+      nodes[d.node].classList.add('lit'); hx[0].classList.add('lit'); hx[1].classList.add('lit'); leaves[d.leaf].classList.add('lit'); pe[0].classList.add('run'); pe[1+d.leaf].classList.add('run');
+      pbL.textContent=d.yours; pbN.textContent=d.to+'%'; pbI.style.width=d.to+'%'; pbA.textContent=d.alert; bar.classList.add('alert');
+      st[0].textContent='Exposed: '+['supplier','route','plant','market'][d.node]; st[1].textContent=d.kept; st[2].textContent=d.model; st[3].textContent=d.yours+' '+d.from+'% to '+d.to+'%';
+      po[0].textContent=d.yours+': '+d.from+'% to '+d.to+'%'; po[1].textContent=d.a1; po[2].textContent=d.a2; srcs[d.src].classList.add('on');
+      incEl.textContent='Incoming: '+d.inc;
+    }
+    function run(i,auto){
+      cur=i; chips.forEach(function(c,k){ c.classList.toggle('on',k===i); });
+      if(reduce){ final(i); return; }
+      clear(); var d=S[i], id=runId;
+      incEl.textContent='Incoming: '+d.inc; srcs[d.src].classList.add('on');
+      pbL.textContent=d.yours; pbN.textContent=d.from+'%'; pbI.style.width=d.from+'%'; pbA.textContent='No alert yet';
+      po.forEach(function(x){ x.textContent='Waiting for the signal…'; });
+      setStep(0); nodes[d.node].classList.add('lit'); st[0].textContent='Exposed: '+['supplier','route','plant','market'][d.node];
+      st[1].textContent='Reading thousands of items'; st[2].textContent='Model up to date'; st[3].textContent='Your scenarios are current';
+      T(function(){ setStep(1); emitSignal(); st[1].textContent='Reading 4,000+ items…'; },1400);
+      T(function(){ st[1].textContent=d.kept; },2700);
+      T(function(){ setStep(2); hx[0].classList.add('lit'); pe[0].classList.add('run'); st[2].textContent='Updating the model…'; },3100);
+      T(function(){ hx[1].classList.add('lit'); pe[1+d.leaf].classList.add('run'); },3600);
+      T(function(){ leaves[d.leaf].classList.add('lit'); st[2].textContent=d.model; },4100);
+      T(function(){ setStep(3); setCount(pbN,d.from,d.to,1100); pbI.style.width=d.to+'%'; st[3].textContent='Updating your private model…'; },4800);
+      T(function(){ bar.classList.add('alert'); pbA.textContent=d.alert; st[3].textContent=d.yours+' '+d.from+'% to '+d.to+'%'; show(po[0],d.yours+': '+d.from+'% to '+d.to+'%'); },6100);
+      T(function(){ show(po[1],d.a1); },6500);
+      T(function(){ show(po[2],d.a2); },6900);
+      if(auto) T(function(){ if(touched) return; if(vis) run((cur+1)%S.length,true); else idle=true; },11500);
+    }
+    chips.forEach(function(c,k){ c.addEventListener('click',function(){ touched=true; run(k,false); }); });
+    cols.forEach(function(c,k){ c.addEventListener('mouseenter',function(){ if(touched||reduce) setStep(k); }); });
+    final(0);
+    nSize(); if(window.ResizeObserver) new ResizeObserver(nSize).observe(nc); requestAnimationFrame(nDraw);
+    if(!reduce && 'IntersectionObserver' in window){
+      var started=false;
+      new IntersectionObserver(function(es){ vis=es[0].isIntersecting; if(!vis) return; if(!started){ started=true; run(0,true); } else if(idle && !touched){ idle=false; run((cur+1)%S.length,true); } },{threshold:0.35}).observe(root);
+    } else vis=true;
   })();
   (function(){
     /* industries carousel */
