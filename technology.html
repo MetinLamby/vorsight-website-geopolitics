@@ -235,53 +235,15 @@
 
 /* 06 copilot: suggested actions, static */
   .act{ border-top:1px solid rgba(255,255,255,0.18); }
-  .act-h, .act-r{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr); gap:0 clamp(18px,3vw,40px); }
-  .act-h{ padding:14px 0 12px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.38); }
-  .act-r{ position:relative; padding:22px 0; border-top:1px solid rgba(255,255,255,0.12); align-items:start; }
-  .act-r > div + div::before{ content:"→"; position:absolute; margin-left:calc(-1 * clamp(18px,3vw,40px) + 2px); color:rgba(255,255,255,0.3); font-family:var(--mono); }
-  .act-risk{ display:flex; gap:12px; font-size:var(--t-small); line-height:1.35; color:#fff; }
-  .act-risk small, .act-do small{ display:block; margin-top:3px; font-size:13px; line-height:1.35; color:rgba(255,255,255,0.45); }
-  .act-risk small b{ font-weight:400; color:#E5484D; }
-  .hx{ flex-shrink:0; display:inline-block; width:10px; height:11px; margin-top:0.3em; background:rgba(255,255,255,0.55); clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
-  .hx.hot{ background:#E5484D; }
-  .act-tag{ display:block; margin-bottom:6px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--orange); }
-  .act-do b{ display:block; font-weight:400; font-size:var(--t-small); line-height:1.35; color:#fff; }
-  .act-alt{ display:flex; flex-direction:column; gap:8px; }
-  .alt{ display:flex; gap:10px; align-items:flex-start; font-size:var(--t-small); line-height:1.35; color:#fff; }
-  .alt .hx{ background:var(--orange); }
-  @media (max-width:760px){
-    .act-h{ display:none; }
-    .act-r{ grid-template-columns:1fr; gap:14px; }
-    .act-r > div + div::before{ content:none; }
-    .act-r > .act-alt::before{ position:static; margin:0; content:"European alternatives"; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.38); }
-  }
-
-  .foot-eu{ display:inline-flex; align-items:center; gap:12px; }
-  .foot-eu .eu-flag{ box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
-
-  /* ---------- getting started ---------- */
-  #cta{ background:var(--bg-subtle); }
-  #cta .section-head h2{ font-size:clamp(40px,5vw,76px); letter-spacing:-0.035em; line-height:1; }
-  .tl{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,4vw,64px); padding-top:38px; margin-bottom:clamp(48px,8vh,88px); }
-  .tl::before{ content:""; position:absolute; left:0; right:0; top:6px; height:1px; background:var(--border-strong); transform-origin:left; transform:scaleX(0); transition:transform 1.4s cubic-bezier(.4,0,.2,1); }
-  .tl.go::before{ transform:scaleX(1); }
-  .tl-s{ position:relative; opacity:.3; transition:opacity .6s ease; }
-  .tl.go .tl-s{ opacity:1; }
-  .tl.go .tl-s:nth-child(1){ transition-delay:.2s; } .tl.go .tl-s:nth-child(2){ transition-delay:.7s; } .tl.go .tl-s:nth-child(3){ transition-delay:1.2s; } .tl.go .tl-s:nth-child(4){ transition-delay:1.7s; }
-  .tl-s::before{ content:""; position:absolute; left:0; top:-38px; width:12px; height:13px; background:var(--ink); clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
-  .tl-s:last-child::before{ background:var(--orange); }
-  .tl-w{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .tl-s h3{ margin:8px 0 10px; font-size:var(--t-h3); }
-  .tl-s p{ max-width:32ch; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
-  @media (max-width:900px){ .tl{ grid-template-columns:repeat(2,1fr); row-gap:44px; } }
-  @media (max-width:760px){
-    .tl{ grid-template-columns:1fr; gap:30px; padding-top:0; padding-left:30px; }
-    .tl::before{ left:6px; right:auto; top:6px; bottom:6px; width:1px; height:auto; transform:scaleY(0); transform-origin:top; }
-    .tl.go::before{ transform:scaleY(1); }
-    .tl-s::before{ left:-30px; top:4px; }
-  }
-  @media (prefers-reduced-motion: reduce){ .tl::before, .tl-s{ transition:none; } .tl::before{ transform:none; } .tl-s{ opacity:1; } }
-
+  .act-r{ padding:24px 0 26px; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .act-r:last-child{ border-bottom:0; padding-bottom:6px; }
+  .act-risk{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+  .hx{ flex-shrink:0; display:inline-block; width:10px; height:11px; background:#E5484D; clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
+  .act-do{ margin-top:12px; font-size:clamp(19px,1.7vw,24px); line-height:1.25; letter-spacing:-0.015em; color:#fff; }
+  .act-do b{ font-weight:400; }
+  .act-tag{ display:inline-block; margin-left:10px; vertical-align:middle; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--orange); }
+  .act-alt{ margin-top:8px; font-size:var(--t-small); color:rgba(255,255,255,0.55); }
+  .act-alt::before{ content:"→ "; color:var(--orange); }
 
   /* ---------- phones: rearrange rather than remove; graphs run top to bottom ---------- */
   @media (max-width:640px){
@@ -549,21 +511,20 @@
       <div class="panel reveal">
         <div class="panel-top mono-lbl"><span>Suggested actions</span><span>Illustrative</span></div>
         <div class="act">
-          <div class="act-h"><span>Risk</span><span>Action</span><span>European alternatives</span></div>
           <div class="act-r">
-            <div class="act-risk"><i class="hx hot"></i><span>Magnet export licensing</span></div>
-            <div class="act-do"><span class="act-tag">Diversify</span><b>Add a second magnet supplier</b></div>
-            <div class="act-alt"><span class="alt"><i class="hx"></i>Germany</span><span class="alt"><i class="hx"></i>Estonia</span><span class="alt"><i class="hx"></i>France</span></div>
+            <div class="act-risk"><i class="hx"></i>Magnet export licensing</div>
+            <div class="act-do"><b>Add a second magnet supplier</b><span class="act-tag">Diversify</span></div>
+            <div class="act-alt">Germany · Estonia · France</div>
           </div>
           <div class="act-r">
-            <div class="act-risk"><i class="hx hot"></i><span>Gas supply cut</span></div>
-            <div class="act-do"><span class="act-tag">Hedge</span><b>Lock in energy costs</b></div>
-            <div class="act-alt"><span class="alt"><i class="hx"></i>Norway</span><span class="alt"><i class="hx"></i>Netherlands</span></div>
+            <div class="act-risk"><i class="hx"></i>Gas supply cut</div>
+            <div class="act-do"><b>Lock in energy costs</b><span class="act-tag">Hedge</span></div>
+            <div class="act-alt">Norway · Netherlands</div>
           </div>
           <div class="act-r">
-            <div class="act-risk"><i class="hx hot"></i><span>Taiwan Strait disruption</span></div>
-            <div class="act-do"><span class="act-tag">Diversify</span><b>Dual-source critical chips</b></div>
-            <div class="act-alt"><span class="alt"><i class="hx"></i>Germany</span><span class="alt"><i class="hx"></i>France</span><span class="alt"><i class="hx"></i>Italy</span></div>
+            <div class="act-risk"><i class="hx"></i>Taiwan Strait disruption</div>
+            <div class="act-do"><b>Dual-source critical chips</b><span class="act-tag">Diversify</span></div>
+            <div class="act-alt">Germany · France · Italy</div>
           </div>
         </div>
       </div>
