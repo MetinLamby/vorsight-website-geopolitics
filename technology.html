@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vorsight – Technology</title>
-<meta name="description" content="Headlines in. Decisions out. See how Vorsight maps your exposure, models the world, updates scenarios with every signal and alerts you when to act.">
+<meta name="description" content="Headlines in. Decisions out. See how Vorsight maps your supply chain, models the risks, updates scenarios with every signal and alerts you when to hedge or diversify.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -503,18 +503,18 @@
         <div class="stage-n"><b>01</b>/ 06</div>
         <div class="eyebrow">COMPANY GRAPH</div>
         <h2>Your supply chain, mapped on the globe.</h2>
-        <p class="body">After onboarding, we turn your suppliers, materials, sites and markets into a company graph. Follow one chain: rare earths mined in China, made into magnets, shipped to Germany, built into cars, sold in America. Every stop carries the statecraft tool that could hit it.</p>
+        <p class="body">After onboarding, we turn your suppliers, materials, sites and markets into a company graph. Follow one chain: rare earths mined in China, made into magnets, shipped to Germany, built into cars, sold in America. Every stop shows where the chain is concentrated and what could break it.</p>
         <p class="stage-hint">Drag the globe. Pick a stop. Filter by tool.</p>
         <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
       </div>
       <div class="panel reveal">
-        <div class="panel-top mono-lbl"><span>Rheinwerk Automotive AG · fictional German car maker</span><span id="g1-count">—</span></div>
-        <div class="chips" id="g1-chips" role="group" aria-label="Filter by statecraft tool">
+        <div class="panel-top mono-lbl"><span>Rheinwerk Automotive AG · fictional mid-sized auto manufacturer</span><span id="g1-count">—</span></div>
+        <div class="chips" id="g1-chips" role="group" aria-label="Filter by risk type">
           <button type="button" class="chip on" data-tool="all" aria-pressed="true">All</button>
-          <button type="button" class="chip" data-tool="export" aria-pressed="false">Export controls</button>
+          <button type="button" class="chip" data-tool="export" aria-pressed="false">Supply curbs</button>
           <button type="button" class="chip" data-tool="shipping" aria-pressed="false">Shipping chokepoints</button>
           <button type="button" class="chip" data-tool="tariffs" aria-pressed="false">Tariffs</button>
-          <button type="button" class="chip" data-tool="finance" aria-pressed="false">Sanctions &amp; finance</button>
+          <button type="button" class="chip" data-tool="finance" aria-pressed="false">Payments &amp; finance</button>
         </div>
         <div class="globe-wrap"><canvas id="globe-cv" role="img" aria-label="Rotating globe showing a supply chain from a rare earth mine in China through magnet makers, the Suez Canal and a supplier in Germany to a car plant and customers in the United States."></canvas></div>
         <div class="route" id="g1-route" role="group" aria-label="Stops on the supply chain"></div>
@@ -531,8 +531,8 @@
       <div class="stage-copy reveal">
         <div class="stage-n"><b>02</b>/ 06</div>
         <div class="eyebrow">WORLD GRAPH</div>
-        <h2>Our think tank maps the world.</h2>
-        <p class="body">Our think tank maintains a graph of who uses which statecraft tool, against which chokepoint, hitting which industry. It also encodes how geopolitics behaves: who retaliates, with what, and how fast.</p>
+        <h2>Our analysts map the global supply web.</h2>
+        <p class="body">Our think tank maintains a graph of trade measures, chokepoints and the industries behind them: electronics, chemicals, automotive, food and pharma. It also encodes how the world behaves: who retaliates, with what, and how fast.</p>
         <p class="stage-hint">Hover, drag, click a hub, or play an escalation.</p>
         <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
       </div>
@@ -540,13 +540,13 @@
         <div class="panel-top mono-lbl"><span>World graph · maintained by the think tank</span><span>Illustrative</span></div>
         <div class="chips" id="g2-chips" role="group" aria-label="Highlight a node type">
           <button type="button" class="chip" data-type="actor" aria-pressed="false">■ Actors</button>
-          <button type="button" class="chip" data-type="tool" aria-pressed="false">◆ Tools</button>
+          <button type="button" class="chip" data-type="tool" aria-pressed="false">◆ Measures</button>
           <button type="button" class="chip" data-type="choke" aria-pressed="false">○ Chokepoints</button>
           <button type="button" class="chip" data-type="industry" aria-pressed="false">● Industries</button>
           <button type="button" class="chip" data-type="co" aria-pressed="false">· Companies</button>
         </div>
         <div class="fg-wrap">
-          <canvas id="fg-cv" role="img" aria-label="Interactive network of countries, statecraft tools, chokepoints, industries and companies."></canvas>
+          <canvas id="fg-cv" role="img" aria-label="Interactive network of countries, trade measures, chokepoints, industries and companies."></canvas>
           <div class="fg-ctl"><button type="button" id="fg-in" aria-label="Zoom in">+</button><button type="button" id="fg-out" aria-label="Zoom out">−</button><button type="button" id="fg-fit" aria-label="Fit to view">⟲</button></div>
         </div>
         <div class="seq"><button type="button" class="linkbtn" id="g2-play">▶ Play escalation</button><div class="seq-dots" id="g2-dots"></div></div>
@@ -564,7 +564,7 @@
         <div class="stage-n"><b>03</b>/ 06</div>
         <div class="eyebrow">SCENARIO TREES</div>
         <h2>Analysts and agents build the trees.</h2>
-        <p class="body">Our analysts and AI agents combine the world graph with your company graph. For every risk they build a scenario tree: starting probabilities, warning signs and a response to prepare.</p>
+        <p class="body">Our analysts and AI agents combine the world graph with your company graph. For every risk they build a scenario tree: starting probabilities, warning signs and a response to prepare: diversify, hedge or hold.</p>
         <p class="stage-hint">Switch risk. Hover a scenario.</p>
         <p class="stage-feeds">Feeds into <a href="#s5">05 Bayesian update</a></p>
       </div>
@@ -603,7 +603,7 @@
             <div class="cg-title">Sources → signals</div>
             <button type="button" class="src"><span>Official journals</span><b>China adds export licensing for magnet technology</b></button>
             <button type="button" class="src"><span>Customs &amp; trade data</span><b>EU imports of battery cells fall month on month</b></button>
-            <button type="button" class="src"><span>News in many languages</span><b>US announces new chip tool restrictions</b></button>
+            <button type="button" class="src"><span>News in many languages</span><b>Typhoon closes a major Asian port</b></button>
             <button type="button" class="src"><span>Think tank analysts</span><b>Analyst note: gas supply rules tighten</b></button>
             <button type="button" class="src"><span>Market data</span><b>Freight rates spike on the Asia–Europe lane</b></button>
           </div>
@@ -611,7 +611,7 @@
           <div class="f-col">
             <div class="cg-title">Client silos</div>
             <div class="silo" data-name="Car maker"><div class="silo-h"><span>Company 1<small>Car maker</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
-            <div class="silo" data-name="Machinery"><div class="silo-h"><span>Company 2<small>Machinery</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
+            <div class="silo" data-name="Electronics"><div class="silo-h"><span>Company 2<small>Electronics</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
             <div class="silo" data-name="Chemicals"><div class="silo-h"><span>Company 3<small>Chemicals</small></span><span class="silo-n">0</span></div><div class="silo-q"></div><div class="silo-lock">🔒 private silo</div></div>
           </div>
         </div>
@@ -640,21 +640,21 @@
           <div class="bay-col" role="group" aria-label="Signals">
             <div class="cg-title">Signals</div>
             <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">1</span><span class="bsig-t">China adds magnet tech to export licensing<small>Escalates</small></span></button>
-            <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">2</span><span class="bsig-t">Officials threaten countermeasures over EU tariffs<small>Escalates</small></span></button>
+            <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">2</span><span class="bsig-t">Export curbs threatened in trade dispute<small>Escalates</small></span></button>
             <button type="button" class="bsig" role="checkbox" aria-checked="false"><span class="bsig-k">3</span><span class="bsig-t">Tier 2 supplier reports licence delays<small>Escalates</small></span></button>
             <button type="button" class="bsig eases" role="checkbox" aria-checked="false"><span class="bsig-k">4</span><span class="bsig-t">EU and China agree general licences<small>Eases</small></span></button>
           </div>
           <div class="bay-col">
             <div class="cg-title">Scenarios</div>
-            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:82px;height:82px"></span><span class="bsc-c" style="width:82px;height:82px"><b>55%</b></span></div><div class="bsc-n">Managed friction<small>Impact €20m</small></div></div>
-            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:65px;height:65px"></span><span class="bsc-c" style="width:65px;height:65px"><b>35%</b></span></div><div class="bsc-n">Targeted escalation<small>Impact €120m</small></div></div>
-            <div class="bsc tail"><div class="bsc-w"><span class="bsc-p" style="width:43px;height:43px"></span><span class="bsc-c" style="width:43px;height:43px"><b>10%</b></span></div><div class="bsc-n">Broad embargo<small>Impact €600m</small></div></div>
+            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:82px;height:82px"></span><span class="bsc-c" style="width:82px;height:82px"><b>55%</b></span></div><div class="bsc-n">Short delays<small>Impact €20m</small></div></div>
+            <div class="bsc"><div class="bsc-w"><span class="bsc-p" style="width:65px;height:65px"></span><span class="bsc-c" style="width:65px;height:65px"><b>35%</b></span></div><div class="bsc-n">Supply squeeze<small>Impact €120m</small></div></div>
+            <div class="bsc tail"><div class="bsc-w"><span class="bsc-p" style="width:43px;height:43px"></span><span class="bsc-c" style="width:43px;height:43px"><b>10%</b></span></div><div class="bsc-n">Supply cut-off<small>Impact €600m</small></div></div>
           </div>
         </div>
         <p class="eng-cap">Circle = current probability. Dashed ring = expert starting estimate. Line thickness = how strongly a signal points to a scenario.</p>
         <div class="bay-metrics">
           <div class="bm"><span class="mono-lbl">Expected loss</span><b id="bay-el">€113m</b></div>
-          <div class="bm tail"><span class="mono-lbl">Escalation or worse</span><b id="bay-pb">45%</b></div>
+          <div class="bm tail"><span class="mono-lbl">Squeeze or worse</span><b id="bay-pb">45%</b></div>
         </div>
         <div class="eng-conf">
           <label for="bay-conf">AI confidence <b id="bay-conf-v">100%</b></label>
@@ -676,15 +676,15 @@
         <div class="stage-n"><b>06</b>/ 06</div>
         <div class="eyebrow">ALERTS</div>
         <h2>You act where it counts.</h2>
-        <p class="body">When a probability crosses a threshold, you are alerted: consider a hedge first, trigger the playbook when it gets closer. The first risk below is live from step 05.</p>
+        <p class="body">When a probability crosses a threshold, you are alerted: consider a hedge first, trigger the playbook to diversify when it gets closer. The first risk below is live from step 05.</p>
         <p class="stage-hint">Drag a probability past a threshold.</p>
       </div>
       <div class="panel reveal">
-        <div class="panel-top mono-lbl"><span>Thresholds &amp; alerts · escalation or worse</span><span>Illustrative</span></div>
+        <div class="panel-top mono-lbl"><span>Thresholds &amp; alerts · squeeze or worse</span><span>Illustrative</span></div>
         <div id="rk">
-          <div class="rk-row"><div class="rk-h"><b>Rare earth magnets</b><span class="rk-live">live from 05</span><span class="rk-st monitor">MONITOR</span><span class="rk-p">45%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="45" aria-label="Rare earth magnets: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
-          <div class="rk-row"><div class="rk-h"><b>Battery cells</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">50%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="50" aria-label="Battery cells: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
-          <div class="rk-row"><div class="rk-h"><b>US tariffs</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">55%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="55" aria-label="US tariffs: probability of escalation or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+          <div class="rk-row"><div class="rk-h"><b>Rare earth magnets</b><span class="rk-live">live from 05</span><span class="rk-st monitor">MONITOR</span><span class="rk-p">45%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="45" aria-label="Rare earth magnets: probability of a squeeze or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+          <div class="rk-row"><div class="rk-h"><b>Battery cells</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">50%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="50" aria-label="Battery cells: probability of a squeeze or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
+          <div class="rk-row"><div class="rk-h"><b>US tariffs</b><span class="rk-st monitor">MONITOR</span><span class="rk-p">55%</span></div><div class="rk-track"><input type="range" min="0" max="100" step="1" value="55" aria-label="US tariffs: probability of a squeeze or worse"><span class="rk-tick" style="left:50%"><em>Hedge 50%</em></span><span class="rk-tick act" style="left:70%"><em>Act 70%</em></span></div></div>
         </div>
         <div class="alerts" id="alerts" aria-live="polite"></div>
       </div>
@@ -703,7 +703,7 @@
 
     <div class="tl" id="start-line">
       <div class="tl-s"><span class="tl-w">Day one</span><h3>Conversation</h3><p>A 45-minute call to understand your business and concerns.</p></div>
-      <div class="tl-s"><span class="tl-w">A few weeks</span><h3>Exposure map</h3><p>Your first map of geopolitical exposure and key scenarios.</p></div>
+      <div class="tl-s"><span class="tl-w">A few weeks</span><h3>Exposure map</h3><p>Your first map of supply chain exposure and key scenarios.</p></div>
       <div class="tl-s"><span class="tl-w">Ongoing</span><h3>Live platform</h3><p>Continuous monitoring, updated scenarios and playbooks.</p></div>
     </div>
 
@@ -725,7 +725,7 @@
       </svg>
       <span class="brand-name">VORSIGHT</span>
     </div>
-    <span class="foot-note">Geopolitical foresight for European companies</span>
+    <span class="foot-note">Supply chain resilience for European industry</span>
   </div>
 </footer>
 

@@ -106,17 +106,17 @@
   (function stage1() {
     var cv = $('#globe-cv'); if (!cv || !window.VGEO) return;
     var wrap = cv.parentNode, ctx = cv.getContext('2d'), rad = Math.PI / 180, TAU = Math.PI * 2;
-    var TOOLS = { export: 'Export controls', shipping: 'Shipping chokepoints', tariffs: 'Tariffs', finance: 'Sanctions & asset freezes' };
+    var TOOLS = { export: 'Supply curbs', shipping: 'Shipping chokepoints', tariffs: 'Tariffs', finance: 'Payments & finance' };
     var LV = ['None', 'Low', 'Medium', 'High'];
 
     /* the supply chain: rare earths -> magnets -> Germany -> sold in America */
     var N = [
       { id: 'mine', short: 'Mine', n: 'Rare earth mine & processing', s: 'China · Inner Mongolia', lat: 40.65, lon: 109.8, lvl: 3, tool: 'export', z: 2.5,
-        why: 'Most rare earth processing sits in China. A licensing regime can stop exports within weeks.' },
+        why: 'Most rare earth processing sits in one country. One licence decision can stop supply within weeks.' },
       { id: 'mag', short: 'Magnets', n: 'Magnet manufacturer', s: 'Tier 2 · China', lat: 29.9, lon: 121.5, lvl: 3, tool: 'export', z: 3.2,
-        why: 'Your drive-motor supplier buys its magnets from a single Tier 2 plant in China.' },
+        why: 'Your motor supplier buys magnets from a single plant. One site, one point of failure.' },
       { id: 'sea', short: 'Suez', n: 'Suez Canal route', s: 'Sea freight · Asia → Europe', lat: 30.5, lon: 32.3, lvl: 2, tool: 'shipping', z: 2.4,
-        why: 'Asia–Europe freight passes one corridor. A closure adds weeks and cost.' },
+        why: 'Asia–Europe freight passes one corridor. A closure adds weeks and breaks delivery KPIs.' },
       { id: 't1', short: 'Tier 1', n: 'Drive-motor supplier', s: 'Tier 1 · Germany', lat: 48.8, lon: 9.2, lvl: 3, tool: 'export', z: 6,
         why: 'Builds the motors. No magnets, no motors: a single point of failure.' },
       { id: 'plant', short: 'Plant', n: 'Assembly plant', s: 'Germany · Lower Saxony', lat: 52.4, lon: 10.8, lvl: 2, tool: null, z: 6,
@@ -124,7 +124,7 @@
       { id: 'us', short: 'US market', n: 'Dealers & customers', s: 'United States · East Coast', lat: 32.8, lon: -79.9, lvl: 3, tool: 'tariffs', z: 2.4,
         why: 'Your largest export market. New tariffs would hit price and volume at once.' },
       { id: 'tre', short: 'USD', n: 'Treasury · USD clearing', s: 'New York', lat: 40.7, lon: -74, lvl: 2, tool: 'finance', z: 3.6,
-        why: 'Dollar clearing means sanctions or asset freezes could trap cash.' }
+        why: 'Most payments clear in dollars. A freeze or sanction could delay or trap cash.' }
     ];
     var byId = {}; N.forEach(function (n) { byId[n.id] = n; });
     var LEGS = [['mine', 'mag', 'export'], ['mag', 'sea', 'export'], ['sea', 't1', 'shipping'], ['t1', 'plant', null], ['plant', 'us', 'tariffs'], ['tre', 'plant', 'finance', 1]];
@@ -204,7 +204,7 @@
       $$('button', route).forEach(function (b) { b.classList.toggle('on', b.dataset.id === sel); });
       if (sel) {
         var n = byId[sel];
-        detail.innerHTML = '<b>' + n.n + '</b> <span class="tagx' + (n.lvl >= 2 ? ' hot' : '') + '">' + LV[n.lvl] + ' exposure</span>' + (n.tool ? ' <span class="tagx">Tool: ' + TOOLS[n.tool] + '</span>' : '') +
+        detail.innerHTML = '<b>' + n.n + '</b> <span class="tagx' + (n.lvl >= 2 ? ' hot' : '') + '">' + LV[n.lvl] + ' exposure</span>' + (n.tool ? ' <span class="tagx">Risk: ' + TOOLS[n.tool] + '</span>' : '') +
           '<p>' + n.s + '. ' + n.why + '</p>';
       } else detail.innerHTML = '<b>Your supply chain on the globe.</b><p>Drag to rotate, or pick a stop on the route.</p>';
     }
@@ -331,7 +331,7 @@
     var cv = $('#fg-cv'); if (!cv) return;
     var wrap = cv.parentNode, ctx = cv.getContext('2d'), TAU = Math.PI * 2;
     var detail = $('#g2-detail'), dotsBox = $('#g2-dots'), play = $('#g2-play'), chips = $$('#g2-chips .chip');
-    var TYPE = { actor: 'Actor', tool: 'Statecraft tool', choke: 'Chokepoint', industry: 'Industry', co: 'Company' };
+    var TYPE = { actor: 'Actor', tool: 'Trade measure', choke: 'Chokepoint', industry: 'Industry', co: 'Company' };
 
     /* hubs: id -> [label, type, description] */
     var HUB = {
@@ -343,7 +343,7 @@
       ru: ['Russia', 'actor', 'Energy and commodity supplier. Target of sanctions and asset freezes.'],
       in: ['India', 'actor', 'Fast-growing market and manufacturing base. Uses tariffs and local-content rules.'],
       gulf: ['Gulf states', 'actor', 'Energy exporters and growing financial hubs.'],
-      tar: ['Tariffs', 'tool', 'Taxes on imports. The most common tool, and the fastest to change.'],
+      tar: ['Tariffs', 'tool', 'Taxes on imports. Common, and fast to change: costs shift before contracts do.'],
       exp: ['Export controls', 'tool', 'Licences for sensitive goods and technology. Can stop supply within weeks.'],
       san: ['Sanctions', 'tool', 'Restrictions on trade and dealings with named countries or firms.'],
       frz: ['Asset freezes', 'tool', 'Immobilise reserves and corporate assets abroad.'],
@@ -358,13 +358,13 @@
       nrg: ['Energy', 'choke', 'Gas, oil and power grids.'],
       data: ['Data & cloud', 'choke', 'Cloud platforms, software and standards.'],
       auto: ['Automotive', 'industry', 'Depends on chips, magnets, batteries and open markets.'],
-      mach: ['Machinery', 'industry', 'Depends on magnets, metals and export markets.'],
-      chem: ['Chemicals', 'industry', 'Depends on energy and shipping.'],
+      mach: ['Electrical', 'industry', 'Electrical engineering: motors, drives and switchgear. Depends on magnets, metals and export markets.'],
+      chem: ['Chemicals', 'industry', 'Depends on feedstock, energy and shipping.'],
       elec: ['Electronics', 'industry', 'Depends on chips and critical minerals.'],
-      aero: ['Aerospace', 'industry', 'Depends on rare earths, titanium and export licences.'],
-      pharma: ['Pharma', 'industry', 'Depends on chemical inputs and shipping.'],
-      power: ['Energy equipment', 'industry', 'Depends on magnets, batteries and metals.'],
-      agri: ['Agri-food', 'industry', 'Depends on energy, fertiliser and shipping.']
+      aero: ['Semiconductors', 'industry', 'Depends on specialty gases, rare materials and a few fabs.'],
+      pharma: ['Pharma', 'industry', 'Depends on active ingredients, cold chains and shipping.'],
+      power: ['Petrochemicals', 'industry', 'Depends on feedstock, energy prices and shipping.'],
+      agri: ['Food & FMCG', 'industry', 'Depends on energy, packaging, cold chains and shipping.']
     };
     var HE = [
       ['us', 'tar'], ['us', 'exp'], ['us', 'san'], ['us', 'frz'], ['us', 'scr'], ['cn', 'tar'], ['cn', 'exp'], ['cn', 'scr'], ['cn', 'sub'], ['eu', 'tar'], ['eu', 'san'], ['eu', 'scr'], ['eu', 'sub'],
@@ -470,7 +470,7 @@
       } else if (typeF) {
         set = {}; nodes.forEach(function (n) { if (n.type === typeF) set[n.id] = 1; });
         text = '<b>' + TYPE[typeF] + 's</b>'; note = 'Click a hub to see everything it reaches.';
-      } else { text = '<b>Hover, drag, click a hub.</b>'; note = 'Our think tank maintains this graph: who uses which tool, against which chokepoint, hitting which industry and which companies.'; }
+      } else { text = '<b>Hover, drag, click a hub.</b>'; note = 'Our think tank maintains this graph: who uses which trade measure, against which chokepoint, hitting which industry and which companies.'; }
       focus = set; detail.innerHTML = text + '<p>' + note + '</p>';
       chips.forEach(function (c) { c.classList.toggle('on', c.dataset.type === typeF); c.setAttribute('aria-pressed', c.dataset.type === typeF); });
       $$('.sdotb', dotsBox).forEach(function (d, i) { d.classList.toggle('on', !selId && !typeF && i === step); });
@@ -574,14 +574,14 @@
   (function stage3() {
     var root = $('#g3'); if (!root) return;
     var TREES = {
-      mag: { name: 'Rare earth magnets', root: 'China restricts magnet exports', sc: [
-        { n: 'Managed friction', p: 55, imp: '€20m', leaves: [['sign', 'General licences issued'], ['act', 'Monitor lead times']] },
-        { n: 'Targeted escalation', p: 35, imp: '€120m', leaves: [['sign', 'Licence delays at Tier 2'], ['sign', 'Countermeasure threats'], ['act', 'Qualify backup supplier']] },
-        { n: 'Broad embargo', p: 10, imp: '€600m', leaves: [['sign', 'Embargo language in official statements'], ['act', 'Stockpile and redesign']] }] },
-      bat: { name: 'Battery cells', root: 'Battery supply chain restricted', sc: [
-        { n: 'Tariff tweaks', p: 50, imp: '€30m', leaves: [['sign', 'Tariff consultations open'], ['act', 'Pass through pricing']] },
-        { n: 'Targeted controls', p: 38, imp: '€150m', leaves: [['sign', 'Draft control list published'], ['act', 'Dual-source cells']] },
-        { n: 'Broad restrictions', p: 12, imp: '€500m', leaves: [['sign', 'Licensing for graphite and lithium'], ['act', 'Move cell assembly closer']] }] },
+      mag: { name: 'Rare earth magnets', root: 'Magnet supply is disrupted', sc: [
+        { n: 'Short delays', p: 55, imp: '€20m', leaves: [['sign', 'General licences issued'], ['act', 'Monitor lead times']] },
+        { n: 'Supply squeeze', p: 35, imp: '€120m', leaves: [['sign', 'Licence delays at Tier 2'], ['sign', 'Export curbs threatened'], ['act', 'Qualify a second supplier']] },
+        { n: 'Supply cut-off', p: 10, imp: '€600m', leaves: [['sign', 'Cut-off language in official statements'], ['act', 'Stockpile and redesign']] }] },
+      bat: { name: 'Battery cells', root: 'Battery supply is disrupted', sc: [
+        { n: 'Price pressure', p: 50, imp: '€30m', leaves: [['sign', 'Tariff consultations open'], ['act', 'Pass through pricing']] },
+        { n: 'Supply squeeze', p: 38, imp: '€150m', leaves: [['sign', 'Draft control list published'], ['act', 'Dual-source cells']] },
+        { n: 'Supply cut-off', p: 12, imp: '€500m', leaves: [['sign', 'Licensing for graphite and lithium'], ['act', 'Move cell assembly closer']] }] },
       tar: { name: 'US tariffs', root: 'US raises tariffs on EU cars', sc: [
         { n: 'Negotiated settlement', p: 45, imp: '€15m', leaves: [['sign', 'Trade talks scheduled'], ['act', 'Hold pricing']] },
         { n: 'Targeted tariff rise', p: 40, imp: '€90m', leaves: [['sign', 'Tariff list names car parts'], ['act', 'Shift allocation to US plant']] },
@@ -638,7 +638,7 @@
     var SIG = [
       { to: [0, 1], t: 'China adds export licensing for magnet technology', src: 'Official journals' },
       { to: [0], t: 'EU imports of battery cells fall month on month', src: 'Customs & trade data' },
-      { to: [0, 2], t: 'US announces new chip tool restrictions', src: 'News in many languages' },
+      { to: [0, 2], t: 'Typhoon closes a major Asian port', src: 'News in many languages' },
       { to: [2], t: 'Analyst note: gas supply rules tighten', src: 'Think tank analysts' },
       { to: [1, 2], t: 'Freight rates spike on the Asia–Europe lane', src: 'Market data' }
     ];
@@ -848,7 +848,7 @@
       if (!cards.length) feed.appendChild(el('div', 'al0', 'No alerts. Every risk is below its threshold.'));
       cards.forEach(function (c) {
         var fresh = !shown[c.key];
-        feed.appendChild(el('div', 'al ' + c.st + (fresh ? ' fresh' : ''), '<span class="al-t">' + (c.st === 'act' ? 'ACT' : 'HEDGE') + '</span><b>' + c.n + ' · ' + Math.round(c.p) + '% escalation or worse</b><span>' + c.txt + '</span>'));
+        feed.appendChild(el('div', 'al ' + c.st + (fresh ? ' fresh' : ''), '<span class="al-t">' + (c.st === 'act' ? 'ACT' : 'HEDGE') + '</span><b>' + c.n + ' · ' + Math.round(c.p) + '% squeeze or worse</b><span>' + c.txt + '</span>'));
       });
       shown = {}; cards.forEach(function (c) { shown[c.key] = 1; });
     }
