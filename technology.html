@@ -245,6 +245,33 @@
   .act-alt{ margin-top:8px; font-size:var(--t-small); color:rgba(255,255,255,0.55); }
   .act-alt::before{ content:"→ "; color:var(--orange); }
 
+  .foot-eu{ display:inline-flex; align-items:center; gap:12px; }
+  .foot-eu .eu-flag{ box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
+
+  /* ---------- getting started (same as the landing page) ---------- */
+  #cta{ background:var(--bg-subtle); }
+  #cta .section-head{ margin-bottom:clamp(36px,6vh,64px); }
+  #cta .section-head h2{ font-size:clamp(40px,5vw,76px); letter-spacing:-0.035em; line-height:1; }
+  .tl{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,4vw,64px); padding-top:38px; margin-bottom:clamp(48px,8vh,88px); }
+  .tl::before{ content:""; position:absolute; left:0; right:0; top:6px; height:1px; background:var(--border-strong); transform-origin:left; transform:scaleX(0); transition:transform 1.4s cubic-bezier(.4,0,.2,1); }
+  .tl.go::before{ transform:scaleX(1); }
+  .tl-s{ position:relative; opacity:.3; transition:opacity .6s ease; }
+  .tl.go .tl-s{ opacity:1; }
+  .tl.go .tl-s:nth-child(1){ transition-delay:.2s; } .tl.go .tl-s:nth-child(2){ transition-delay:.7s; } .tl.go .tl-s:nth-child(3){ transition-delay:1.2s; } .tl.go .tl-s:nth-child(4){ transition-delay:1.7s; }
+  .tl-s::before{ content:""; position:absolute; left:0; top:-38px; width:12px; height:13px; background:var(--ink); clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
+  .tl-s:last-child::before{ background:var(--orange); }
+  .tl-w{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+  .tl-s h3{ margin:8px 0 10px; font-size:var(--t-h3); }
+  .tl-s p{ max-width:32ch; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
+  @media (max-width:900px){ .tl{ grid-template-columns:repeat(2,1fr); row-gap:44px; } }
+  @media (max-width:760px){
+    .tl{ grid-template-columns:1fr; gap:30px; padding-top:0; padding-left:30px; }
+    .tl::before{ left:6px; right:auto; top:6px; bottom:6px; width:1px; height:auto; transform:scaleY(0); transform-origin:top; }
+    .tl.go::before{ transform:scaleY(1); }
+    .tl-s::before{ left:-30px; top:4px; }
+  }
+  @media (prefers-reduced-motion: reduce){ .tl::before, .tl-s{ transition:none; } .tl::before{ transform:none; } .tl-s{ opacity:1; } }
+
   /* ---------- phones: rearrange rather than remove; graphs run top to bottom ---------- */
   @media (max-width:640px){
     /* 03 scenario analysis: indented tree, risk > scenarios > signs and responses */
@@ -603,6 +630,6 @@
   })();
 </script>
 <script src="assets/geo-data.js?v=3"></script>
-<script src="assets/technology.js?v=8"></script>
+<script src="assets/technology.js?v=9"></script>
 </body>
 </html>

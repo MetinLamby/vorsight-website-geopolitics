@@ -856,6 +856,6 @@
   /* ================================================================ getting started timeline */
   (function () {
     var tl = $('#start-line'); if (!tl) return;
-    onVisible(tl, function (v) { if (v) tl.classList.add('go'); }, 0.4);
+    onVisible(tl, function (v) { if (v) tl.classList.add('go'); }, 0.15);
   })();
 })();
