@@ -50,14 +50,17 @@
     var svg = svgEl('svg', { 'class': 'cg-svg', 'aria-hidden': 'true' }); root.appendChild(svg);
     var cols = el('div', 'cg-cols'); root.appendChild(cols);
     var api = { nodes: {}, edges: [], root: root, order: [] }, idx = 0;
+    if (cfg.rows) { root.classList.add('cg-grid'); root.style.setProperty('--rows', cfg.rows); }
 
     cfg.cols.forEach(function (c, ci) {
-      var col = el('div', 'cg-col'); col.appendChild(el('div', 'cg-title', c.title || ''));
+      var col = el('div', 'cg-col'), ttl = el('div', 'cg-title', c.title || ''); col.appendChild(ttl);
+      if (cfg.rows) ttl.style.gridColumn = ci + 1;
       var list = el('div', 'cg-list');
       c.nodes.forEach(function (n) {
         var b = el('button', 'cg-node' + (n.kind ? ' cg-k-' + n.kind : ''));
         b.type = 'button'; b.setAttribute('data-id', n.id); b.style.setProperty('--i', idx++);
         b.innerHTML = '<span class="cg-l">' + n.label + '</span>' + (n.sub ? '<small>' + n.sub + '</small>' : '') + '<span class="cg-b"></span>';
+        if (cfg.rows && n.span) { b.style.gridColumn = ci + 1; b.style.gridRow = (n.span[0] + 2) + ' / span ' + n.span[1]; }
         list.appendChild(b); api.nodes[n.id] = { el: b, col: ci, cfg: n }; api.order.push(n.id);
       });
       col.appendChild(list); cols.appendChild(col);
@@ -590,17 +593,18 @@
     var keys = ['mag', 'bat', 'tar'], cur = 'mag', touched = false, g, detail = $('#g3-detail'), tabs = $$('#g3-chips .chip'), merge = $('#merge');
 
     function build(key) {
-      var t = TREES[key], edges = [], scNodes = [], leafNodes = [];
+      var t = TREES[key], edges = [], scNodes = [], leafNodes = [], row = 0;
       t.sc.forEach(function (s, i) {
-        scNodes.push({ id: 's' + i, label: '<b>' + s.p + '%</b> ' + s.n, sub: 'Impact ' + s.imp, kind: 'sc' });
+        scNodes.push({ id: 's' + i, label: '<b>' + s.p + '%</b> ' + s.n, sub: 'Impact ' + s.imp, kind: 'sc', span: [row, s.leaves.length] });
         edges.push(['r', 's' + i]);
         s.leaves.forEach(function (l, j) {
           var lid = 'l' + i + '_' + j;
-          leafNodes.push({ id: lid, label: l[1], sub: l[0] === 'sign' ? 'Warning sign' : 'Response', kind: l[0] });
+          leafNodes.push({ id: lid, label: l[1], sub: l[0] === 'sign' ? 'Warning sign' : 'Response', kind: l[0], span: [row + j, 1] });
           edges.push(['s' + i, lid]);
         });
+        row += s.leaves.length;
       });
-      g = colGraph(root, { cols: [{ title: 'Risk', nodes: [{ id: 'r', label: t.root, kind: 'root' }] }, { title: 'Scenarios', nodes: scNodes }, { title: 'Warning signs & responses', nodes: leafNodes }], edges: edges });
+      g = colGraph(root, { rows: row, cols: [{ title: 'Risk', nodes: [{ id: 'r', label: t.root, kind: 'root', span: [0, row] }] }, { title: 'Scenarios', nodes: scNodes }, { title: 'Warning signs & responses', nodes: leafNodes }], edges: edges });
       root.classList.remove('cg-anim'); void root.offsetWidth; if (!reduce) root.classList.add('cg-anim');
       t.sc.forEach(function (s, i) {
         var n = g.nodes['s' + i].el;

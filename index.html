@@ -255,6 +255,12 @@
   #cta{ background:var(--bg-subtle); }
   #cta .section-head{ margin-bottom:clamp(36px,6vh,64px); }
   #cta .section-head h2{ font-size:clamp(40px,5vw,76px); letter-spacing:-0.035em; line-height:1; }
+  .cta-pts{ margin-bottom:clamp(40px,6vh,64px); }
+  .cta-out{ margin-bottom:clamp(36px,5vh,56px); padding-top:20px; border-top:1px solid var(--border-strong); }
+  .cta-out-g{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 24px; margin-top:16px; }
+  .cta-out-g p{ font-size:var(--t-h3); line-height:1.2; letter-spacing:-0.015em; max-width:22ch; }
+  .cta-out-g b{ font-weight:400; color:var(--orange-ink); }
+  @media (max-width:700px){ .cta-out-g{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -552,11 +558,23 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">GET STARTED</div>
-      <h2>Tell us your supply chain. See your first assessment.</h2>
-      <p>Record a short voice note about your suppliers, materials and markets. We build your private model and show you the scenarios that matter to you.</p>
+      <h2>One voice note is enough to start.</h2>
+      <p>Tell us in two minutes what you make, where it comes from and where it ships. From that alone, we show you which products are at risk of arriving late, and what that could cost you.</p>
+    </div>
+    <div class="cmp cta-pts reveal">
+      <div class="cmp-i"><span class="cmp-k">01 · Low effort</span><h3>Talk, don't integrate.</h3><p>No data export, no IT project. Brief us the way you would brief a new colleague.</p></div>
+      <div class="cmp-i"><span class="cmp-k">02 · Speed</span><h3>A first answer in days.</h3><p>Not after a consulting project. You see your first assessment while the question is still live.</p></div>
+      <div class="cmp-i"><span class="cmp-k">03 · Trust</span><h3>Start with what you'd say anyway.</h3><p>No ERP access, no confidential files. Your input stays in your own private model, and you share more only once you see the value.</p></div>
+    </div>
+    <div class="cta-out reveal">
+      <span class="cmp-k">What you get back</span>
+      <div class="cta-out-g">
+        <p>Whether your key products will be <b>on time</b>.</p>
+        <p>The <b>potential monetary impact</b> in each scenario.</p>
+      </div>
     </div>
     <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="signup.html">Get started</a>
+      <a class="btn btn-primary" href="signup.html">Record your voice note</a>
       <a class="btn btn-ghost" href="mailto:hello@vorsight.example?subject=Vorsight%20briefing">Request a briefing</a>
     </div>
   </div>

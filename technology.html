@@ -78,6 +78,10 @@
   .cg-svg{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none; }
   .cg-cols{ position:relative; display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:0 clamp(14px,4vw,60px); }
   .cg-col{ display:flex; flex-direction:column; min-width:0; }
+  .cg-grid .cg-cols{ grid-template-rows:auto repeat(var(--rows,1),auto); row-gap:14px; }
+  .cg-grid .cg-col, .cg-grid .cg-list{ display:contents; }
+  .cg-grid .cg-title{ grid-row:1; margin-bottom:2px; }
+  .cg-grid .cg-node{ align-self:center; }
   .cg-title{ margin-bottom:16px; min-height:14px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.38); }
   .cg-list{ flex:1; display:flex; flex-direction:column; justify-content:space-around; gap:12px; }
   .cg-node{
@@ -367,8 +371,8 @@
 
 <nav class="rail" id="rail" aria-label="Flow steps">
   <a href="#s1"><span>01 Company graph</span><i></i></a>
-  <a href="#s2"><span>02 World graph</span><i></i></a>
-  <a href="#s3"><span>03 Scenario trees</span><i></i></a>
+  <a href="#s2"><span>02 Geopolitical model</span><i></i></a>
+  <a href="#s3"><span>03 Scenario analysis</span><i></i></a>
   <a href="#s4"><span>04 Signals</span><i></i></a>
   <a href="#s5"><span>05 Bayesian update</span><i></i></a>
   <a href="#s6"><span>06 Copilot</span><i></i></a>
@@ -386,7 +390,6 @@
         <h2>Your supply chain, mapped on the globe.</h2>
         <p class="body">After onboarding, we turn your suppliers, materials, sites and markets into a company graph. Follow one chain: rare earths mined in China, made into magnets, shipped to Germany, built into cars, sold in America. Every stop shows where the chain is concentrated and what could break it.</p>
         <p class="stage-hint">Drag the globe. Pick a stop. Filter by tool.</p>
-        <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
       </div>
       <div class="panel reveal">
         <div class="panel-top mono-lbl"><span>Rheinwerk Automotive AG · fictional mid-sized auto manufacturer</span><span id="g1-count">—</span></div>
@@ -405,20 +408,19 @@
   </div>
 </section>
 
-<!-- ============ 02 WORLD GRAPH ============ -->
+<!-- ============ 02 GEOPOLITICAL MODEL ============ -->
 <section class="stage dark-sec theme-dark" id="s2" data-stage="2">
   <div class="wrap">
     <div class="stage-grid">
       <div class="stage-copy reveal">
         <div class="stage-n"><b>02</b>/ 06</div>
-        <div class="eyebrow">WORLD GRAPH</div>
-        <h2>Our analysts map the world.</h2>
-        <p class="body">Our think tank maintains a graph of trade measures, chokepoints and the industries behind them: electronics, chemicals, automotive, food and pharma. It also encodes how the world behaves: who retaliates, with what, and how fast.</p>
+        <div class="eyebrow">GEOPOLITICAL MODEL</div>
+        <h2>We quantify geopolitical developments.</h2>
+        <p class="body">Vorsight turns trade measures, chokepoints and the industries behind them into numbers, and models how they depend on each other: who retaliates, with what, and how fast. That is the base for every scenario we run for you.</p>
         <p class="stage-hint">Hover, drag, click a hub, or play an escalation.</p>
-        <p class="stage-feeds">Feeds into <a href="#s3">03 Scenario trees</a></p>
       </div>
       <div class="panel reveal">
-        <div class="panel-top mono-lbl"><span>World graph · maintained by the think tank</span><span>Illustrative</span></div>
+        <div class="panel-top mono-lbl"><span>Vorsight Model · interdependencies</span><span>Illustrative</span></div>
         <div class="chips" id="g2-chips" role="group" aria-label="Highlight a node type">
           <button type="button" class="chip" data-type="actor" aria-pressed="false">■ Actors</button>
           <button type="button" class="chip" data-type="tool" aria-pressed="false">◆ Measures</button>
@@ -437,21 +439,20 @@
   </div>
 </section>
 
-<!-- ============ 03 SCENARIO TREES ============ -->
+<!-- ============ 03 SCENARIO ANALYSIS ============ -->
 <section class="stage theme-light" id="s3" data-stage="3">
   <div class="wrap">
     <div class="stage-grid">
       <div class="stage-copy reveal">
         <div class="stage-n"><b>03</b>/ 06</div>
-        <div class="eyebrow">SCENARIO TREES</div>
-        <h2>Analysts and agents build the trees.</h2>
-        <p class="body">Our analysts and AI agents combine the world graph with your company graph. For every risk they build a scenario tree: starting probabilities, warning signs and a response to prepare: diversify, hedge or hold.</p>
+        <div class="eyebrow">SCENARIO ANALYSIS</div>
+        <h2>Map every plausible future.</h2>
+        <p class="body">The most useful scenarios map the widest possible range of plausible futures and identify the indicators that would signal movement toward each path. For every risk, Vorsight gives you starting probabilities, warning signs and a response to prepare: diversify, hedge or hold.</p>
         <p class="stage-hint">Switch risk. Hover a scenario.</p>
-        <p class="stage-feeds">Feeds into <a href="#s5">05 Bayesian update</a></p>
       </div>
       <div class="panel reveal">
         <div class="panel-top mono-lbl"><span>Scenario analysis trees</span><span>Illustrative</span></div>
-        <div class="merge" id="merge"><span class="mg">World graph</span><i>+</i><span class="mg">Company graph</span><i>→</i><span class="mg hot">Analysts + AI agents</span><i>→</i><span class="mg">Scenario tree per risk</span></div>
+        <div class="merge" id="merge"><span class="mg">Vorsight Model</span><i>+</i><span class="mg">Company graph</span><i>→</i><span class="mg hot">Scenario analysis per risk</span></div>
         <div class="chips" id="g3-chips" role="group" aria-label="Choose a risk">
           <button type="button" class="chip on" data-risk="mag" aria-pressed="true">Rare earth magnets</button>
           <button type="button" class="chip" data-risk="bat" aria-pressed="false">Battery cells</button>
@@ -474,7 +475,6 @@
         <h2>The Vorsight Model never sleeps.</h2>
         <p class="body">Agents and analysts feed signals from many sources into the Vorsight Model. Each signal then flows only to the clients whose company graph it touches. Every client sits in a private silo.</p>
         <p class="stage-hint">Click a signal and follow it.</p>
-        <p class="stage-feeds">Feeds into <a href="#s5">05 Bayesian update</a></p>
       </div>
       <div class="panel reveal">
         <div class="panel-top mono-lbl"><span>Signal routing</span><span>Illustrative</span></div>
@@ -512,7 +512,6 @@
         <h2>Probabilities move with every signal.</h2>
         <p class="body">Each signal shifts the scenario probabilities by how strongly it points to each future. Our experts set the starting estimate; Bayesian updating does the rest. Every change can be traced.</p>
         <p class="stage-hint">Select signals. Press 1–4.</p>
-        <p class="stage-feeds">Feeds into <a href="#s6">06 Copilot</a></p>
       </div>
       <div class="panel reveal">
         <div class="panel-top mono-lbl"><span>Rare earth magnet risk · Rheinwerk Automotive</span><span>Illustrative</span></div>
@@ -634,6 +633,6 @@
   })();
 </script>
 <script src="assets/geo-data.js?v=3"></script>
-<script src="assets/technology.js?v=3"></script>
+<script src="assets/technology.js?v=4"></script>
 </body>
 </html>
