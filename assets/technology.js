@@ -630,7 +630,7 @@
     autoplay(root, 7000, function () { select(keys[(keys.indexOf(cur) + 1) % keys.length]); }, function () { return touched; });
   })();
 
-  /* ================================================================ 04 · signals -> world model -> client silos */
+  /* ================================================================ 04 · signals -> Vorsight Model -> client silos */
   (function stage4() {
     var box = $('#flow4'); if (!box) return;
     var svg = $('#f4-svg'), core = $('#core'), src = $$('.src', box), silos = $$('.silo', box), detail = $('#g4-detail');
@@ -702,7 +702,7 @@
     layout();
     if (window.ResizeObserver) new ResizeObserver(layout).observe(box);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-    detail.innerHTML = '<b>Click a signal.</b><p>Sources feed one shared world model. Each signal only reaches the clients whose company graph it touches. Every client sits in its own private silo.</p>';
+    detail.innerHTML = '<b>Click a signal.</b><p>Sources feed one shared Vorsight Model. Each signal only reaches the clients whose company graph it touches. Every client sits in its own private silo.</p>';
     autoplay(box, 3300, function () { cur = (cur + 1) % SIG.length; emit(cur); }, function () { return touched; });
   })();
 
@@ -716,10 +716,10 @@
       { L: [0.15, 0.50, 0.85], tag: 'Escalates' },
       { L: [0.70, 0.30, 0.10], tag: 'Eases' }
     ];
-    var sigBtns = $$('.bsig', box), scEls = $$('.bsc', box), svg = $('#bay-svg'), conf = $('#bay-conf'), confV = $('#bay-conf-v');
-    var elEl = $('#bay-el'), pbEl = $('#bay-pb'), work = $('#bay-work'), workBtn = $('#bay-work-toggle');
+    var sigBtns = $$('.bsig', box), scEls = $$('.bsc', box), svg = $('#bay-svg'), confV = null;
+    var elEl = $('#bay-el'), pbEl = $('#bay-pb'), work = $('#bay-work'), workBtn = $('#bay-work-toggle');   /* optional: removed from the page */
     var state = { on: [], conf: 100 }, touched = false, visible = false, didAuto = false, edges = [];
-    elEl._v = 113; pbEl._v = 45; scEls.forEach(function (s, i) { s._v = PRI[i] * 100; });
+    scEls.forEach(function (s, i) { s._v = PRI[i] * 100; });
 
     function calc(on, c100) {
       var c = c100 / 100, p = PRI.slice(), hist = [p.slice()];
@@ -786,12 +786,11 @@
         c.style.width = c.style.height = sizeOf(r.p[i]) + 'px'; pr.style.width = pr.style.height = sizeOf(PRI[i]) + 'px';
         tween($('b', c), s._v, r.p[i] * 100, 350, fmtPct); s._v = r.p[i] * 100;
       });
-      tween(elEl, elEl._v, r.el, 350, fmtL); tween(pbEl, pbEl._v, pb, 350, fmtPct);
+      if (elEl) tween(elEl, elEl._v || 113, r.el, 350, fmtL); if (pbEl) tween(pbEl, pbEl._v || 45, pb, 350, fmtPct);
       sigBtns.forEach(function (b, k) { var on = state.on.indexOf(k) >= 0; b.classList.toggle('on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
-      confV.textContent = state.conf + '%';
+      if (confV) confV.textContent = state.conf + '%';
       paintEdges();
-      if (!work.hidden) renderWork(r);
-      document.dispatchEvent(new CustomEvent('vorsight:escalation', { detail: { p: pb } }));
+      if (work && !work.hidden) renderWork(r);
     }
     function toggle(k, auto) {
       if (!auto) touched = true;
@@ -799,13 +798,6 @@
       render();
     }
     sigBtns.forEach(function (b, k) { b.addEventListener('click', function () { toggle(k); }); });
-    conf.addEventListener('input', function () { touched = true; state.conf = +conf.value; render(); });
-    $('#bay-reset').addEventListener('click', function () { touched = true; state.on = []; state.conf = 100; conf.value = 100; render(); });
-    workBtn.addEventListener('click', function () {
-      work.hidden = !work.hidden; workBtn.setAttribute('aria-expanded', work.hidden ? 'false' : 'true');
-      workBtn.textContent = work.hidden ? 'Show the working' : 'Hide the working';
-      if (!work.hidden) renderWork(calc(state.on, state.conf));
-    });
     document.addEventListener('keydown', function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey || e.key.length !== 1) return;
       var k = '1234'.indexOf(e.key); if (k < 0 || !visible) return;
@@ -822,47 +814,23 @@
     }, 0.4);
   })();
 
-  /* ================================================================ 06 · alerts */
+  /* ================================================================ 06 · copilot: hedge and diversify */
   (function stage6() {
-    var box = $('#rk'); if (!box) return;
-    var HEDGE = 50, ACT = 70;
-    var R = [
-      { n: 'Rare earth magnets', p: 45, hedge: 'Consider a hedge: extend magnet inventory cover and lock in forward contracts.', act: 'Act: trigger the playbook. Qualify a backup supplier in Japan and build 3 months of buffer stock.' },
-      { n: 'Battery cells', p: 50, hedge: 'Consider a hedge: pre-negotiate a second cell source.', act: 'Act: switch part of the cell volume to a non-China source.' },
-      { n: 'US tariffs', p: 55, hedge: 'Consider a hedge: cover USD exposure and review pricing clauses.', act: 'Act: move US-bound volume to the US plant allocation.' }
-    ];
-    var rows = $$('.rk-row', box), feed = $('#alerts'), touched = false, shown = {};
-    function status(p) { return p >= ACT ? 'act' : (p >= HEDGE ? 'hedge' : 'monitor'); }
-    var LBL = { act: 'ACT', hedge: 'CONSIDER HEDGE', monitor: 'MONITOR' };
-
-    function paint() {
-      var cards = [];
-      rows.forEach(function (row, i) {
-        var r = R[i], st = status(r.p), key = i + st;
-        $('input', row).value = r.p; $('.rk-p', row).textContent = Math.round(r.p) + '%';
-        var chip = $('.rk-st', row); chip.textContent = LBL[st]; chip.className = 'rk-st ' + st;
-        if (st !== 'monitor') cards.push({ st: st, key: key, txt: r[st], n: r.n, p: r.p });
-      });
-      cards.sort(function (a, b) { return (b.st === 'act') - (a.st === 'act') || b.p - a.p; });
-      feed.innerHTML = '';
-      if (!cards.length) feed.appendChild(el('div', 'al0', 'No alerts. Every risk is below its threshold.'));
-      cards.forEach(function (c) {
-        var fresh = !shown[c.key];
-        feed.appendChild(el('div', 'al ' + c.st + (fresh ? ' fresh' : ''), '<span class="al-t">' + (c.st === 'act' ? 'ACT' : 'HEDGE') + '</span><b>' + c.n + ' · ' + Math.round(c.p) + '% squeeze or worse</b><span>' + c.txt + '</span>'));
-      });
-      shown = {}; cards.forEach(function (c) { shown[c.key] = 1; });
+    var box = $('#cp'); if (!box) return;
+    var items = $$('.cp-i', box), panes = $$('.cp-v', box), cur = 0, vis = false, timer;
+    function set(i) {
+      cur = i;
+      items.forEach(function (it, k) { var on = k === i; it.classList.remove('on'); if (on) { void it.offsetWidth; it.classList.add('on'); } });
+      panes.forEach(function (p, k) { p.classList.remove('on'); if (k === i) { void p.offsetWidth; p.classList.add('on'); } });
+      /* the hedge panel swaps its headline number halfway through the drawing */
+      var n1 = $('.cp-n1', box); if (n1) { n1.textContent = '+35%'; if (i === 1 && !reduce) { setTimeout(function () { if (cur === 1) n1.textContent = '+8% hedged'; }, 4300); } else if (i === 1) n1.textContent = '+8% hedged'; }
+      var n2 = $('.cp-n2', box); if (n2) { n2.textContent = '3 weeks'; if (i === 2 && !reduce) { setTimeout(function () { if (cur === 2) n2.textContent = '10 weeks'; }, 3200); } else if (i === 2) n2.textContent = '10 weeks'; }
+      var n0 = $('.cp-n0', box); if (n0) { n0.textContent = '82%'; if (i === 0 && !reduce) { setTimeout(function () { if (cur === 0) n0.textContent = '41%'; }, 3100); } else if (i === 0) n0.textContent = '41%'; }
     }
-    rows.forEach(function (row, i) {
-      $('input', row).addEventListener('input', function (e) { touched = true; R[i].p = +e.target.value; paint(); });
-    });
-    /* row 1 follows the Bayesian graph in step 05 */
-    document.addEventListener('vorsight:escalation', function (e) {
-      R[0].p = e.detail.p; $('input', rows[0]).disabled = true; paint();
-    });
-    paint();
-    /* demo: sweep the last slider up and down until the user takes over */
-    var dir = 1;
-    autoplay(box, 900, function () { var r = R[2]; r.p += dir * 5; if (r.p >= 85) dir = -1; if (r.p <= 35) dir = 1; paint(); }, function () { return touched; });
+    set(0);
+    if (reduce) { items.forEach(function (it) { it.classList.add('on'); }); return; }
+    onVisible(box, function (v) { vis = v; }, 0.3);
+    timer = setInterval(function () { if (vis) set((cur + 1) % items.length); }, 5400);
   })();
 
   /* ================================================================ getting started timeline */

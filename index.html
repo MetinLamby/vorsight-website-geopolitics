@@ -51,6 +51,8 @@
   .hero-legend span{ display:inline-flex; align-items:center; gap:9px; }
   .hero-legend .ln{ width:22px; height:1px; background:rgba(255,255,255,0.7); }
   .hero-legend .dt{ width:7px; height:7px; border-radius:50%; background:var(--orange); }
+  .hero-legend .dt.red{ background:#E5484D; }
+  .hero-legend .il{ opacity:.6; }
   @media (max-width:760px){ .hero-legend{ display:none; } }
   .gp-tip{
     position:absolute; left:0; top:0; z-index:4; max-width:260px; pointer-events:none; opacity:0; transition:opacity .15s ease;
@@ -61,7 +63,8 @@
   /* ---------- problem ---------- */
   .readiness{ margin-top:clamp(88px,13vh,150px); padding:clamp(32px,5vw,72px); background:var(--dark); color:#fff; }
   .readiness .eyebrow{ color:rgba(255,255,255,0.5); }
-  .readiness h3{ margin:16px 0 clamp(40px,7vh,72px); max-width:20ch; font-size:var(--t-h2); line-height:1.06; letter-spacing:-0.025em; color:#fff; }
+  .readiness h3{ margin:16px 0 clamp(40px,7vh,72px); font-size:clamp(26px,3.15vw,46px); line-height:1.06; letter-spacing:-0.025em; color:#fff; white-space:nowrap; }
+  @media (max-width:900px){ .readiness h3{ white-space:normal; font-size:var(--t-h2); } }
   .stat-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 clamp(20px,3vw,48px); }
   @media (max-width:860px){ .stat-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:520px){ .stat-grid{ grid-template-columns:1fr; } }
@@ -87,84 +90,74 @@
   .readiness{ margin-top:clamp(80px,12vh,140px); }
   .trust-sec{ background:#fff; }
 
-  /* ---------- platform overview: quiet boxes in an off-white frame, alive on interaction ---------- */
+  /* ---------- platform overview: a quiet flow of information ---------- */
   #platform{ background:#fff; }
-  .plat{ display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px); padding:clamp(16px,2.6vw,40px); background:var(--bg-subtle); }
+  .plat{ display:flex; flex-direction:column; padding:clamp(16px,2.6vw,40px); background:var(--bg-subtle); }
   .pbox{ background:#fff; border:1px solid var(--border); }
   .plbl{ display:block; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .plat-try{ display:flex; align-items:center; flex-wrap:wrap; gap:10px 18px; padding:0 2px 4px; }
-  .plat-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .pchip{ padding:9px 14px; background:#fff; border:1px solid var(--border-strong); border-radius:0; font-family:var(--sans); font-size:var(--t-small); color:var(--ink-2); cursor:pointer; transition:border-color .2s, color .2s, background .2s; }
-  .pchip:hover{ border-color:var(--ink); color:var(--ink); }
-  .pchip.on{ background:var(--ink); border-color:var(--ink); color:#fff; }
-  .pchip:focus-visible{ outline:1px solid var(--ink); outline-offset:3px; }
-  .plat-note{ margin-left:auto; }
-  .psrc{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:14px 32px; align-items:center; padding:18px clamp(16px,2vw,28px); }
-  .psrc-l{ display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:10px; font-size:var(--t-small); color:var(--ink-2); }
-  .psrc-l li{ display:inline-flex; align-items:center; gap:8px; transition:color .3s; }
-  .psrc-l li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--border-strong); transition:background .3s; }
-  .psrc-l li.on{ color:var(--ink); }
-  .psrc-l li.on::before{ background:var(--orange); animation:pdot 1s ease-in-out infinite; }
-  .pinc{ display:flex; align-items:center; gap:12px; font-size:var(--t-small); color:var(--ink); line-height:1.35; }
-  .pinc i{ flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--orange); animation:pdot 1.2s ease-in-out infinite; }
-  .pmain{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
-  .ptrack{ position:absolute; left:0; right:0; top:0; height:2px; background:var(--border); }
-  .ptrack i{ display:block; height:100%; width:0; background:var(--orange); transition:width .9s ease; }
-  .pcol{ position:relative; padding:clamp(20px,2.4vw,34px); border-left:1px solid var(--border); opacity:.62; transition:opacity .5s ease; }
-  .pcol:first-of-type{ border-left:0; }
-  .pcol.on{ opacity:1; }
+  .pnum{ display:inline-block; font-family:var(--mono); font-size:var(--t-label); color:var(--orange); }
+  .psrc-h{ display:flex; align-items:center; gap:12px; }
+  .psrc{ padding:18px clamp(16px,2vw,28px) 20px; }
+  .psrc-l{ display:flex; flex-wrap:wrap; gap:8px 28px; margin-top:12px; font-size:var(--t-small); color:var(--ink); }
+  .psrc-l li{ display:inline-flex; align-items:center; gap:9px; }
+  .psrc-l li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--orange); animation:pdot 2.4s ease-in-out infinite; }
+  .psrc-l li:nth-child(2)::before{ animation-delay:.5s; } .psrc-l li:nth-child(3)::before{ animation-delay:1s; } .psrc-l li:nth-child(4)::before{ animation-delay:1.5s; } .psrc-l li:nth-child(5)::before{ animation-delay:2s; }
+  @keyframes pdot{ 50%{ opacity:.25; } }
+
+  /* connectors with moving information dots */
+  .pdown{ position:relative; display:flex; align-items:center; justify-content:center; height:clamp(44px,6vh,60px); }
+  .pdown::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--border-strong); }
+  .pdown i{ position:absolute; left:50%; top:0; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:var(--orange); animation:pdn 1.7s linear infinite; }
+  .pdown i::after{ content:""; position:absolute; left:0; top:-16px; width:5px; height:5px; border-radius:50%; background:var(--orange); opacity:.45; }
+  @keyframes pdn{ 0%{ top:0; opacity:0; } 15%{ opacity:1; } 85%{ opacity:1; } 100%{ top:calc(100% - 5px); opacity:0; } }
+  .pcap{ position:relative; padding:3px 12px; background:var(--bg-subtle); font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
+
+  .pflow{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .pcol{ position:relative; padding:clamp(20px,2.4vw,34px); border-left:1px solid var(--border); }
+  .pcol:first-child{ border-left:0; }
   .pcol:not(:last-child)::after{ content:"→"; position:absolute; right:-9px; top:50%; z-index:2; width:18px; height:18px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--border); font-size:11px; color:var(--ink-3); }
-  .ptag{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
-  .pn{ display:block; margin:clamp(22px,4vh,38px) 0 14px; font-family:var(--mono); font-size:var(--t-label); color:var(--ink-3); transition:color .4s; }
-  .pcol.on .pn{ color:var(--orange); }
+  .pcol:not(:last-child)::before{ content:""; position:absolute; right:-3px; top:calc(50% + 7px); z-index:3; width:5px; height:5px; border-radius:50%; background:var(--orange); animation:pflow 1.8s linear infinite; }
+  @keyframes pflow{ 0%{ transform:translateX(-34px); opacity:0; } 20%{ opacity:1; } 80%{ opacity:1; } 100%{ transform:translateX(34px); opacity:0; } }
+  .pcol .pnum{ margin-bottom:12px; }
   .pcol h3{ font-size:clamp(19px,1.6vw,23px); line-height:1.2; letter-spacing:-0.012em; }
-  .pcol p{ margin-top:12px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); max-width:30ch; }
-  .pv{ display:block; width:100%; max-width:240px; margin-top:clamp(18px,3vh,30px); color:var(--ink); overflow:visible; }
-  .pv1, .pv3{ height:auto; }
-  .pv2{ height:112px; }
-  .pv polygon{ fill:#fff; stroke:currentColor; stroke-width:1; transition:fill .4s, stroke .4s; }
-  .pv polygon.lit{ fill:var(--orange); stroke:var(--orange); animation:pdot 1.1s ease-in-out infinite; }
-  .pv path{ stroke:currentColor; opacity:.55; transition:stroke .4s, opacity .4s; }
-  .pv .lbl text{ font-family:var(--mono); font-size:11px; fill:var(--ink-3); stroke:none; letter-spacing:0.03em; }
-  .pv path.run{ stroke:var(--orange); opacity:1; stroke-dasharray:4 4; animation:pdash .8s linear infinite; }
-  .pv3 polygon{ animation:none; }
-  @keyframes pdash{ to{ stroke-dashoffset:-16; } }
-  @keyframes pdot{ 50%{ opacity:.3; } }
-  .pst{ margin-top:16px !important; min-height:2.9em; font-family:var(--mono); font-size:var(--t-label) !important; letter-spacing:0.02em; line-height:1.45 !important; color:var(--ink-3) !important; max-width:none !important; }
-  .pcol.on .pst{ color:var(--ink) !important; }
-  .pbar{ margin-top:clamp(18px,3vh,30px); max-width:240px; }
-  .pbar-h{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:var(--t-small); }
-  .pbar-h b{ font-family:var(--sans); font-size:clamp(28px,2.4vw,36px); font-weight:300; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; }
-  .pbar-t{ height:3px; margin-top:8px; background:var(--border); }
-  .pbar-t i{ display:block; height:100%; width:20%; background:var(--ink); transition:width 1.2s cubic-bezier(.4,0,.2,1); }
-  .pbar.alert .pbar-t i{ background:var(--orange); }
-  .pcol p.pbar-a{ display:flex; align-items:center; gap:9px; margin-top:12px; font-size:13px; color:var(--ink-3); }
-  .pbar-a i{ width:7px; height:7px; border-radius:50%; background:var(--border-strong); flex-shrink:0; }
-  .pbar.alert .pbar-a{ color:var(--ink); }
-  .pbar.alert .pbar-a i{ background:var(--orange); animation:pdot 1s ease-in-out infinite; }
-  .pout{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,1.2vw,16px); }
-  .pout .pbox{ padding:16px clamp(16px,2vw,28px) 18px; }
-  .pout b{ display:block; margin-top:8px; min-height:2.7em; font-size:clamp(16px,1.25vw,18px); font-weight:400; line-height:1.35; letter-spacing:-0.005em; }
-  .pout b.fresh{ animation:fadeUp .5s ease both; }
-  @keyframes fadeUp{ from{ opacity:0; transform:translateY(6px); } }
+  .pcol p{ margin-top:12px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); max-width:34ch; }
+  .pv{ display:block; width:100%; max-width:300px; margin-top:clamp(18px,3vh,28px); color:var(--ink); }
+  .pv2, .pv3, .pv4{ height:150px; }
+  .pown{ padding:clamp(18px,2vw,28px); }
+  .pown h3{ margin-top:16px; font-size:clamp(19px,1.6vw,23px); line-height:1.2; letter-spacing:-0.012em; }
+  .pown p{ margin-top:10px; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); max-width:30ch; }
+  .pv1{ height:auto; max-width:230px; overflow:visible; }
+  .pv1 polygon{ fill:#fff; stroke:currentColor; stroke-width:1; }
+  .pv1 polygon.lit{ fill:var(--orange); stroke:var(--orange); animation:pdot 1.4s ease-in-out infinite; }
+  .pv1 path{ stroke:currentColor; opacity:.55; }
+  .pv1 .lbl text{ font-family:var(--mono); font-size:11px; fill:var(--ink-3); stroke:none; letter-spacing:0.03em; }
+
+  .plow{ display:grid; grid-template-columns:minmax(0,0.85fr) auto minmax(0,2.3fr); align-items:stretch; gap:0; }
+  .pplus{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; width:clamp(96px,10vw,150px); padding:0 8px; text-align:center; }
+  .pplus b{ font-family:var(--sans); font-size:30px; font-weight:300; line-height:1; color:var(--orange); }
+  .pplus span{ font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); line-height:1.35; }
+  .pins{ padding:clamp(18px,2vw,28px); }
+  .pins-g{ display:grid; grid-template-columns:1fr 1fr; gap:0 clamp(16px,2vw,32px); margin-top:14px; }
+  .pi{ position:relative; padding:16px 0 18px; border-top:1px solid var(--border); }
+  .pi::before{ content:""; position:absolute; left:0; top:-1px; height:1px; width:0; background:var(--orange); animation:pfill 8s linear infinite; }
+  .pi:nth-child(2)::before{ animation-delay:2s; } .pi:nth-child(3)::before{ animation-delay:4s; } .pi:nth-child(4)::before{ animation-delay:6s; }
+  @keyframes pfill{ 0%{ width:0; opacity:1; } 22%{ width:100%; opacity:1; } 40%{ width:100%; opacity:0; } 100%{ width:0; opacity:0; } }
+  .pi-n{ display:block; font-family:var(--mono); font-size:var(--t-label); color:var(--ink-3); }
+  .pi b{ display:block; margin-top:8px; font-size:clamp(16px,1.25vw,18px); font-weight:400; line-height:1.3; letter-spacing:-0.005em; }
+  .pi p{ margin-top:6px; font-size:14px; line-height:1.45; color:var(--ink-2); }
   @media (max-width:980px){
-    .pmain{ grid-template-columns:1fr 1fr; }
-    .pcol:nth-of-type(3){ border-left:0; }
-    .pcol:nth-of-type(n+3){ border-top:1px solid var(--border); }
-    .pcol:not(:last-child)::after{ display:none; }
-    .psrc{ grid-template-columns:1fr; }
+    .pflow{ grid-template-columns:1fr; }
+    .pcol{ border-left:0; border-top:1px solid var(--border); }
+    .pcol:first-child{ border-top:0; }
+    .pcol:not(:last-child)::after, .pcol:not(:last-child)::before{ display:none; }
+    .plow{ grid-template-columns:1fr; }
+    .pplus{ width:auto; flex-direction:row; justify-content:center; padding:14px 0; }
+    .pplus span{ text-align:left; }
   }
-  @media (max-width:620px){
-    .pmain{ grid-template-columns:1fr; }
-    .pcol{ border-left:0; border-top:1px solid var(--border); opacity:1; }
-    .pcol:first-of-type{ border-top:0; }
-    .ptrack{ display:none; }
-    .pout{ grid-template-columns:1fr; }
-    .plat-note{ margin-left:0; }
-  }
+  @media (max-width:620px){ .pins-g{ grid-template-columns:1fr; } }
   @media (prefers-reduced-motion: reduce){
-    .pcol{ opacity:1; } .pv polygon.lit, .pinc i, .psrc-l li.on::before, .pbar.alert .pbar-a i, .pv path.run{ animation:none; }
-    .ptrack i, .pbar-t i{ transition:none; }
+    .psrc-l li::before, .pdown i, .pcol::before, .pi::before, .pv1 polygon.lit{ animation:none; }
+    .pi::before{ width:100%; opacity:.0; }
   }
 
   /* ---------- industries carousel ---------- */
@@ -176,7 +169,7 @@
   .car-track::-webkit-scrollbar{ display:none; }
   .car-track:focus-visible{ outline:1px solid var(--ink); outline-offset:6px; }
   .ind{
-    flex:0 0 min(400px,84vw); scroll-snap-align:start; display:flex; flex-direction:column; min-height:480px;
+    flex:0 0 min(400px,84vw); scroll-snap-align:start; display:flex; flex-direction:column; min-height:420px;
     padding:clamp(22px,2.2vw,32px); background:#fff; border:1px solid var(--border);
   }
   .ind-top{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:clamp(36px,6vh,64px); }
@@ -313,7 +306,7 @@
     </div>
   </div>
 
-  <div class="hero-legend" aria-hidden="true"><span><i class="ln"></i>Supply routes</span><span><i class="dt"></i>Geopolitical signals</span></div>
+  <div class="hero-legend" aria-hidden="true"><span><i class="ln"></i>Supply routes</span><span><i class="dt"></i>Geopolitical signals</span><span><i class="dt red"></i>Rising risk</span><span class="il">Illustrative</span></div>
   <div class="gp-tip" id="gp-tip" role="status"></div>
 </section>
 
@@ -388,73 +381,55 @@
     <div class="section-head reveal">
       <div class="eyebrow">THE PLATFORM</div>
       <h2>Geopolitical intelligence, built around your supply chain.</h2>
-      <p>Vorsight is an intelligence platform that sits alongside your supply chain systems. It combines your data with a live model of the world, filters the noise, and tells you which developments hit you, how likely they are, and what to do about it.</p>
+      <p>Vorsight is an intelligence platform that sits alongside your supply chain systems. It combines your data with the Vorsight Model of the world, filters the noise, and tells you which developments hit you, how likely they are, and what to do about it.</p>
     </div>
 
-    <div class="plat reveal" id="plat">
-      <div class="plat-try">
-        <span class="plbl">Try a signal</span>
-        <div class="plat-chips" role="group" aria-label="Choose a sample signal">
-          <button type="button" class="pchip on" data-s="0">Red Sea closure</button>
-          <button type="button" class="pchip" data-s="1">Gas supply cut</button>
-          <button type="button" class="pchip" data-s="2">Rare earth licensing</button>
-          <button type="button" class="pchip" data-s="3">New tariffs</button>
-        </div>
-        <span class="plbl plat-note">Illustrative example</span>
-      </div>
-
+    <div class="plat reveal" id="plat" role="img" aria-label="Flow diagram: global data sources feed a step that separates signal from noise, which updates the Vorsight geopolitics model. Relevant signals go to you. Your supply chain data plus those signals produce four insights.">
       <div class="pbox psrc">
-        <div>
-          <span class="plbl">Global data sources</span>
-          <ul class="psrc-l"><li>Official journals</li><li>Customs &amp; trade data</li><li>News in many languages</li><li>Analyst notes</li><li>Market data</li></ul>
-        </div>
-        <p class="pinc"><i></i><span id="plat-inc">Incoming: shipping lines suspend Suez transits</span></p>
+        <div class="psrc-h"><span class="pnum">1</span><span class="plbl">Data sources</span></div>
+        <ul class="psrc-l"><li>Official journals</li><li>Customs &amp; trade data</li><li>News in many languages</li><li>Analyst notes</li><li>Market data</li></ul>
       </div>
+      <div class="pdown"><i></i><span class="pcap">Thousands of items a day</span></div>
 
-      <div class="pbox pmain">
-        <div class="ptrack" aria-hidden="true"><i></i></div>
-        <div class="pcol on" data-i="0">
-          <span class="ptag">Private · yours</span>
-          <span class="pn">1</span>
-          <h3>You share your supply chain</h3>
-          <p>Suppliers, materials, sites and routes. A short voice note or form is enough.</p>
-          <svg class="pv pv1" viewBox="0 0 220 96" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M28 40H192M82 40V72M138 40V72"/><polygon data-n="0" points="24.0,33.1 32.0,33.1 36.0,40.0 32.0,46.9 24.0,46.9 20.0,40.0"/><polygon data-n="1" points="78.0,33.1 86.0,33.1 90.0,40.0 86.0,46.9 78.0,46.9 74.0,40.0"/><polygon data-n="2" points="134.0,33.1 142.0,33.1 146.0,40.0 142.0,46.9 134.0,46.9 130.0,40.0"/><polygon data-n="3" points="188.0,33.1 196.0,33.1 200.0,40.0 196.0,46.9 188.0,46.9 184.0,40.0"/><polygon  points="79.5,67.7 84.5,67.7 87.0,72.0 84.5,76.3 79.5,76.3 77.0,72.0"/><polygon  points="135.5,67.7 140.5,67.7 143.0,72.0 140.5,76.3 135.5,76.3 133.0,72.0"/></g><g class="lbl" text-anchor="middle"><text x="28" y="18">Supplier</text><text x="82" y="18">Route</text><text x="138" y="18">Plant</text><text x="192" y="18">Market</text></g></svg>
-          <p class="pst" id="pst0">Mapped: supplier, route, plant, market</p>
-        </div>
-        <div class="pcol" data-i="1">
-          <span class="ptag">Shared · the world</span>
-          <span class="pn">2</span>
+      <div class="pbox pflow">
+        <div class="pcol">
+          <span class="pnum">2</span>
           <h3>We separate signal from noise</h3>
-          <p>Thousands of items a day, filtered down to the developments that actually move risk.</p>
+          <p>Most of what is published does not matter to risk. We keep only what does.</p>
           <canvas class="pv pv2" id="pv2" aria-hidden="true"></canvas>
-          <p class="pst" id="pst1">Reading thousands of items</p>
         </div>
-        <div class="pcol" data-i="2">
-          <span class="ptag">Shared · the world</span>
-          <span class="pn">3</span>
-          <h3>Our geopolitics model updates in real time</h3>
+        <div class="pcol">
+          <span class="pnum">3</span>
+          <h3>We update the Vorsight geopolitics model</h3>
           <p>It understands how the world is changing and learns from live data feeds.</p>
-          <svg class="pv pv3" viewBox="0 0 220 96" fill="none" aria-hidden="true"><g stroke-width="1"><path class="pe" id="pe0" d="M110 16V48"/><path class="pe" id="pe1" d="M110 48L40 84"/><path class="pe" id="pe2" d="M110 48L80 84"/><path class="pe" id="pe3" d="M110 48L140 84"/><path class="pe" id="pe4" d="M110 48L180 84"/><polygon class="hx" id="hx0" points="107.0,10.8 113.0,10.8 116.0,16.0 113.0,21.2 107.0,21.2 104.0,16.0"/><polygon class="hx" id="hx1" points="106.5,41.9 113.5,41.9 117.0,48.0 113.5,54.1 106.5,54.1 103.0,48.0"/><polygon class="hx" data-l="0" points="37.5,79.7 42.5,79.7 45.0,84.0 42.5,88.3 37.5,88.3 35.0,84.0"/><polygon class="hx" data-l="1" points="77.5,79.7 82.5,79.7 85.0,84.0 82.5,88.3 77.5,88.3 75.0,84.0"/><polygon class="hx" data-l="2" points="137.5,79.7 142.5,79.7 145.0,84.0 142.5,88.3 137.5,88.3 135.0,84.0"/><polygon class="hx" data-l="3" points="177.5,79.7 182.5,79.7 185.0,84.0 182.5,88.3 177.5,88.3 175.0,84.0"/></g></svg>
-          <p class="pst" id="pst2">Model up to date</p>
+          <canvas class="pv pv3" id="pv3" aria-hidden="true"></canvas>
         </div>
-        <div class="pcol" data-i="3">
-          <span class="ptag">Private · yours</span>
-          <span class="pn">4</span>
-          <h3>Your model updates and alerts you</h3>
-          <p>Only relevant signals reach your private model, refresh your scenarios and flag disruption to your supply chain.</p>
-          <div class="pbar">
-            <div class="pbar-h"><span id="pb-l">Route disruption</span><b id="pb-n">20%</b></div>
-            <div class="pbar-t"><i id="pb-i"></i></div>
-            <p class="pbar-a"><i></i><span id="pb-a">No alert</span></p>
-          </div>
-          <p class="pst" id="pst3">Your scenarios are current</p>
+        <div class="pcol">
+          <span class="pnum">4</span>
+          <h3>We provide relevant signals to you</h3>
+          <p>Only developments that touch your suppliers, sites and routes reach your private model.</p>
+          <canvas class="pv pv4" id="pv4" aria-hidden="true"></canvas>
         </div>
       </div>
+      <div class="pdown"><i></i><span class="pcap">Relevant signals</span></div>
 
-      <div class="pout">
-        <div class="pbox"><span class="plbl">Updated scenario analysis</span><b id="po0">Route disruption: 20% to 55%</b></div>
-        <div class="pbox"><span class="plbl">Supply chain disruption alert</span><b id="po1">Asia–Europe sea freight delayed by about two weeks</b></div>
-        <div class="pbox"><span class="plbl">Recommended action</span><b id="po2">Book alternative capacity, extend inventory cover</b></div>
+      <div class="plow">
+        <div class="pbox pown">
+          <div class="psrc-h"><span class="pnum">5</span><span class="plbl">Private · yours</span></div>
+          <h3>Your supply chain data</h3>
+          <p>Suppliers, materials, sites and routes. A short voice note or form is enough.</p>
+          <svg class="pv pv1" viewBox="0 0 220 96" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M28 40H192M82 40V72M138 40V72"/><polygon  points="24.0,33.1 32.0,33.1 36.0,40.0 32.0,46.9 24.0,46.9 20.0,40.0"/><polygon  points="78.0,33.1 86.0,33.1 90.0,40.0 86.0,46.9 78.0,46.9 74.0,40.0"/><polygon  points="134.0,33.1 142.0,33.1 146.0,40.0 142.0,46.9 134.0,46.9 130.0,40.0"/><polygon class="lit" points="188.0,33.1 196.0,33.1 200.0,40.0 196.0,46.9 188.0,46.9 184.0,40.0"/><polygon  points="79.5,67.7 84.5,67.7 87.0,72.0 84.5,76.3 79.5,76.3 77.0,72.0"/><polygon  points="135.5,67.7 140.5,67.7 143.0,72.0 140.5,76.3 135.5,76.3 133.0,72.0"/></g><g class="lbl" text-anchor="middle"><text x="28" y="18">Supplier</text><text x="82" y="18">Route</text><text x="138" y="18">Plant</text><text x="192" y="18">Market</text></g></svg>
+        </div>
+        <div class="pplus" aria-hidden="true"><b>+</b><span>Signals from the Vorsight Model</span></div>
+        <div class="pbox pins">
+          <span class="plbl">Your insights</span>
+          <div class="pins-g">
+            <div class="pi"><span class="pi-n">01</span><b>Customised geopolitical threat overview</b><p>The threats that matter for your suppliers, sites and routes, ranked.</p></div>
+            <div class="pi"><span class="pi-n">02</span><b>Product-level supply chain disruption deep dive</b><p>Which products are exposed, where, and for how long.</p></div>
+            <div class="pi"><span class="pi-n">03</span><b>Scenario analysis</b><p>Probabilities and impact for each plausible future, updated live.</p></div>
+            <div class="pi"><span class="pi-n">04</span><b>One-pager management report</b><p>A board-ready summary you can read in two minutes.</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -475,31 +450,31 @@
           <div class="ind-top"><span class="ind-k">01 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
           <h3>Chemicals &amp; petrochemicals</h3>
           <p class="ind-lead">Energy, feedstock and shipping lanes set your margins. Policy moves them first.</p>
-          <ul class="ind-th"><li><b>Gas and energy shocks</b><span>Supply cuts and sanctions can change input costs within days.</span></li><li><b>Trade defence and tariffs</b><span>Anti-dumping duties and retaliation reshape export markets.</span></li><li><b>Shipping chokepoints</b><span>Red Sea and Gulf disruption delays feedstock and deliveries.</span></li></ul>
+          <ul class="ind-th"><li><b>Gas and energy shocks</b><span>Supply cuts and sanctions can change input costs within days.</span></li><li><b>Trade defence and tariffs</b><span>Anti-dumping duties and retaliation reshape export markets.</span></li></ul>
         </article>
         <article class="ind">
           <div class="ind-top"><span class="ind-k">02 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
           <h3>Automotive manufacturing</h3>
           <p class="ind-lead">Electrification ties every carmaker and supplier to a few countries and a few materials.</p>
-          <ul class="ind-th"><li><b>Rare earth export licensing</b><span>Magnets for motors and sensors can be held up at the border.</span></li><li><b>Tariffs on vehicles and parts</b><span>US and EU–China disputes change the price of every export.</span></li><li><b>Chip supply concentration</b><span>Export controls and tension around a few fabs.</span></li></ul>
+          <ul class="ind-th"><li><b>Rare earth export licensing</b><span>Magnets for motors and sensors can be held up at the border.</span></li><li><b>Tariffs on vehicles and parts</b><span>US and EU–China disputes change the price of every export.</span></li></ul>
         </article>
         <article class="ind">
           <div class="ind-top"><span class="ind-k">03 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
           <h3>Electronics, electrical engineering &amp; semiconductors</h3>
           <p class="ind-lead">Your products depend on technology and materials that governments now treat as strategic.</p>
-          <ul class="ind-th"><li><b>Chip export controls</b><span>Rules on equipment and advanced chips change who can buy what.</span></li><li><b>Critical minerals</b><span>Licensing on gallium, germanium and graphite squeezes inputs.</span></li><li><b>Taiwan Strait risk</b><span>Advanced chip output is concentrated in one exposed place.</span></li></ul>
+          <ul class="ind-th"><li><b>Chip export controls</b><span>Rules on equipment and advanced chips change who can buy what.</span></li><li><b>Critical minerals</b><span>Licensing on gallium, germanium and graphite squeezes inputs.</span></li></ul>
         </article>
         <article class="ind">
           <div class="ind-top"><span class="ind-k">04 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
           <h3>Food, beverage &amp; FMCG</h3>
           <p class="ind-lead">Thin margins and fast turnover leave no room for a blocked port or a new duty.</p>
-          <ul class="ind-th"><li><b>Shipping and canal disruption</b><span>Red Sea and Panama bottlenecks lift freight costs and delay stock.</span></li><li><b>Fertiliser and grain trade</b><span>Black Sea tension and export bans move input prices.</span></li><li><b>Retaliatory tariffs</b><span>Agri-food is the first target in trade disputes.</span></li></ul>
+          <ul class="ind-th"><li><b>Shipping and canal disruption</b><span>Red Sea and Panama bottlenecks lift freight costs and delay stock.</span></li><li><b>Fertiliser and grain trade</b><span>Black Sea tension and export bans move input prices.</span></li></ul>
         </article>
         <article class="ind">
           <div class="ind-top"><span class="ind-k">05 / 05</span><span class="ind-live"><i></i>Active threats</span></div>
           <h3>Pharmaceuticals &amp; life sciences</h3>
           <p class="ind-lead">A single missing ingredient or a delayed cold chain can stop a product line.</p>
-          <ul class="ind-th"><li><b>Active ingredient concentration</b><span>Key inputs come from a few countries that can restrict exports.</span></li><li><b>Tariffs on pharma imports</b><span>New duties reshape pricing and where you manufacture.</span></li><li><b>Logistics hub disruption</b><span>Cold chains depend on a handful of air and sea hubs.</span></li></ul>
+          <ul class="ind-th"><li><b>Active ingredient concentration</b><span>Key inputs come from a few countries that can restrict exports.</span></li><li><b>Tariffs on pharma imports</b><span>New duties reshape pricing and where you manufacture.</span></li></ul>
         </article>
       </div>
       <div class="car-ctl">
@@ -673,6 +648,14 @@
       ['Export ban on a key ingredient',22.5,114],['Customs checks slow EU–UK freight',51.1,1.3],['Fertiliser exports restricted',46,30],['Tariffs hit retaliation list',39,116]
     ];
 
+    /* rising political risk: fewer, longer-lived red alerts at real hotspots */
+    var ALERTS=[
+      ['Tension rises around the Taiwan Strait',24,119.5],['Red Sea attacks escalate again',15,42],['Gulf shipping risk rises near Hormuz',26.5,56.5],
+      ['Black Sea escalation threatens grain and fertiliser flows',44.5,34],['South China Sea standoff intensifies',12,114],['Korean Peninsula tensions climb',38,127.5],
+      ['Baltic infrastructure sabotage fears grow',58,20],['Sahel instability disrupts mineral supply',15,0],['Border clashes raise risk in South Asia',32,74],
+      ['Eastern Mediterranean standoff widens',34,30]
+    ];
+    var RED='#E5484D', nextRisk=1200, maxRisk=6;
     var W=0,H=0,dpr=1,cx=0,cy=0,R=0,lam0=18*rad,phi0=20*rad,sp0=Math.sin(phi0),cp0=Math.cos(phi0);
     var act=[], visible=true, last=0, nextSpawn=0, nextBurst=2500, burst=0, burstAt=null, hov=-1, tipUntil=0, maxAct=34, copyEl=hero.querySelector('.hero-copy');
 
@@ -688,8 +671,8 @@
       W=hero.clientWidth; H=hero.clientHeight; if(!W) return;
       [gc,sc].forEach(function(c){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); });
       g.setTransform(dpr,0,0,dpr,0,0); s.setTransform(dpr,0,0,dpr,0,0);
-      if(W>=760){ cx=W*0.68; cy=H*0.46; R=Math.min(H*0.55,W*0.34); maxAct=34; }
-      else { cx=W*0.5; cy=H*0.3; R=Math.min(W*0.64,H*0.33); maxAct=18; }
+      if(W>=760){ cx=W*0.68; cy=H*0.46; R=Math.min(H*0.55,W*0.34); maxAct=34; maxRisk=6; }
+      else { cx=W*0.5; cy=H*0.3; R=Math.min(W*0.64,H*0.33); maxAct=18; maxRisk=4; }
       if(reduce) frame(0);
     }
     function pj(sp,cp,lam,f){
@@ -746,17 +729,22 @@
       });
     }
 
-    function addSignal(t,text,la,lo,route,idx){
-      var o={t:text,sp:Math.sin(la),cp:Math.cos(la),lam:lo,born:t,life:reduce?1e12:2400+Math.random()*2400,route:route};
+    function addSignal(t,text,la,lo,route,idx,kind){
+      var risk=kind==='risk';
+      var o={t:(risk?'Rising risk: ':'')+text,kind:kind,sp:Math.sin(la),cp:Math.cos(la),lam:lo,born:t,life:reduce?1e12:(risk?6500+Math.random()*4000:2400+Math.random()*2400),route:route};
       var p=proj(o.sp,o.cp,o.lam);
       if(p.z<0.25||p.x<20||p.x>W-20||p.y<76||p.y>H-40||textClear(p.x,p.y)<1) return false;
-      if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<20; })) return false;
+      if(act.some(function(a){ return a.p && Math.hypot(a.p.x-p.x,a.p.y-p.y)<(risk?34:20); })) return false;
       o.p=p; act.push(o);
-      if(route && !route.hit && Math.random()<0.4 && !reduce) route.hit={t0:t,dur:3200+Math.random()*2200,i:idx};
+      if(!risk && route && !route.hit && Math.random()<0.4 && !reduce) route.hit={t0:t,dur:3200+Math.random()*2200,i:idx};
       return true;
     }
+    function spawnRisk(t){
+      if(act.filter(function(a){ return a.kind==='risk'; }).length>=maxRisk) return;
+      for(var tries=0;tries<10;tries++){ var h=ALERTS[Math.floor(Math.random()*ALERTS.length)]; if(act.some(function(a){ return a.t.indexOf(h[0])>=0; })) continue; if(addSignal(t,h[0],h[1]*rad,h[2]*rad,null,0,'risk')) return; }
+    }
     function spawn(t){
-      if(act.length>=maxAct) return;
+      if(act.filter(function(a){ return a.kind!=='risk'; }).length>=maxAct) return;
       for(var tries=0;tries<16;tries++){
         if(burst>0 && burstAt){
           var la=clamp(burstAt[0]+(Math.random()-.5)*26,-70,75)*rad, lo=(burstAt[1]+(Math.random()-.5)*34)*rad;
@@ -779,8 +767,16 @@
         var a=act[i], p=proj(a.sp,a.cp,a.lam); a.p=p;
         var age=t-a.born;
         if(age>a.life || p.z<0.1){ act.splice(i,1); continue; }
-        var edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/350), out=clamp((a.life-age)/600,0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
-        if(!reduce){ var q=(age/1100)%1; s.beginPath(); s.arc(p.x,p.y,3+q*13,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.38*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
+        var risk=a.kind==='risk', edge=clamp((p.z-0.1)/0.25,0,1), k=ease(age/(risk?700:350)), out=clamp((a.life-age)/(risk?900:600),0,1), al=Math.min(k,out)*edge*textClear(p.x,p.y);
+        if(risk){
+          var fr=age/a.life, rr=7+fr*20;                       /* the rings widen as the risk rises */
+          if(!reduce){ for(var w=0;w<2;w++){ var q=((age/1500)+w*0.5)%1; s.beginPath(); s.arc(p.x,p.y,5+q*(10+fr*18),0,TAU); s.strokeStyle='rgba(229,72,77,'+(0.45*(1-q)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); } }
+          s.globalAlpha=al*0.5; s.beginPath(); s.arc(p.x,p.y,rr,0,TAU); s.strokeStyle=RED; s.lineWidth=1; s.stroke();
+          s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,(i===hov?6:4.4)*(0.5+0.5*k),0,TAU); s.fillStyle=RED; s.fill();
+          s.beginPath(); s.moveTo(p.x-4,p.y-11); s.lineTo(p.x,p.y-15); s.lineTo(p.x+4,p.y-11); s.strokeStyle=RED; s.lineWidth=1.5; s.lineJoin='round'; s.stroke();
+          s.globalAlpha=1; continue;
+        }
+        if(!reduce){ var q2=(age/1100)%1; s.beginPath(); s.arc(p.x,p.y,3+q2*13,0,TAU); s.strokeStyle='rgba(232,131,42,'+(0.38*(1-q2)*al).toFixed(3)+')'; s.lineWidth=1; s.stroke(); }
         s.globalAlpha=al; s.beginPath(); s.arc(p.x,p.y,(i===hov?5:3.4)*(0.5+0.5*k),0,TAU); s.fillStyle=ORANGE; s.fill();
         s.globalAlpha=1;
       }
@@ -795,9 +791,10 @@
       s.clearRect(0,0,W,H);
       var now=reduce?1500:t;
       drawRoutes(now,reduce?0:dt);
-      if(reduce){ if(!act.length){ for(var q=0;q<14;q++) spawn(0); } }
+      if(reduce){ if(!act.length){ for(var q=0;q<14;q++) spawn(0); for(q=0;q<4;q++) spawnRisk(0); } }
       else {
         if(t>nextBurst){ var hk=Object.keys(used), hb=HUB[hk[Math.floor(Math.random()*hk.length)]]; burstAt=hb; burst=6+Math.floor(Math.random()*6); nextBurst=t+4200+Math.random()*3600; }
+        if(t>nextRisk){ spawnRisk(t); nextRisk=t+1500+Math.random()*1700; }
         if(t>nextSpawn){ spawn(t); nextSpawn=t+(burst>0?55:90)+Math.random()*(burst>0?50:90); }
       }
       drawSignals(now);
@@ -826,88 +823,77 @@
     if(reduce) frame(0); else requestAnimationFrame(frame);
   })();
   (function(){
-    /* platform overview: send a sample signal through the four steps */
+    /* platform overview: three small animations that show information flowing through the platform */
     var root=document.getElementById('plat'); if(!root) return;
-    var Q=function(sel){ return root.querySelector(sel); }, QA=function(sel){ return [].slice.call(root.querySelectorAll(sel)); };
-    var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var chips=QA('.pchip'), cols=QA('.pcol'), srcs=QA('.psrc-l li'), incEl=Q('#plat-inc'), fill=Q('.ptrack i');
-    var st=[Q('#pst0'),Q('#pst1'),Q('#pst2'),Q('#pst3')], nodes=QA('.pv1 polygon[data-n]'), leaves=QA('.pv3 polygon[data-l]'), hx=[Q('#hx0'),Q('#hx1')], pe=[0,1,2,3,4].map(function(i){ return Q('#pe'+i); });
-    var bar=Q('.pbar'), pbL=Q('#pb-l'), pbN=Q('#pb-n'), pbI=Q('#pb-i'), pbA=Q('#pb-a'), po=[Q('#po0'),Q('#po1'),Q('#po2')];
-    var S=[
-      { n:'Red Sea closure', src:2, inc:'Shipping lines suspend Suez transits', node:1, leaf:0, kept:'1 kept of 4,812 items', model:'Suez transit risk rises', yours:'Route disruption', from:20, to:55, alert:'Asia–Europe route delayed', a1:'Asia–Europe sea freight delayed by about two weeks', a2:'Book alternative capacity, extend inventory cover' },
-      { n:'Gas supply cut', src:4, inc:'Pipeline outage cuts gas to Central Europe', node:2, leaf:1, kept:'1 kept of 5,236 items', model:'Energy supply risk rises', yours:'Input cost spike', from:25, to:60, alert:'Feedstock costs up at two sites', a1:'Feedstock costs rise at two production sites', a2:'Hedge energy exposure, review pricing clauses' },
-      { n:'Rare earth licensing', src:0, inc:'China introduces export licensing for magnets', node:0, leaf:2, kept:'1 kept of 4,390 items', model:'Critical-minerals risk rises', yours:'Supply squeeze', from:35, to:55, alert:'Magnet supplier exposed', a1:'Magnet supplier in China exposed: licence delays likely', a2:'Qualify a second supplier, build buffer stock' },
-      { n:'New tariffs', src:1, inc:'US announces new tariffs on EU exports', node:3, leaf:3, kept:'1 kept of 4,967 items', model:'Tariff risk rises', yours:'Margin pressure', from:40, to:62, alert:'US-bound volume exposed', a1:'US-bound volume faces higher duties', a2:'Shift allocation, renegotiate price clauses' }
-    ];
-    var cur=0, runId=0, timers=[], touched=false, vis=false, idle=false;
+    var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, vis=false;
+    var c2=document.getElementById('pv2'), c3=document.getElementById('pv3'), c4=document.getElementById('pv4');
+    if(!c2||!c3||!c4) return;
+    var TAU=Math.PI*2, ORANGE='#E8832A', GREY='#CBC9C2', INK='22,22,22';
+    function setup(c){ var o={c:c,x:c.getContext('2d'),W:0,H:0}; o.size=function(){ var d=Math.min(window.devicePixelRatio||1,2); o.W=c.clientWidth; o.H=c.clientHeight; if(!o.W) return; c.width=Math.round(o.W*d); c.height=Math.round(o.H*d); o.x.setTransform(d,0,0,d,0,0); }; o.size(); if(window.ResizeObserver) new ResizeObserver(o.size).observe(c); return o; }
+    var A=setup(c2), B=setup(c3), C=setup(c4);
 
-    /* ---- step 2: a stream of noise, most of it dropped at the gate ---- */
-    var nc=Q('#pv2'), nx=nc.getContext('2d'), NW=0, NH=0, dots=[], sigs=[], kept=[], lastT=0, acc=0;
-    function nSize(){ var d=Math.min(window.devicePixelRatio||1,2); NW=nc.clientWidth; NH=nc.clientHeight; if(!NW) return; nc.width=Math.round(NW*d); nc.height=Math.round(NH*d); nx.setTransform(d,0,0,d,0,0); }
-    function nDraw(t){
-      requestAnimationFrame(nDraw);
-      if(!vis||!NW) { lastT=t; return; }
-      var dt=Math.min(0.05,(t-lastT)/1000); lastT=t; var gate=NW*0.56, i;
-      if(!reduce){ acc+=dt*16; while(acc>=1){ dots.push({x:-3,y:8+Math.random()*(NH-16),v:(0.18+Math.random()*0.3)*NW,a:0.7,dy:(Math.random()-0.5)*14}); acc--; } }
-      nx.clearRect(0,0,NW,NH);
-      nx.strokeStyle='rgba(22,22,22,0.28)'; nx.lineWidth=1; nx.setLineDash([2,3]); nx.beginPath(); nx.moveTo(gate,6); nx.lineTo(gate,NH-6); nx.stroke(); nx.setLineDash([]);
-      for(i=dots.length-1;i>=0;i--){ var d=dots[i]; d.x+=d.v*dt; if(d.x>gate){ d.a-=dt*3.2; d.y+=d.dy*dt*2; } if(d.a<=0||d.x>NW){ dots.splice(i,1); continue; } nx.globalAlpha=d.a; nx.fillStyle='#CBC9C2'; nx.beginPath(); nx.arc(d.x,d.y,1.7,0,6.2832); nx.fill(); }
-      nx.globalAlpha=1;
-      for(i=sigs.length-1;i>=0;i--){ var q=sigs[i]; q.x+=NW*0.42*dt; if(q.x>=NW*0.82){ kept.push({x:NW*0.82,y:q.y+(kept.length%3-1)*16,t0:t}); sigs.splice(i,1); continue; } nx.fillStyle='#E8832A'; nx.beginPath(); nx.arc(q.x,q.y,3.4,0,6.2832); nx.fill(); }
-      kept.forEach(function(k){ var pu=((t-k.t0)/900)%1; nx.strokeStyle='rgba(232,131,42,'+(0.5*(1-pu)).toFixed(2)+')'; nx.lineWidth=1; nx.beginPath(); nx.arc(k.x,k.y,3.4+pu*8,0,6.2832); nx.stroke(); nx.fillStyle='#E8832A'; nx.beginPath(); nx.arc(k.x,k.y,3.4,0,6.2832); nx.fill(); });
+    /* 2 · signal vs noise: grey items stream in, nearly all are dropped at the gate, an orange one gets through */
+    var dots=[], sig=[], acc2=0, nextSig=600;
+    function draw2(t,dt){
+      var x=A.x, W=A.W, H=A.H, gate=W*0.5, i; if(!W) return;
+      if(!reduce){ acc2+=dt*20; while(acc2>=1){ dots.push({x:-3,y:8+Math.random()*(H-16),v:(0.16+Math.random()*0.26)*W,a:0.7,dy:(Math.random()-0.5)*16}); acc2--; } if(t>nextSig){ sig.push({x:-3,y:H*0.5+(Math.random()-0.5)*34}); nextSig=t+1500+Math.random()*900; } }
+      x.clearRect(0,0,W,H);
+      x.strokeStyle='rgba('+INK+',0.3)'; x.lineWidth=1; x.setLineDash([2,3]); x.beginPath(); x.moveTo(gate,4); x.lineTo(gate,H-4); x.stroke(); x.setLineDash([]);
+      for(i=dots.length-1;i>=0;i--){ var d=dots[i]; d.x+=d.v*dt; if(d.x>gate){ d.a-=dt*3.4; d.y+=d.dy*dt*2; } if(d.a<=0||d.x>W){ dots.splice(i,1); continue; } x.globalAlpha=d.a; x.fillStyle=GREY; x.beginPath(); x.arc(d.x,d.y,1.8,0,TAU); x.fill(); }
+      x.globalAlpha=1;
+      for(i=sig.length-1;i>=0;i--){ var q=sig[i]; q.x+=W*0.4*dt; if(q.x>W+6){ sig.splice(i,1); continue; } x.strokeStyle='rgba(232,131,42,'+(0.35).toFixed(2)+')'; x.beginPath(); x.moveTo(Math.max(0,q.x-26),q.y); x.lineTo(q.x,q.y); x.stroke(); x.fillStyle=ORANGE; x.beginPath(); x.arc(q.x,q.y,3.6,0,TAU); x.fill(); }
     }
-    function emitSignal(){ sigs.push({x:-3,y:NH*0.5+(Math.random()-0.5)*20}); }
 
-    /* ---- orchestration ---- */
-    function T(fn,ms){ var id=runId; timers.push(setTimeout(function(){ if(id===runId) fn(); },ms)); }
-    function setStep(i){ cols.forEach(function(c,k){ c.classList.toggle('on',k===i); }); if(fill) fill.style.width=((i+1)*25)+'%'; }
-    function setCount(el,from,to,ms){
-      if(reduce){ el.textContent=to+'%'; return; }
-      var t0=performance.now(); (function f(t){ var k=Math.min(1,(t-t0)/ms); el.textContent=Math.round(from+(to-from)*k)+'%'; if(k<1) requestAnimationFrame(f); })(t0);
+    /* 3 · the Vorsight geopolitics model: a globe of nodes and edges, with signals pulsing through it */
+    var NN=46, nodes=[], edges=[], pulses=[], flashes=[], ang=0, nextPulse=300, ga=Math.PI*(3-Math.sqrt(5)), i0, j0;
+    for(i0=0;i0<NN;i0++){ var zz=1-2*(i0+.5)/NN, rr=Math.sqrt(1-zz*zz), th=ga*i0; nodes.push([rr*Math.cos(th),zz,rr*Math.sin(th)]); }
+    for(i0=0;i0<NN;i0++){
+      var ds=[]; for(j0=0;j0<NN;j0++){ if(j0===i0) continue; var dd=nodes[i0][0]*nodes[j0][0]+nodes[i0][1]*nodes[j0][1]+nodes[i0][2]*nodes[j0][2]; ds.push([dd,j0]); }
+      ds.sort(function(a,b){ return b[0]-a[0]; });
+      for(var k0=0;k0<3;k0++){ var a0=Math.min(i0,ds[k0][1]), b0=Math.max(i0,ds[k0][1]); if(!edges.some(function(e){ return e[0]===a0&&e[1]===b0; })) edges.push([a0,b0]); }
     }
-    function show(el,txt){ el.textContent=txt; el.classList.remove('fresh'); void el.offsetWidth; if(!reduce) el.classList.add('fresh'); }
-    function clear(){
-      timers.forEach(clearTimeout); timers=[]; runId++;
-      nodes.forEach(function(n){ n.classList.remove('lit'); }); leaves.forEach(function(n){ n.classList.remove('lit'); }); hx.forEach(function(n){ n.classList.remove('lit'); });
-      pe.forEach(function(e){ e.classList.remove('run'); }); bar.classList.remove('alert');
-      sigs.length=0; kept.length=0; srcs.forEach(function(x){ x.classList.remove('on'); });
+    function rot(n,a,tilt){ var x=n[0]*Math.cos(a)+n[2]*Math.sin(a), z=-n[0]*Math.sin(a)+n[2]*Math.cos(a), y=n[1]; var y2=y*Math.cos(tilt)-z*Math.sin(tilt), z2=y*Math.sin(tilt)+z*Math.cos(tilt); return [x,y2,z2]; }
+    function draw3(t,dt){
+      var x=B.x, W=B.W, H=B.H; if(!W) return;
+      var R=Math.min(W*0.42,H*0.46), cx=W/2, cy=H/2; if(!reduce) ang+=dt*0.32;
+      var P=nodes.map(function(n){ var r=rot(n,ang,0.4); return {x:cx+R*r[0],y:cy-R*r[1],z:r[2]}; });
+      x.clearRect(0,0,W,H);
+      x.beginPath(); x.arc(cx,cy,R,0,TAU); x.strokeStyle='rgba('+INK+',0.14)'; x.lineWidth=1; x.stroke();
+      edges.forEach(function(e){ var a=P[e[0]], b=P[e[1]], z=(a.z+b.z)/2; x.strokeStyle='rgba('+INK+','+(0.07+0.3*Math.max(0,(z+1)/2)).toFixed(3)+')'; x.lineWidth=0.8; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.stroke(); });
+      P.forEach(function(p){ var f=(p.z+1)/2; x.fillStyle='rgba('+INK+','+(0.25+0.6*f).toFixed(2)+')'; x.beginPath(); x.arc(p.x,p.y,1.3+1.3*f,0,TAU); x.fill(); });
+      if(!reduce && t>nextPulse){ var e=edges[Math.floor(Math.random()*edges.length)]; pulses.push({e:e,t0:t,flip:Math.random()<0.5}); nextPulse=t+260+Math.random()*320; }
+      for(var i=pulses.length-1;i>=0;i--){ var p=pulses[i], u=(t-p.t0)/900; if(u>=1){ flashes.push({n:p.flip?p.e[0]:p.e[1],t0:t}); pulses.splice(i,1); continue; } var a=P[p.flip?p.e[1]:p.e[0]], b=P[p.flip?p.e[0]:p.e[1]]; if((a.z+b.z)/2<-0.2) continue; x.fillStyle=ORANGE; x.beginPath(); x.arc(a.x+(b.x-a.x)*u,a.y+(b.y-a.y)*u,2.4,0,TAU); x.fill(); }
+      for(i=flashes.length-1;i>=0;i--){ var f=flashes[i], v=(t-f.t0)/700; if(v>=1){ flashes.splice(i,1); continue; } var q=P[f.n]; if(q.z<-0.2) continue; x.strokeStyle='rgba(232,131,42,'+(0.8*(1-v)).toFixed(2)+')'; x.beginPath(); x.arc(q.x,q.y,3+v*10,0,TAU); x.stroke(); x.fillStyle=ORANGE; x.beginPath(); x.arc(q.x,q.y,2.4,0,TAU); x.fill(); }
     }
-    function final(i){
-      var d=S[i]; clear(); setStep(3);
-      nodes[d.node].classList.add('lit'); hx[0].classList.add('lit'); hx[1].classList.add('lit'); leaves[d.leaf].classList.add('lit'); pe[0].classList.add('run'); pe[1+d.leaf].classList.add('run');
-      pbL.textContent=d.yours; pbN.textContent=d.to+'%'; pbI.style.width=d.to+'%'; pbA.textContent=d.alert; bar.classList.add('alert');
-      st[0].textContent='Exposed: '+['supplier','route','plant','market'][d.node]; st[1].textContent=d.kept; st[2].textContent=d.model; st[3].textContent=d.yours+' '+d.from+'% to '+d.to+'%';
-      po[0].textContent=d.yours+': '+d.from+'% to '+d.to+'%'; po[1].textContent=d.a1; po[2].textContent=d.a2; srcs[d.src].classList.add('on');
-      incEl.textContent='Incoming: '+d.inc;
+
+    /* 4 · relevant signals to you: the ones that touch you arrive, the rest veer away */
+    var items=[], nextItem=300, hexFlash=0;
+    function hexPath(x,cx,cy,r){ x.beginPath(); for(var k=0;k<6;k++){ var a=Math.PI/3*k; x[k?'lineTo':'moveTo'](cx+r*Math.cos(a),cy+r*Math.sin(a)); } x.closePath(); }
+    function draw4(t,dt){
+      var x=C.x, W=C.W, H=C.H; if(!W) return;
+      var hx=W*0.84, hy=H*0.5, hr=15;
+      if(!reduce && t>nextItem){ items.push({x:-3,y:H*0.5+(Math.random()-0.5)*H*0.6,rel:Math.random()<0.4,t0:t,y0:0}); items[items.length-1].y0=items[items.length-1].y; nextItem=t+380+Math.random()*340; }
+      x.clearRect(0,0,W,H);
+      var fl=Math.max(0,1-(t-hexFlash)/500);
+      hexPath(x,hx,hy,hr+fl*3); x.strokeStyle=fl>0?ORANGE:'rgba('+INK+',0.7)'; x.lineWidth=1; x.stroke();
+      if(fl>0){ x.fillStyle='rgba(232,131,42,'+(0.25*fl).toFixed(2)+')'; x.fill(); }
+      for(var i=items.length-1;i>=0;i--){
+        var it=items[i], u=(t-it.t0)/1900;
+        if(it.rel){ it.x=-3+(hx-hr-2+3)*ease(u); it.y=it.y0+(hy-it.y0)*ease(u); if(u>=1){ hexFlash=t; items.splice(i,1); continue; } x.fillStyle=ORANGE; x.beginPath(); x.arc(it.x,it.y,3.4,0,TAU); x.fill(); }
+        else { it.x=-3+W*0.52*u; it.y=it.y0+(it.y0>hy?1:-1)*H*0.3*u*u; if(u>=1){ items.splice(i,1); continue; } x.globalAlpha=0.7*(1-u); x.fillStyle=GREY; x.beginPath(); x.arc(it.x,it.y,1.9,0,TAU); x.fill(); x.globalAlpha=1; }
+      }
     }
-    function run(i,auto){
-      cur=i; chips.forEach(function(c,k){ c.classList.toggle('on',k===i); });
-      if(reduce){ final(i); return; }
-      clear(); var d=S[i], id=runId;
-      incEl.textContent='Incoming: '+d.inc; srcs[d.src].classList.add('on');
-      pbL.textContent=d.yours; pbN.textContent=d.from+'%'; pbI.style.width=d.from+'%'; pbA.textContent='No alert yet';
-      po.forEach(function(x){ x.textContent='Waiting for the signal…'; });
-      setStep(0); nodes[d.node].classList.add('lit'); st[0].textContent='Exposed: '+['supplier','route','plant','market'][d.node];
-      st[1].textContent='Reading thousands of items'; st[2].textContent='Model up to date'; st[3].textContent='Your scenarios are current';
-      T(function(){ setStep(1); emitSignal(); st[1].textContent='Reading 4,000+ items…'; },1400);
-      T(function(){ st[1].textContent=d.kept; },2700);
-      T(function(){ setStep(2); hx[0].classList.add('lit'); pe[0].classList.add('run'); st[2].textContent='Updating the model…'; },3100);
-      T(function(){ hx[1].classList.add('lit'); pe[1+d.leaf].classList.add('run'); },3600);
-      T(function(){ leaves[d.leaf].classList.add('lit'); st[2].textContent=d.model; },4100);
-      T(function(){ setStep(3); setCount(pbN,d.from,d.to,1100); pbI.style.width=d.to+'%'; st[3].textContent='Updating your private model…'; },4800);
-      T(function(){ bar.classList.add('alert'); pbA.textContent=d.alert; st[3].textContent=d.yours+' '+d.from+'% to '+d.to+'%'; show(po[0],d.yours+': '+d.from+'% to '+d.to+'%'); },6100);
-      T(function(){ show(po[1],d.a1); },6500);
-      T(function(){ show(po[2],d.a2); },6900);
-      if(auto) T(function(){ if(touched) return; if(vis) run((cur+1)%S.length,true); else idle=true; },11500);
+    function ease(v){ v=Math.max(0,Math.min(1,v)); return v*v*(3-2*v); }
+
+    var last=0;
+    function frame(t){
+      requestAnimationFrame(frame);
+      if(!vis){ last=t; return; }
+      var dt=Math.min(0.05,(t-last)/1000); last=t; draw2(t,dt); draw3(t,dt); draw4(t,dt);
     }
-    chips.forEach(function(c,k){ c.addEventListener('click',function(){ touched=true; run(k,false); }); });
-    cols.forEach(function(c,k){ c.addEventListener('mouseenter',function(){ if(touched||reduce) setStep(k); }); });
-    final(0);
-    nSize(); if(window.ResizeObserver) new ResizeObserver(nSize).observe(nc); requestAnimationFrame(nDraw);
-    if(!reduce && 'IntersectionObserver' in window){
-      var started=false;
-      new IntersectionObserver(function(es){ vis=es[0].isIntersecting; if(!vis) return; if(!started){ started=true; run(0,true); } else if(idle && !touched){ idle=false; run((cur+1)%S.length,true); } },{threshold:0.35}).observe(root);
-    } else vis=true;
+    if(reduce){ vis=true; [A,B,C].forEach(function(o){ o.size(); }); for(var q=0;q<30;q++){ dots.push({x:Math.random()*A.W*0.5,y:Math.random()*A.H,v:0,a:0.7,dy:0}); } sig.push({x:A.W*0.7,y:A.H*0.5}); draw2(0,0); draw3(0,0); items.push({x:0,y:0,rel:true,t0:-1e9,y0:C.H*0.5}); draw4(1e9,0); return; }
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ vis=es[0].isIntersecting; },{threshold:0.1}).observe(root); else vis=true;
+    requestAnimationFrame(frame);
   })();
   (function(){
     /* industries carousel */
