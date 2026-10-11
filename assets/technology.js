@@ -818,25 +818,6 @@
     }, 0.4);
   })();
 
-  /* ================================================================ 06 · copilot: hedge and diversify */
-  (function stage6() {
-    var box = $('#cp'); if (!box) return;
-    var items = $$('.cp-i', box), panes = $$('.cp-v', box), cur = 0, vis = false, timer;
-    function set(i) {
-      cur = i;
-      items.forEach(function (it, k) { var on = k === i; it.classList.remove('on'); if (on) { void it.offsetWidth; it.classList.add('on'); } });
-      panes.forEach(function (p, k) { p.classList.remove('on'); if (k === i) { void p.offsetWidth; p.classList.add('on'); } });
-      /* the hedge panel swaps its headline number halfway through the drawing */
-      var n1 = $('.cp-n1', box); if (n1) { n1.textContent = '+35%'; if (i === 1 && !reduce) { setTimeout(function () { if (cur === 1) n1.textContent = '+8% hedged'; }, 4300); } else if (i === 1) n1.textContent = '+8% hedged'; }
-      var n2 = $('.cp-n2', box); if (n2) { n2.textContent = '3 weeks'; if (i === 2 && !reduce) { setTimeout(function () { if (cur === 2) n2.textContent = '10 weeks'; }, 3200); } else if (i === 2) n2.textContent = '10 weeks'; }
-      var n0 = $('.cp-n0', box); if (n0) { n0.textContent = '82%'; if (i === 0 && !reduce) { setTimeout(function () { if (cur === 0) n0.textContent = '41%'; }, 3100); } else if (i === 0) n0.textContent = '41%'; }
-    }
-    set(0);
-    if (reduce) { items.forEach(function (it) { it.classList.add('on'); }); return; }
-    onVisible(box, function (v) { vis = v; }, 0.3);
-    timer = setInterval(function () { if (vis) set((cur + 1) % items.length); }, 5400);
-  })();
-
   /* ================================================================ getting started timeline */
   (function () {
     var tl = $('#start-line'); if (!tl) return;

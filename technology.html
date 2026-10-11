@@ -233,84 +233,54 @@
   .w-line b{ margin-right:8px; font-weight:400; color:var(--orange); }
   .w-empty{ margin-top:10px; font-size:var(--t-small); color:rgba(255,255,255,0.5); }
 
-  /* 06 copilot */
-  .cp{ display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(24px,4vw,56px); align-items:start; }
-  .cp-list{ list-style:none; margin:0; padding:0; border-top:1px solid rgba(255,255,255,0.14); }
-  .cp-i{ position:relative; padding:18px 0 20px; border-bottom:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.4); transition:color .4s; }
-  .cp-i.on{ color:#fff; }
-  .cp-t{ display:block; margin-bottom:8px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:inherit; }
-  .cp-i.on .cp-t{ color:var(--orange); }
-  .cp-i b{ display:block; font-size:clamp(17px,1.4vw,20px); font-weight:400; line-height:1.25; letter-spacing:-0.01em; }
-  .cp-i p{ margin-top:8px; max-height:0; opacity:0; overflow:hidden; font-size:var(--t-small); line-height:1.5; color:rgba(255,255,255,0.65); transition:max-height .5s ease, opacity .4s ease; }
-  .cp-i.on p{ max-height:90px; opacity:1; }
-  .cp-pr{ position:absolute; left:0; bottom:-1px; height:1px; width:0; background:var(--orange); }
-  .cp-i.on .cp-pr{ animation:cpfill 5.2s linear forwards; }
-  @keyframes cpfill{ to{ width:100%; } }
-  .cp-viz{ position:relative; min-height:300px; }
-  .cp-v{ position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity .5s ease, visibility .5s; }
-  .cp-v.on{ opacity:1; visibility:visible; }
-  .cp-bar{ margin-bottom:14px; }
-  .cp-bh{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-size:var(--t-small); color:rgba(255,255,255,0.7); }
-  .cp-bh b{ font-family:var(--sans); font-size:clamp(28px,2.6vw,38px); font-weight:300; letter-spacing:-0.03em; color:#fff; font-variant-numeric:tabular-nums; }
-  .cp-bt{ height:3px; margin-top:8px; background:rgba(255,255,255,0.14); }
-  .cp-bt i{ display:block; height:100%; background:var(--orange); }
-  .cp-b0{ width:82%; }
-  .cp-v.on .cp-b0{ animation:cpb0 5s ease forwards; }
-  @keyframes cpb0{ 0%,22%{ width:82%; } 62%,100%{ width:41%; } }
-  .cp-svg{ display:block; width:100%; max-width:380px; margin-top:12px; overflow:visible; }
-  .cp-svg polygon{ fill:#1B1B1B; stroke:rgba(255,255,255,0.75); }
-  .cp-svg path{ stroke:rgba(255,255,255,0.4); }
-  .cp-svg .lb text{ font-family:var(--mono); font-size:11px; fill:rgba(255,255,255,0.5); stroke:none; letter-spacing:0.03em; }
-  .cp-svg .lb text.o{ fill:var(--orange); }
-  .cp-svg .h1{ stroke:var(--orange); } .cp-svg .hp{ stroke:#fff; }
-  .cp-svg .h2, .cp-svg .h3, .cp-svg .e2, .cp-svg .e3, .cp-svg .e5, .cp-svg .e6, .cp-svg .t2, .cp-svg .t3{ opacity:0; }
-  .cp-v.on .cp-svg .h2, .cp-v.on .cp-svg .e2, .cp-v.on .cp-svg .e5, .cp-v.on .cp-svg .t2{ animation:cpin .6s ease 1.1s forwards; }
-  .cp-v.on .cp-svg .h3, .cp-v.on .cp-svg .e3, .cp-v.on .cp-svg .e6, .cp-v.on .cp-svg .t3{ animation:cpin .6s ease 1.9s forwards; }
-  .cp-v.on .cp-svg .h2, .cp-v.on .cp-svg .h3{ stroke:var(--orange); }
-  .cp-v.on .cp-svg .e2, .cp-v.on .cp-svg .e3, .cp-v.on .cp-svg .e5, .cp-v.on .cp-svg .e6{ stroke:var(--orange); }
-  @keyframes cpin{ to{ opacity:1; } }
-  .cp-svg .ln{ stroke-linejoin:round; stroke-dasharray:420; stroke-dashoffset:420; }
-  .cp-svg .lu{ stroke:var(--orange); } .cp-svg .lh{ stroke:#fff; }
-  .cp-v.on .cp-svg .lu{ animation:cpdraw 2.2s ease .2s forwards; }
-  .cp-v.on .cp-svg .lh{ animation:cpdraw 2.2s ease 2.2s forwards; }
-  @keyframes cpdraw{ to{ stroke-dashoffset:0; } }
-  .cp-v.on .cp-n1{ animation:cpswap 5s steps(1) forwards; }
-  .cp-rows{ display:flex; flex-direction:column; gap:20px; margin-top:22px; }
-  .cp-r{ display:grid; grid-template-columns:78px minmax(0,1fr); align-items:center; gap:14px; font-size:var(--t-small); color:rgba(255,255,255,0.7); }
-  .cp-r .cp-bt{ margin:0; height:8px; }
-  .cp-b2{ width:30%; }
-  .cp-v.on .cp-b2{ animation:cpb2 3.4s ease .3s forwards; }
-  .cp-v.on .b22{ animation-delay:.8s; } .cp-v.on .b23{ animation-delay:1.3s; }
-  @keyframes cpb2{ to{ width:100%; } }
-  @media (max-width:900px){ .cp{ grid-template-columns:1fr; } .cp-viz{ min-height:280px; } }
-  @media (prefers-reduced-motion: reduce){
-    .cp-v.on .cp-b0, .cp-v.on .cp-b2, .cp-v.on .cp-svg *{ animation:none !important; }
-    .cp-b0{ width:41%; } .cp-b2{ width:100%; }
-    .cp-svg .h2, .cp-svg .h3, .cp-svg .e2, .cp-svg .e3, .cp-svg .e5, .cp-svg .e6, .cp-svg .t2, .cp-svg .t3{ opacity:1; }
-    .cp-svg .ln{ stroke-dashoffset:0; }
-    .cp-i.on .cp-pr{ animation:none; width:100%; }
+/* 06 copilot: suggested actions, static */
+  .act{ border-top:1px solid rgba(255,255,255,0.18); }
+  .act-h, .act-r{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr); gap:0 clamp(18px,3vw,40px); }
+  .act-h{ padding:14px 0 12px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.38); }
+  .act-r{ position:relative; padding:22px 0; border-top:1px solid rgba(255,255,255,0.12); align-items:start; }
+  .act-r > div + div::before{ content:"→"; position:absolute; margin-left:calc(-1 * clamp(18px,3vw,40px) + 2px); color:rgba(255,255,255,0.3); font-family:var(--mono); }
+  .act-risk{ display:flex; gap:12px; font-size:var(--t-small); line-height:1.35; color:#fff; }
+  .act-risk small, .act-do small{ display:block; margin-top:3px; font-size:13px; line-height:1.35; color:rgba(255,255,255,0.45); }
+  .act-risk small b{ font-weight:400; color:#E5484D; }
+  .hx{ flex-shrink:0; display:inline-block; width:10px; height:11px; margin-top:0.3em; background:rgba(255,255,255,0.55); clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
+  .hx.hot{ background:#E5484D; }
+  .act-tag{ display:block; margin-bottom:6px; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--orange); }
+  .act-do b{ display:block; font-weight:400; font-size:var(--t-small); line-height:1.35; color:#fff; }
+  .act-alt{ display:flex; flex-direction:column; gap:8px; }
+  .alt{ display:flex; gap:10px; align-items:flex-start; font-size:var(--t-small); line-height:1.35; color:#fff; }
+  .alt .hx{ background:var(--orange); }
+  @media (max-width:760px){
+    .act-h{ display:none; }
+    .act-r{ grid-template-columns:1fr; gap:14px; }
+    .act-r > div + div::before{ content:none; }
+    .act-r > .act-alt::before{ position:static; margin:0; content:"European alternatives"; font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.38); }
   }
+
+  .foot-eu{ display:inline-flex; align-items:center; gap:12px; }
+  .foot-eu .eu-flag{ box-shadow:0 0 0 1px rgba(255,255,255,0.18); }
 
   /* ---------- getting started ---------- */
   #cta{ background:var(--bg-subtle); }
   #cta .section-head h2{ font-size:clamp(40px,5vw,76px); letter-spacing:-0.035em; line-height:1; }
-  .tl{ position:relative; display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,4vw,64px); padding-top:38px; margin-bottom:clamp(48px,8vh,88px); }
+  .tl{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,4vw,64px); padding-top:38px; margin-bottom:clamp(48px,8vh,88px); }
   .tl::before{ content:""; position:absolute; left:0; right:0; top:6px; height:1px; background:var(--border-strong); transform-origin:left; transform:scaleX(0); transition:transform 1.4s cubic-bezier(.4,0,.2,1); }
   .tl.go::before{ transform:scaleX(1); }
   .tl-s{ position:relative; opacity:.3; transition:opacity .6s ease; }
   .tl.go .tl-s{ opacity:1; }
-  .tl.go .tl-s:nth-child(1){ transition-delay:.2s; } .tl.go .tl-s:nth-child(2){ transition-delay:.7s; } .tl.go .tl-s:nth-child(3){ transition-delay:1.2s; }
+  .tl.go .tl-s:nth-child(1){ transition-delay:.2s; } .tl.go .tl-s:nth-child(2){ transition-delay:.7s; } .tl.go .tl-s:nth-child(3){ transition-delay:1.2s; } .tl.go .tl-s:nth-child(4){ transition-delay:1.7s; }
   .tl-s::before{ content:""; position:absolute; left:0; top:-38px; width:12px; height:13px; background:var(--ink); clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%); }
   .tl-s:last-child::before{ background:var(--orange); }
   .tl-w{ font-family:var(--mono); font-size:var(--t-label); letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-3); }
   .tl-s h3{ margin:8px 0 10px; font-size:var(--t-h3); }
   .tl-s p{ max-width:32ch; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
+  @media (max-width:900px){ .tl{ grid-template-columns:repeat(2,1fr); row-gap:44px; } }
   @media (max-width:760px){
     .tl{ grid-template-columns:1fr; gap:30px; padding-top:0; padding-left:30px; }
     .tl::before{ left:6px; right:auto; top:6px; bottom:6px; width:1px; height:auto; transform:scaleY(0); transform-origin:top; }
     .tl.go::before{ transform:scaleY(1); }
     .tl-s::before{ left:-30px; top:4px; }
   }
+  @media (prefers-reduced-motion: reduce){ .tl::before, .tl-s{ transition:none; } .tl::before{ transform:none; } .tl-s{ opacity:1; } }
 
   @media (max-width:640px){
     .cg-l{ font-size:14px; } .cg-node small{ font-size:12px; } .cg-node{ padding-left:17px; } .cg-node::before{ width:8px; height:9px; }
@@ -546,21 +516,27 @@
         <div class="eyebrow">COPILOT</div>
         <h2>You act where it counts.</h2>
         <p class="body">Vorsight is your copilot for resilience. When a risk rises, it shows you how to hedge and where to diversify, so your company, and Europe's industry with it, stays resilient.</p>
-        <p class="stage-hint">Watch the copilot build a resilience plan.</p>
       </div>
       <div class="panel reveal">
-        <div class="panel-top mono-lbl"><span>Vorsight copilot · resilience plan</span><span>Illustrative</span></div>
-        <div class="cp" id="cp">
-          <ol class="cp-list">
-            <li class="cp-i on" data-i="0"><span class="cp-t">Diversify</span><b>Qualify a second magnet supplier</b><p>Most supply comes from one country. Add a source in Japan or Europe.</p><i class="cp-pr"></i></li>
-            <li class="cp-i" data-i="1"><span class="cp-t">Hedge</span><b>Lock in energy costs for next winter</b><p>Forward contracts cap the price spike if gas supply is cut.</p><i class="cp-pr"></i></li>
-            <li class="cp-i" data-i="2"><span class="cp-t">Build resilience</span><b>Raise buffer stock on critical parts</b><p>Move cover from 3 to 10 weeks for the parts that stop the line.</p><i class="cp-pr"></i></li>
-          </ol>
-          <div class="cp-viz" aria-hidden="true">
-            <div class="cp-v on" data-i="0"><div class="cp-bar"><div class="cp-bh"><span>Share of supply from one country</span><b class="cp-n0">82%</b></div><div class="cp-bt"><i class="cp-b0"></i></div></div><svg class="cp-svg" viewBox="0 0 320 150" fill="none" aria-hidden="true"><g stroke-width="1"><path class="e e1" d="M70 75L160 75"/><path class="e e2" d="M70 75L160 30"/><path class="e e3" d="M70 75L160 120"/><path class="e e4" d="M160 75L250 75"/><path class="e e5" d="M160 30L250 75"/><path class="e e6" d="M160 120L250 75"/><polygon  points="64.5,65.5 75.5,65.5 81.0,75.0 75.5,84.5 64.5,84.5 59.0,75.0"/><polygon class="h1" points="155.5,67.2 164.5,67.2 169.0,75.0 164.5,82.8 155.5,82.8 151.0,75.0"/><polygon class="h2" points="155.5,22.2 164.5,22.2 169.0,30.0 164.5,37.8 155.5,37.8 151.0,30.0"/><polygon class="h3" points="155.5,112.2 164.5,112.2 169.0,120.0 164.5,127.8 155.5,127.8 151.0,120.0"/><polygon class="hp" points="244.5,65.5 255.5,65.5 261.0,75.0 255.5,84.5 244.5,84.5 239.0,75.0"/></g><g class="lb" text-anchor="middle"><text x="70" y="104">Your plant</text><text x="160" y="98">Supplier A</text><text class="t2" x="160" y="53">Supplier B</text><text class="t3" x="160" y="143">Supplier C</text><text x="250" y="104">Market</text></g></svg></div>
-            <div class="cp-v" data-i="1"><div class="cp-bar"><div class="cp-bh"><span>Cost if gas supply is cut</span><b class="cp-n1">+35%</b></div></div><svg class="cp-svg" viewBox="0 0 320 150" fill="none" aria-hidden="true"><g stroke-width="1"><path d="M10 140H310" opacity=".25"/><path d="M10 20V140" opacity=".25"/></g><path class="ln lu" d="M10 100 L60 96 L110 102 L160 98 L200 96 L230 70 L260 34 L310 22" stroke-width="1.6"/><path class="ln lh" d="M10 108 L60 104 L110 109 L160 106 L200 104 L230 98 L260 92 L310 88" stroke-width="1.6"/><g class="lb"><text x="296" y="14" text-anchor="end" class="o">Unhedged</text><text x="296" y="112" text-anchor="end">Hedged</text></g></svg></div>
-            <div class="cp-v" data-i="2"><div class="cp-bar"><div class="cp-bh"><span>Inventory cover on critical parts</span><b class="cp-n2">3 weeks</b></div></div><div class="cp-rows"><div class="cp-r"><span>Magnets</span><div class="cp-bt"><i class="cp-b2 b21"></i></div></div><div class="cp-r"><span>Chips</span><div class="cp-bt"><i class="cp-b2 b22"></i></div></div><div class="cp-r"><span>Resin</span><div class="cp-bt"><i class="cp-b2 b23"></i></div></div></div></div>
+        <div class="panel-top mono-lbl"><span>Vorsight copilot · suggested actions</span><span>Illustrative</span></div>
+        <div class="act">
+          <div class="act-h"><span>Geopolitical risk</span><span>Suggested action</span><span>European alternatives</span></div>
+          <div class="act-r">
+            <div class="act-risk"><i class="hx hot"></i><span>Export licensing on rare earth magnets<small><b>Rising</b> · one country supplies 82%</small></span></div>
+            <div class="act-do"><span class="act-tag">Diversify</span><b>Qualify a second magnet supplier</b><small>Single-country share 82% → 41%</small></div>
+            <div class="act-alt"><span class="alt"><i class="hx"></i>Germany</span><span class="alt"><i class="hx"></i>Estonia</span><span class="alt"><i class="hx"></i>France</span></div>
           </div>
+          <div class="act-r">
+            <div class="act-risk"><i class="hx hot"></i><span>Gas supply cut, energy price spike<small><b>Rising</b> · cost impact +35% if unhedged</small></span></div>
+            <div class="act-do"><span class="act-tag">Hedge</span><b>Lock in energy costs for next winter</b><small>Forward contracts cap the impact at +8%</small></div>
+            <div class="act-alt"><span class="alt"><i class="hx"></i>Norwegian pipeline gas</span><span class="alt"><i class="hx"></i>LNG terminals in the Netherlands and Spain</span></div>
+          </div>
+          <div class="act-r">
+            <div class="act-risk"><i class="hx hot"></i><span>Taiwan Strait disruption, chip supply<small><b>Rising</b> · critical parts have 3 weeks of cover</small></span></div>
+            <div class="act-do"><span class="act-tag">Diversify</span><b>Dual-source critical chips</b><small>Raise buffer cover from 3 to 10 weeks</small></div>
+            <div class="act-alt"><span class="alt"><i class="hx"></i>Dresden, Germany</span><span class="alt"><i class="hx"></i>Crolles, France</span><span class="alt"><i class="hx"></i>Catania, Italy</span></div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -577,6 +553,7 @@
     </div>
 
     <div class="tl" id="start-line">
+      <div class="tl-s"><span class="tl-w">Two minutes</span><h3>Voice note</h3><p>Tell us about your suppliers, materials and markets. It is our starting point to show you the value.</p></div>
       <div class="tl-s"><span class="tl-w">Day one</span><h3>Conversation</h3><p>A 45-minute call to understand your business and concerns.</p></div>
       <div class="tl-s"><span class="tl-w">A few weeks</span><h3>Exposure map</h3><p>Your first map of supply chain exposure and key scenarios.</p></div>
       <div class="tl-s"><span class="tl-w">Ongoing</span><h3>Live platform</h3><p>Continuous monitoring, updated scenarios and playbooks.</p></div>
@@ -600,7 +577,11 @@
       </svg>
       <span class="brand-name">Vorsight</span>
     </div>
-    <span class="foot-note">Geopolitical risk copilot for European industry</span>
+    <span class="foot-note foot-eu"><svg class="eu-flag" viewBox="0 0 54 36" width="30" height="20" role="img" aria-label="Flag of the European Union">
+        <defs><polygon id="eu-star" points="0.00,-2.00 0.47,-0.65 1.90,-0.62 0.76,0.25 1.18,1.62 0.00,0.80 -1.18,1.62 -0.76,0.25 -1.90,-0.62 -0.47,-0.65"/></defs>
+        <rect width="54" height="36" fill="#003399"/>
+        <g fill="#FFCC00"><use href="#eu-star" x="27.00" y="6.00"/><use href="#eu-star" x="33.00" y="7.61"/><use href="#eu-star" x="37.39" y="12.00"/><use href="#eu-star" x="39.00" y="18.00"/><use href="#eu-star" x="37.39" y="24.00"/><use href="#eu-star" x="33.00" y="28.39"/><use href="#eu-star" x="27.00" y="30.00"/><use href="#eu-star" x="21.00" y="28.39"/><use href="#eu-star" x="16.61" y="24.00"/><use href="#eu-star" x="15.00" y="18.00"/><use href="#eu-star" x="16.61" y="12.00"/><use href="#eu-star" x="21.00" y="7.61"/></g>
+      </svg>Geopolitical risk copilot for European industry. Built in Europe.</span>
   </div>
 </footer>
 
@@ -633,6 +614,6 @@
   })();
 </script>
 <script src="assets/geo-data.js?v=3"></script>
-<script src="assets/technology.js?v=4"></script>
+<script src="assets/technology.js?v=5"></script>
 </body>
 </html>
