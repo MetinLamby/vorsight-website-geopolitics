@@ -54,27 +54,32 @@
 
     cfg.cols.forEach(function (c, ci) {
       var col = el('div', 'cg-col'), ttl = el('div', 'cg-title', c.title || ''); col.appendChild(ttl);
-      if (cfg.rows) { ttl.style.gridColumn = ci + 1; if (ci === 0) ttl.classList.add('cg-t0'); }
+      if (cfg.rows) ttl.style.gridColumn = ci + 1;
       var list = el('div', 'cg-list');
       c.nodes.forEach(function (n) {
         var b = el('button', 'cg-node' + (n.kind ? ' cg-k-' + n.kind : ''));
         b.type = 'button'; b.setAttribute('data-id', n.id); b.style.setProperty('--i', idx++);
         b.innerHTML = '<span class="cg-l">' + n.label + '</span>' + (n.sub ? '<small>' + n.sub + '</small>' : '') + '<span class="cg-b"></span>';
-        if (cfg.rows && n.span) { b.style.gridColumn = ci + 1; b.style.gridRow = (n.span[0] + 2) + ' / span ' + n.span[1]; }
+        if (cfg.rows && n.span) { b.style.setProperty('--c', ci + 1); b.style.setProperty('--r', n.span[0] + 2); b.style.setProperty('--rs', n.span[1]); b.style.setProperty('--vc', n.v[0]); b.style.setProperty('--vr', n.v[1]); }
         list.appendChild(b); api.nodes[n.id] = { el: b, col: ci, cfg: n }; api.order.push(n.id);
       });
       col.appendChild(list); cols.appendChild(col);
     });
     cfg.edges.forEach(function (e) {
-      var p = svgEl('path', { 'class': 'cg-edge' + (cfg.rows && api.nodes[e[0]].col === 0 ? ' cg-e0' : ''), pathLength: 1 }, svg);
+      var p = svgEl('path', { 'class': 'cg-edge', pathLength: 1 }, svg);
       api.edges.push({ a: e[0], b: e[1], el: p });
     });
 
     api.draw = function () {
       var rr = root.getBoundingClientRect(); if (!rr.width) return;
       svg.setAttribute('width', rr.width); svg.setAttribute('height', rr.height);
+      var vert = !!(cfg.rows && window.matchMedia && matchMedia('(max-width:640px)').matches);
       api.edges.forEach(function (e) {
         var A = api.nodes[e.a].el.getBoundingClientRect(), B = api.nodes[e.b].el.getBoundingClientRect();
+        if (vert) {      /* phones: a top-down tree, parent rail on the left, a short tick into each child */
+          var vx1 = A.left - rr.left + 5, vy1 = A.top - rr.top + 16, vx2 = B.left - rr.left - 3, vy2 = B.top - rr.top + 12;
+          e.el.setAttribute('d', 'M' + vx1 + ' ' + vy1 + ' V' + vy2 + ' H' + vx2); return;
+        }
         var fwd = A.left < B.left;
         var x1 = (fwd ? A.right : A.left) - rr.left, y1 = A.top + A.height / 2 - rr.top;
         var x2 = (fwd ? B.left : B.right) - rr.left, y2 = B.top + B.height / 2 - rr.top, dx = Math.abs(x2 - x1) * 0.5;
@@ -590,22 +595,21 @@
         { n: 'Targeted tariff rise', p: 40, imp: '€90m', leaves: [['sign', 'Tariff list names car parts'], ['act', 'Shift allocation to US plant']] },
         { n: 'Broad escalation', p: 15, imp: '€400m', leaves: [['sign', 'EU retaliation announced'], ['act', 'Local-for-local production']] }] }
     };
-    var keys = ['mag', 'bat', 'tar'], cur = 'mag', touched = false, g, detail = $('#g3-detail'), tabs = $$('#g3-chips .chip'), merge = $('#merge'), rootEl = $('#g3-root');
+    var keys = ['mag', 'bat', 'tar'], cur = 'mag', touched = false, g, detail = $('#g3-detail'), tabs = $$('#g3-chips .chip'), merge = $('#merge');
 
     function build(key) {
-      var t = TREES[key], edges = [], scNodes = [], leafNodes = [], row = 0;
+      var t = TREES[key], edges = [], scNodes = [], leafNodes = [], row = 0, vrow = 1;
       t.sc.forEach(function (s, i) {
-        scNodes.push({ id: 's' + i, label: '<b>' + s.p + '%</b> ' + s.n, sub: 'Impact ' + s.imp, kind: 'sc', span: [row, s.leaves.length] });
+        scNodes.push({ id: 's' + i, label: '<b>' + s.p + '%</b> ' + s.n, sub: 'Impact ' + s.imp, kind: 'sc', span: [row, s.leaves.length], v: [2, ++vrow] });
         edges.push(['r', 's' + i]);
         s.leaves.forEach(function (l, j) {
           var lid = 'l' + i + '_' + j;
-          leafNodes.push({ id: lid, label: l[1], sub: l[0] === 'sign' ? 'Warning sign' : 'Response', kind: l[0], span: [row + j, 1] });
+          leafNodes.push({ id: lid, label: l[1], sub: l[0] === 'sign' ? 'Warning sign' : 'Response', kind: l[0], span: [row + j, 1], v: [3, ++vrow] });
           edges.push(['s' + i, lid]);
         });
         row += s.leaves.length;
       });
-      if (rootEl) rootEl.textContent = t.root;
-      g = colGraph(root, { rows: row, cols: [{ title: 'Risk', nodes: [{ id: 'r', label: t.root, kind: 'root', span: [0, row] }] }, { title: 'Scenarios', nodes: scNodes }, { title: 'Warning signs & responses', nodes: leafNodes }], edges: edges });
+      g = colGraph(root, { rows: row, cols: [{ title: 'Risk', nodes: [{ id: 'r', label: t.root, kind: 'root', span: [0, row], v: [1, 1] }] }, { title: 'Scenarios', nodes: scNodes }, { title: 'Warning signs & responses', nodes: leafNodes }], edges: edges });
       root.classList.remove('cg-anim'); void root.offsetWidth; if (!reduce) root.classList.add('cg-anim');
       t.sc.forEach(function (s, i) {
         var n = g.nodes['s' + i].el;
@@ -649,28 +653,40 @@
     ];
     var counts = [0, 0, 0], touched = false, tokens = [], running = false, edgeEls = [];
 
-    var vert = false, mq = window.matchMedia ? matchMedia('(max-width:640px)') : null;
+    var vert = false, railEnd = 0, mq = window.matchMedia ? matchMedia('(max-width:640px)') : null;
     function pt(node, side) {
       var r = box.getBoundingClientRect(), b = node.getBoundingClientRect();
-      if (vert) {      /* phones: sources on top, model in the middle, silos below; lines run down the left edge */
+      if (vert) {      /* phones: sources on top, model in the middle, silos in a row below */
         if (node === core) return { x: b.left + b.width / 2 - r.left, y: (side === 'r' ? b.bottom : b.top) - r.top };
-        if (node.classList.contains('silo')) return { x: 5, y: b.top - r.top + 16 };
-        return { x: 5, y: b.top + 14 + 6 - r.top + 11 };
+        if (node.classList.contains('silo')) return { x: b.left + b.width / 2 - r.left, y: b.top - r.top };
+        return { x: 5, y: b.top - r.top + 21 };
       }
       return { x: (side === 'r' ? b.right : b.left) - r.left, y: b.top + b.height / 2 - r.top };
     }
     function curve(a, b) {
-      if (vert) { var dy = Math.abs(b.y - a.y) * 0.5; return { a: a, c1: { x: a.x, y: a.y + dy }, c2: { x: b.x, y: b.y - dy }, b: b }; }
+      if (vert) {
+        if (a.x < 10) return { a: a, b: b, yb: Math.min(railEnd, b.y - 24) };   /* straight down the rail, then into the model */
+        var dy = Math.abs(b.y - a.y) * 0.5; return { a: a, c1: { x: a.x, y: a.y + dy }, c2: { x: b.x, y: b.y - dy }, b: b };
+      }
       var dx = Math.abs(b.x - a.x) * 0.5; return { a: a, c1: { x: a.x + dx, y: a.y }, c2: { x: b.x - dx, y: b.y }, b: b };
     }
     function bez(c, t) {
+      if (c.yb !== undefined) {
+        var L1 = c.yb - c.a.y, L2 = (c.b.y - c.yb) * 1.2, s = L1 / (L1 + L2);
+        if (t < s) return { x: c.a.x, y: c.a.y + L1 * (t / s) };
+        var m = (c.yb + c.b.y) / 2, k = (t - s) / (1 - s), w = 1 - k;
+        return { x: w * w * w * c.a.x + 3 * w * w * k * c.a.x + 3 * w * k * k * c.b.x + k * k * k * c.b.x, y: w * w * w * c.yb + 3 * w * w * k * m + 3 * w * k * k * m + k * k * k * c.b.y };
+      }
       var u = 1 - t;
       return { x: u * u * u * c.a.x + 3 * u * u * t * c.c1.x + 3 * u * t * t * c.c2.x + t * t * t * c.b.x, y: u * u * u * c.a.y + 3 * u * u * t * c.c1.y + 3 * u * t * t * c.c2.y + t * t * t * c.b.y };
     }
-    function dstr(c) { return 'M' + c.a.x + ' ' + c.a.y + ' C' + c.c1.x + ' ' + c.c1.y + ',' + c.c2.x + ' ' + c.c2.y + ',' + c.b.x + ' ' + c.b.y; }
+    function dstr(c) {
+      if (c.yb !== undefined) { var m = (c.yb + c.b.y) / 2; return 'M' + c.a.x + ' ' + c.a.y + ' V' + c.yb + ' C' + c.a.x + ' ' + m + ',' + c.b.x + ' ' + m + ',' + c.b.x + ' ' + c.b.y; }
+      return 'M' + c.a.x + ' ' + c.a.y + ' C' + c.c1.x + ' ' + c.c1.y + ',' + c.c2.x + ' ' + c.c2.y + ',' + c.b.x + ' ' + c.b.y; }
     function layout() {
       var r = box.getBoundingClientRect(); if (!r.width) return;
       vert = !!(mq && mq.matches);
+      if (vert && src.length) railEnd = src[src.length - 1].getBoundingClientRect().bottom - r.top + 4;
       svg.setAttribute('width', r.width); svg.setAttribute('height', r.height);
       svg.innerHTML = ''; edgeEls = [];
       src.forEach(function (s, i) { var p = svgEl('path', { 'class': 'cg-edge', d: dstr(curve(pt(s, 'r'), pt(core, 'l'))) }, svg); edgeEls.push({ k: 's' + i, el: p }); });
@@ -700,6 +716,7 @@
     function emit(i) {
       var S = SIG[i];
       src.forEach(function (b, k) { b.classList.toggle('on', k === i); });
+      if (vert) layout();
       detail.innerHTML = '<b>' + S.t + '</b><p>Source: ' + S.src + '. Matched against each client\'s company graph: ' +
         silos.map(function (s, k) { return s.dataset.name + (S.to.indexOf(k) >= 0 ? ' (relevant)' : ' (not relevant)'); }).join(' · ') + '.</p>';
       flash('s' + i);
@@ -750,14 +767,21 @@
 
     function mkEdges() {
       var r = box.getBoundingClientRect(); if (!r.width) return;
+      var vert = !!(window.matchMedia && matchMedia('(max-width:640px)').matches);
       svg.setAttribute('width', r.width); svg.setAttribute('height', r.height); svg.innerHTML = ''; edges = [];
       sigBtns.forEach(function (b, i) {
         var A = b.getBoundingClientRect();
         scEls.forEach(function (s, j) {
           var B = $('.bsc-c', s).getBoundingClientRect();
-          var x1 = A.right - r.left, y1 = A.top + A.height / 2 - r.top, x2 = B.left + B.width / 2 - r.left, y2 = B.top + B.height / 2 - r.top;
-          var dx = Math.abs(x2 - x1) * 0.5;
-          var p = svgEl('path', { 'class': 'cg-edge bay-e', d: 'M' + x1 + ' ' + y1 + ' C' + (x1 + dx) + ' ' + y1 + ',' + (x2 - dx) + ' ' + y2 + ',' + x2 + ' ' + y2 }, svg);
+          var d;
+          if (vert) {      /* phones: signals on top with a rail on the right, scenarios in a row below */
+            var vx1 = A.right - r.left - 9, vy1 = A.top + 22 - r.top, vx2 = B.left + B.width / 2 - r.left, vy2 = B.top - r.top, yb = sigBtns[sigBtns.length - 1].getBoundingClientRect().bottom - r.top + 4, ym = (yb + vy2) / 2;
+            d = 'M' + vx1 + ' ' + vy1 + ' V' + yb + ' C' + vx1 + ' ' + ym + ',' + vx2 + ' ' + ym + ',' + vx2 + ' ' + vy2;
+          } else {
+            var x1 = A.right - r.left, y1 = A.top + A.height / 2 - r.top, x2 = B.left + B.width / 2 - r.left, y2 = B.top + B.height / 2 - r.top, dx = Math.abs(x2 - x1) * 0.5;
+            d = 'M' + x1 + ' ' + y1 + ' C' + (x1 + dx) + ' ' + y1 + ',' + (x2 - dx) + ' ' + y2 + ',' + x2 + ' ' + y2;
+          }
+          var p = svgEl('path', { 'class': 'cg-edge bay-e', d: d }, svg);
           edges.push({ i: i, j: j, el: p });
         });
       });
