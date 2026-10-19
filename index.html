@@ -42,6 +42,7 @@
   .hero-inner{ position:relative; z-index:3; width:100%; padding:0 var(--pad) clamp(48px,10vh,96px); pointer-events:none; }
   .hero-copy{ max-width:760px; pointer-events:auto; }
   .hero-copy h1{ font-size:clamp(34px,4.6vw,66px); letter-spacing:-0.035em; line-height:1.04; color:#fff; }
+  @media (max-width:600px){ .hero-copy .hbr{ display:none; } }
   .hero-copy .lede{ margin-top:clamp(16px,2.6vh,24px); max-width:44ch; font-size:clamp(16px,1.2vw,18px); line-height:1.5; color:rgba(255,255,255,0.68); }
   .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
   .hero-legend{
@@ -326,8 +327,8 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <h1>Your copilot for<br>geopolitical risk.</h1>
-      <p class="lede">The intelligence platform that shows how geopolitical developments hit your supply chains, and what to do about it.</p>
+      <h1>The geopolitical intelligence<br class="hbr"> layer for your supply chain.</h1>
+      <p class="lede">See where your supply chain is concentrated, how geopolitical developments hit it, and where to diversify.</p>
     </div>
   </div>
 
